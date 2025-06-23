@@ -3,10 +3,6 @@ import NewSkills from "./NewSkills.tsx";
 
 export const techSkillsData = [
     {
-        category: "Databases",
-        skills: ["MongoDB", "PostgreSQL", "MySQL", "RDS", "REDIS"],
-    },
-    {
         category: "Languages",
         skills: ["JavaScript", "TypeScript", "Node.js", "Go", "Python", "PHP"],
     },
@@ -15,8 +11,22 @@ export const techSkillsData = [
         skills: ["NestJS", "ExpressJS", "Laravel", "Django", "FastApi", "Echo"],
     },
     {
-        category: "ORMS",
-        skills: ["TypeORM", "MikroORM", "DjangoORM", "Mongoose", "Eloquent", "SQLC"],
+        category: "Databases",
+        skills: ["MongoDB", "PostgreSQL", "MySQL", "RDS", "REDIS"],
+    },
+    {
+        category: "Messaging & Streaming",
+        skills: ["RabbitMQ", "Redis", "MQTT"],
+    },
+    {
+        category: "Real-Time Communication",
+        skills: ["LiveKit", "FreeSWITCH", "WebRTC", "SIP"],
+    },
+    {
+        category: "AI & Automation Tools",
+        skills: [
+            "Autobots", "CursorIDE", "RAG", "OpenAI", "Prompt Engineering"
+        ],
     },
     {
         category: "Integrations",
@@ -27,15 +37,12 @@ export const techSkillsData = [
         ],
     },
     {
-        category: "RealTime And Push Notifications",
-        skills: ["Websockets", "Firebase","MQTT"],
-    }
-    ,
+        category: "ORMS",
+        skills: ["TypeORM", "MikroORM", "DjangoORM", "Mongoose", "Eloquent", "SQLC"],
+    },
     {
-        category: "AI & Automation Tools",
-        skills: [
-            "Autobots","CursorIDE","RAG",  "OpenAI", "Prompt Engineering"
-        ],
+        category: "RealTime And Push Notifications",
+        skills: ["Websockets", "Firebase", "MQTT"],
     },
 ];
 
