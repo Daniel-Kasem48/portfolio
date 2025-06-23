@@ -1,4 +1,4 @@
-import {FC, useRef} from "react";
+import {FC, useRef, useEffect} from "react";
 // import {
 //     AndroidPlain, DotnetcorePlain,
 //     FlutterPlain, GraphqlPlain,
@@ -10,6 +10,7 @@ import {FC, useRef} from "react";
 // import {SiReact} from "@react-icons/all-files/si/SiReact";
 
 import Project, {IProject} from "./Project.tsx";
+import { usePostHogEvent } from '../hooks/usePostHogEvent';
 
 // import {REPO_PREFIX} from "../../vite.config.ts";
 
@@ -283,7 +284,24 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
 const Projects: FC = () => {
 
     const projectsRef = useRef(null);
-    // const isVisible = useIntersectionObserver(projectsRef, {threshold: 0.1});
+    const track = usePostHogEvent();
+    // Section view tracking
+    useEffect(() => {
+        const ref = projectsRef.current;
+        if (!ref) return;
+        let hasTracked = false;
+        const observer = new window.IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !hasTracked) {
+                    track('section_viewed', { section: 'Projects' });
+                    hasTracked = true;
+                }
+            },
+            { threshold: 0.3 }
+        );
+        observer.observe(ref);
+        return () => observer.disconnect();
+    }, [track]);
 
     return (
         <section id="projects" ref={projectsRef}
@@ -323,13 +341,9 @@ const Projects: FC = () => {
             >
                 {projectsData.map((p, index) => (
                     <div
-                        // className={`${
-                        //     isVisible ? 'animate-fade-in' : 'opacity-0'
-                        // }`}
                         key={index}
-                        // style={{animationDelay: `${index * 0.15}s`}}
+                        onClick={() => track('project_clicked', { project: p.title })}
                     >
-
                         <Project project={p}/>
                     </div>
                 ))}

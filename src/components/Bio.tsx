@@ -1,4 +1,4 @@
-import {FC} from "react";
+import {FC, useEffect, useRef} from "react";
 import Email from "../assets/icons/Email";
 import Phone from "../assets/icons/Phone";
 import WhatsApp from "../assets/icons/WhatsApp";
@@ -8,6 +8,7 @@ import Date from "../assets/icons/Date";
 import Stackoverflow from "../assets/icons/StackOverFlow";
 import Typewriter from "typewriter-effect";
 import GitHub from "../assets/icons/Github.tsx";
+import { usePostHogEvent } from '../hooks/usePostHogEvent';
 
 export const bioText = `
         I am a seasoned web developer with a strong focus on backend technologies. My expertise spans PHP with the Laravel framework, Node.js using Express and Nest.js. Recently, I've expanded my skill set to include Golang, where I've been able to harness its power for efficient and scalable backend solutions. I am proficient in working with both MySQL and PostgreSQL databases, always prioritizing project success and delivering high-quality results. My commitment to continuous learning ensures that I stay aligned with the latest industry trends and best practices.
@@ -15,6 +16,25 @@ export const bioText = `
 
 
 const Bio: FC = () => {
+
+    const aboutRef = useRef(null);
+    const track = usePostHogEvent();
+    useEffect(() => {
+        const ref = aboutRef.current;
+        if (!ref) return;
+        let hasTracked = false;
+        const observer = new window.IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !hasTracked) {
+                    track('section_viewed', { section: 'About Me' });
+                    hasTracked = true;
+                }
+            },
+            { threshold: 0.3 }
+        );
+        observer.observe(ref);
+        return () => observer.disconnect();
+    }, [track]);
 
     const contactItems = [
         {
@@ -74,7 +94,7 @@ const Bio: FC = () => {
     ];
 
     return (
-        <section id="aboutme" className="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
+        <section id="aboutme" ref={aboutRef} className="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
             <div className="container mx-auto px-4">
                 
                 {/* Section Title */}

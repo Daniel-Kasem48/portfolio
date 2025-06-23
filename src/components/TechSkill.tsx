@@ -1,5 +1,6 @@
-import {ReactNode} from "react";
+import {ReactNode, useEffect, useRef} from "react";
 import NewSkills from "./NewSkills.tsx";
+import { usePostHogEvent } from '../hooks/usePostHogEvent';
 
 export const techSkillsData = [
     {
@@ -82,8 +83,27 @@ const TechSkillsSection = () => {
         ),
     }
 
+    const skillsRef = useRef(null);
+    const track = usePostHogEvent();
+    useEffect(() => {
+        const ref = skillsRef.current;
+        if (!ref) return;
+        let hasTracked = false;
+        const observer = new window.IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !hasTracked) {
+                    track('section_viewed', { section: 'Tech Skills' });
+                    hasTracked = true;
+                }
+            },
+            { threshold: 0.3 }
+        );
+        observer.observe(ref);
+        return () => observer.disconnect();
+    }, [track]);
+
     return (
-        <section id="skills" className="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
+        <section id="skills" ref={skillsRef} className="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
             <div className="container mx-auto px-4">
                 {/* Section Title */}
 

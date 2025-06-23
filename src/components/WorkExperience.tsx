@@ -1,5 +1,6 @@
-import  {FC} from "react";
+import  {FC, useEffect, useRef} from "react";
 import Work from "../assets/icons/Work";
+import { usePostHogEvent } from '../hooks/usePostHogEvent';
 
 export interface IWorkExperience {
     title: string
@@ -43,6 +44,33 @@ const WorkExperience: FC<{ workExperience: IWorkExperience }> = ({ workExperienc
       </div>
     </div>
   );
+};
+
+const WorkExperienceSection: FC = () => {
+    const workRef = useRef(null);
+    const track = usePostHogEvent();
+    useEffect(() => {
+        const ref = workRef.current;
+        if (!ref) return;
+        let hasTracked = false;
+        const observer = new window.IntersectionObserver(
+            ([entry]) => {
+                if (entry.isIntersecting && !hasTracked) {
+                    track('section_viewed', { section: 'Work Experience' });
+                    hasTracked = true;
+                }
+            },
+            { threshold: 0.3 }
+        );
+        observer.observe(ref);
+        return () => observer.disconnect();
+    }, [track]);
+
+    return (
+        <section id="work-experience" ref={workRef} className="...">
+            {/* Rest of the component code */}
+        </section>
+    );
 };
 
 export default WorkExperience;
