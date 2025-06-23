@@ -12,7 +12,7 @@ export const techSkillsData = [
     },
     {
         category: "Frameworks & Libraries",
-        skills: ["NestJS", "ExpressJS", "Laravel", "Django"],
+        skills: ["NestJS", "ExpressJS", "Laravel", "Django", "FastApi", "Echo"],
     },
     {
         category: "ORMS",
@@ -28,7 +28,14 @@ export const techSkillsData = [
     },
     {
         category: "RealTime And Push Notifications",
-        skills: ["SocketIo", "Firebase"],
+        skills: ["Websockets", "Firebase","MQTT"],
+    }
+    ,
+    {
+        category: "AI & Automation Tools",
+        skills: [
+            "Autobots","CursorIDE","RAG",  "OpenAI", "Prompt Engineering"
+        ],
     },
 ];
 
