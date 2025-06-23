@@ -19,6 +19,33 @@ export function getImage(path: string) {
 
 export const projectsData: IProject[] = [
     {
+        title: "Oneshop (Medusa-based E-commerce)",
+        link: "",
+        images: [],
+        stack: [
+            "Medusa.js", "Node.js", "React", "E-commerce","expressjs","NoSql"
+        ],
+        description: `Developed a feature-rich e-commerce platform using Medusa.js as the backend. Integrated multiple plugins to enhance functionality, including:
+- Localization for multi-language support
+- Low Stock Alert for inventory management
+- Documents for order and product documentation
+- Notifications for real-time updates
+- AI Content Generation for automated product descriptions
+- Storefront Content Plugin for dynamic content management
+
+The platform offers a modern, scalable, and extensible solution for online retail businesses.`
+    },
+    {
+        title: "Ismail Furniture",
+        link: "https://www.ismailfurniture.com",
+        images: [
+            getImage("ismailfurniture/1.png"), // Replace with actual image path or direct URL if available
+            getImage("ismailfurniture/2.png"), // Replace with actual image path or direct URL if available
+        ],
+        stack: ["Next.js", "React", "E-commerce", "Laravel","Elasticsearch"],
+        description: `Developed a modern, responsive furniture e-commerce platform for Ismail Furniture. The site features product galleries, category browsing, blog integration, and a seamless shopping experience. Implemented best practices for SEO and performance, ensuring a fast and discoverable site.`
+    },
+    {
         images: [getImage("number5/1.jpg"), getImage("number5/2.jpg")], // adjust image paths if needed
         title: "Number5.ai",
         stack: ["Node.js", "python", "zapier", "Automation Flows"], // replace/add tech you actually used
@@ -42,7 +69,7 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
             getImage("ordro/9.png"),
             "https://play-lh.googleusercontent.com/6geqlIS9GSHvaPaHQEHuenDUsuSEM1aS22CXOZbSWiZwMaxKi-VjLadmxWTGrQNka1CV=w526-h296-rw",
         ],
-        stack: ["express", "react", "flutter"],
+        stack: ["express", "react", "flutter","meilisearch"],
         description: "a comprehensive solution\nencompassing promotions, shipping, and stock management functionalities. The platform is designed to\nstreamline business-to-business transactions, providing a seamless experience for users involved in buying and\nselling products.",
     },
     {
