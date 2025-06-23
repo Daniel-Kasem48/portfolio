@@ -339,14 +339,25 @@ const Projects: FC = () => {
           container
         "
             >
-                {projectsData.map((p, index) => (
-                    <div
-                        key={index}
-                        onClick={() => track('project_clicked', { project: p.title })}
-                    >
-                        <Project project={p}/>
-                    </div>
-                ))}
+                {projectsData.map((p, index) => {
+                    let hoverTimeout: NodeJS.Timeout | null = null;
+                    return (
+                        <div
+                            key={index}
+                            onClick={() => track('project_clicked', { project: p.title })}
+                            onMouseEnter={() => {
+                                hoverTimeout = setTimeout(() => {
+                                    track('project_focused', { project: p.title });
+                                }, 1000);
+                            }}
+                            onMouseLeave={() => {
+                                if (hoverTimeout) clearTimeout(hoverTimeout);
+                            }}
+                        >
+                            <Project project={p}/>
+                        </div>
+                    );
+                })}
             </div>
         </section>
     );
