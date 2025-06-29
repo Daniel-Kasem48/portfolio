@@ -42,6 +42,17 @@ const projects: OpenSourceProject[] = [
         github: "https://github.com/specture48/medusa-documents-arabic",
         npm: "https://www.npmjs.com/package/medusa-documents-arabic",
     },
+    {
+        name: "Medusa AI Shopping Assistant",
+        description: "A conversational commerce plugin for Medusa.js that leverages AI to assist users in shopping, answering questions, and providing recommendations.",
+        features: [
+            "Conversational AI for e-commerce",
+            "Medusa.js plugin integration",
+            "Product recommendations and Q&A",
+            "Open source TypeScript code"
+        ],
+        github: "https://github.com/specture48/medusa-ai-shopping-assistant"
+    },
 ];
 
 
@@ -99,7 +110,7 @@ const OpenSource: FC = () => {
                     Open Source
                 </p>
                 {/*<p className="text-center text-gray-300 max-w-2xl mx-auto mb-12">*/}
-                {/*    As a backend developer, I’m passionate about building scalable and efficient tools that enhance developer productivity. Check out my open-source contributions and join the journey!*/}
+                {/*    As a backend developer, I'm passionate about building scalable and efficient tools that enhance developer productivity. Check out my open-source contributions and join the journey!*/}
                 {/*</p>*/}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {projects.map((project, index) => (

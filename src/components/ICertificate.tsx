@@ -43,7 +43,14 @@ export const certificates: ICertificate[] = [
         imageUrl: getImage("certificates/intro-to-agile-development-and-scrum.jpeg"),
         link: 'https://www.coursera.org/account/accomplishments/verify/6XM22UN91CH2'
     },
-
+    {
+        id: 7,
+        title: 'Generative AI and LLMs: Architecture and Data Preparation',
+        issuer: 'IBM',
+        date: 'June 30 2025',
+        imageUrl: getImage("certificates/generativeAi.jpeg"),
+        link: 'https://www.coursera.org/account/accomplishments/certificate/JI27WBVBQRN2'
+    },
     {
         id: 6,
         title: 'Prokoders Certificate',
