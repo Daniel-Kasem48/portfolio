@@ -1,6 +1,7 @@
 import {ReactNode, useEffect, useRef} from "react";
 import NewSkills from "./NewSkills.tsx";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
+import useIntersectionObserver from '../hooks/use-intersection-observer';
 
 export const techSkillsData = [
     {
@@ -85,6 +86,7 @@ const TechSkillsSection = () => {
 
     const skillsRef = useRef(null);
     const track = usePostHogEvent();
+    const isVisible = useIntersectionObserver(skillsRef, { threshold: 0.2 });
     useEffect(() => {
         const ref = skillsRef.current;
         if (!ref) return;
@@ -106,24 +108,21 @@ const TechSkillsSection = () => {
         <section id="skills" ref={skillsRef} className="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
             <div className="container mx-auto px-4">
                 {/* Section Title */}
-
                 <div className="container mx-auto">
-
                     <p
                         className="
           text-4xl md:text-6xl lg:text-8xl
-
     w-full
     mt-10
     text-center
     font-extrabold
-    mb-10
+    mb-4
     text-navy-blue
     bg-black
-    border-b-4
-    border-navy-blue
+    border-b-4 border-cyan-500
     tracking-tight
     shadow-lg
+    inline-block
   "
                     >
                         Tech Skills
@@ -131,11 +130,11 @@ const TechSkillsSection = () => {
                 </div>
 
                 {/* Grid */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
                     {techSkillsData.map((category, index) => (
                         <div
                             key={index}
-                            className="group bg-gray-800 bg-opacity-80 backdrop-blur-md p-3 rounded-lg border border-gray-700 hover:border-cyan-500 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-500/20"
+                            className="group bg-gray-800 bg-opacity-80 backdrop-blur-md p-3 rounded-lg border border-gray-700 hover:border-cyan-500 transition-all duration-300 hover:shadow-2xl hover:scale-105 hover:z-10 hover:shadow-cyan-500/30"
                         >
                             {/* Category Title */}
                             <h3 className="text-base font-semibold text-cyan-400 mb-2 flex items-center justify-center group-hover:text-cyan-300 transition-colors duration-300">
@@ -147,17 +146,7 @@ const TechSkillsSection = () => {
 
                             {/* Skills List */}
                             <ul className="space-y-1 text-sm text-gray-400">
-
                                 <NewSkills skills={category.skills}/>
-                                {/*{category.skills.map((skill, idx) => (*/}
-                                {/*    // <li*/}
-                                {/*    //     key={idx}*/}
-                                {/*    //     className="flex items-center text-lg md:text-xl group-hover:text-white transition-colors duration-300"*/}
-                                {/*    // >*/}
-                                {/*    //     <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full mr-2"/>*/}
-                                {/*    //     {skill}*/}
-                                {/*    // </li>*/}
-                                {/*))}*/}
                             </ul>
                         </div>
                     ))}

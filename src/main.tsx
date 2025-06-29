@@ -1,6 +1,9 @@
 import ReactDOM from 'react-dom/client'
 import {RouterProvider} from "react-router-dom";
 import posthog from 'posthog-js';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+import { useEffect } from 'react';
 
 import './index.css'
 import {routers} from "./routes.tsx";
@@ -12,8 +15,20 @@ posthog.init(
   }
 );
 
+function MainApp() {
+  useEffect(() => {
+    AOS.init({
+      duration: 700,
+      once: true,
+      offset: 80,
+      easing: 'ease-in-out',
+    });
+  }, []);
+  return <RouterProvider router={routers}/>;
+}
+
 ReactDOM.createRoot(document.getElementById("root")!).render(
-    <RouterProvider router={routers}/>
+    <MainApp/>
 );
 
 
