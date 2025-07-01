@@ -94,14 +94,15 @@ const Bio: FC = () => {
     ];
 
     return (
-        <section id="aboutme" ref={aboutRef} className="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
-            <div className="container mx-auto px-4">
-                
+        <section id="aboutme" ref={aboutRef} className="py-10 sm:py-16 md:py-20 bg-gradient-to-b from-gray-900 to-black text-white">
+            <div className="container mx-auto px-2 sm:px-4">
+                {/* Section Subtitle */}
+            
                 {/* Section Title */}
                 <div className="container mx-auto">
                     <p
                         className="
-          text-4xl md:text-6xl lg:text-8xl
+          text-3xl sm:text-4xl md:text-6xl lg:text-8xl
     w-full
     mt-6
     text-center
@@ -118,17 +119,12 @@ const Bio: FC = () => {
                         About Me
                     </p>
                 </div>
-                <div className="flex flex-col lg:flex-row gap-12 mt-8">
+                <div className="flex flex-col lg:flex-row gap-8 md:gap-12 mt-8">
                     {/* Contact Info */}
-                    <div className="lg:w-1/3 flex flex-col items-center">
-                        <div className="bg-gray-800 bg-opacity-80 backdrop-blur-md p-6 rounded-xl md:border border-cyan-700 shadow-lg w-full max-w-xs">
+                    <div className="w-full lg:w-1/3 flex flex-col items-center mb-8 lg:mb-0">
+                        <div className="bg-gray-800 bg-opacity-80 backdrop-blur-md p-4 sm:p-6 rounded-xl md:border border-cyan-700 shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-xs">
                             {/* Profile Image Placeholder */}
-                            <div className="flex justify-center mb-6">
-                                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-cyan-400 to-blue-700 flex items-center justify-center text-4xl font-bold text-white shadow-lg border-4 border-cyan-700">
-                                    DK
-                                </div>
-                            </div>
-                            <h3 className="text-2xl font-semibold text-cyan-400 mb-6 text-center">Contact</h3>
+                            
                             <div className="space-y-4">
                                 {contactItems.map((item, index) => (
                                     <div key={index} className="flex items-center gap-4 group">
@@ -140,12 +136,12 @@ const Bio: FC = () => {
                                                 href={item.href}
                                                 target={item.target || "_self"}
                                                 rel={item.target ? "noopener noreferrer" : undefined}
-                                                className="text-gray-300 group-hover:text-white transition-colors duration-300"
+                                                className="text-gray-300 group-hover:text-white transition-colors duration-300 text-sm sm:text-base"
                                             >
                                                 {item.text}
                                             </a>
                                         ) : (
-                                            <span className="text-gray-300">{item.text}</span>
+                                            <span className="text-gray-300 text-sm sm:text-base">{item.text}</span>
                                         )}
                                     </div>
                                 ))}
@@ -153,12 +149,12 @@ const Bio: FC = () => {
                         </div>
                     </div>
                     {/* Divider for mobile */}
-                    <div className="block lg:hidden my-8">
+                    <div className="block lg:hidden my-6 sm:my-8">
                         <div className="h-1 w-2/3 mx-auto bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full opacity-60"></div>
                     </div>
                     {/* Bio Text */}
-                    <div className="lg:w-2/3 flex flex-col justify-center items-center">
-                        <div className="bg-gradient-to-br from-gray-800 to-gray-900 bg-opacity-90 p-8 rounded-2xl border-l-8 border-cyan-500 shadow-2xl w-full max-w-2xl relative">
+                    <div className="w-full lg:w-2/3 flex flex-col justify-center items-center">
+                        <div className="bg-gradient-to-br from-gray-800 to-gray-900 bg-opacity-90 p-4 sm:p-8 rounded-2xl border-l-8 border-cyan-500 shadow-2xl w-full max-w-2xl relative">
                             {/* Bio Text with Typewriter */}
                             <div className="hidden md:block">
                                 <Typewriter
@@ -170,13 +166,13 @@ const Bio: FC = () => {
                                     onInit={(typewriter) => {
                                         typewriter
                                             .typeString(
-                                                `<blockquote class=\"text-lg md:text-2xl leading-relaxed text-gray-400 font-light pl-6 rounded-bl-2xl\">${bioText}</blockquote>`
+                                                `<blockquote class=\"text-base md:text-lg lg:text-2xl leading-relaxed text-gray-400 font-light pl-6 rounded-bl-2xl\">${bioText}</blockquote>`
                                             )
                                             .start();
                                     }}
                                 />
                             </div>
-                            <blockquote className="block md:hidden text-lg leading-relaxed text-gray-400 font-light pl-6 rounded-bl-2xl">
+                            <blockquote className="block md:hidden text-base leading-relaxed text-gray-400 font-light pl-6 rounded-bl-2xl">
                                 {bioText}
                             </blockquote>
                         </div>

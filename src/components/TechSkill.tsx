@@ -2,6 +2,7 @@ import {ReactNode, useEffect, useRef} from "react";
 import NewSkills from "./NewSkills.tsx";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
 import useIntersectionObserver from '../hooks/use-intersection-observer';
+import React from "react";
 
 export const techSkillsData = [
     {
@@ -86,14 +87,21 @@ const TechSkillsSection = () => {
 
     const skillsRef = useRef(null);
     const track = usePostHogEvent();
-    const isVisible = useIntersectionObserver(skillsRef, { threshold: 0.2 });
+    const [isVisible, setIsVisible] = React.useState(true);
     useEffect(() => {
+        // Only enable observer and analytics on screens >= 640px (sm)
+        if (window.innerWidth < 640) {
+            setIsVisible(true);
+            return;
+        }
+        setIsVisible(false);
         const ref = skillsRef.current;
         if (!ref) return;
         let hasTracked = false;
         const observer = new window.IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting && !hasTracked) {
+                    setIsVisible(true);
                     track('section_viewed', { section: 'Tech Skills' });
                     hasTracked = true;
                 }
@@ -105,15 +113,15 @@ const TechSkillsSection = () => {
     }, [track]);
 
     return (
-        <section id="skills" ref={skillsRef} className="py-20 bg-gradient-to-b from-gray-900 to-black text-white">
-            <div className="container mx-auto px-4">
+        <section id="skills" ref={skillsRef} className="py-10 sm:py-16 md:py-20 bg-gradient-to-b from-gray-900 to-black text-white">
+            <div className="container mx-auto px-2 sm:px-4">
                 {/* Section Title */}
                 <div className="container mx-auto">
                     <p
                         className="
-          text-4xl md:text-6xl lg:text-8xl
+          text-3xl sm:text-4xl md:text-6xl lg:text-8xl
     w-full
-    mt-10
+    mt-6
     text-center
     font-extrabold
     mb-4
@@ -130,14 +138,14 @@ const TechSkillsSection = () => {
                 </div>
 
                 {/* Grid */}
-                <div className={`grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 transition-all duration-700 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+                <div className={`grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 transition-all duration-700 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
                     {techSkillsData.map((category, index) => (
                         <div
                             key={index}
-                            className="group bg-gray-800 bg-opacity-80 backdrop-blur-md p-3 rounded-lg border border-gray-700 hover:border-cyan-500 transition-all duration-300 hover:shadow-2xl hover:scale-105 hover:z-10 hover:shadow-cyan-500/30"
+                            className="group bg-gray-800 bg-opacity-80 backdrop-blur-md p-3 sm:p-4 rounded-lg border border-gray-700 hover:border-cyan-500 transition-all duration-300 hover:shadow-2xl hover:scale-105 hover:z-10 hover:shadow-cyan-500/30"
                         >
                             {/* Category Title */}
-                            <h3 className="text-base font-semibold text-cyan-400 mb-2 flex items-center justify-center group-hover:text-cyan-300 transition-colors duration-300">
+                            <h3 className="text-base sm:text-lg font-semibold text-cyan-400 mb-2 flex items-center justify-center group-hover:text-cyan-300 transition-colors duration-300">
                                 {
                                     categoryIcons[category.category]
                                 }
@@ -145,7 +153,7 @@ const TechSkillsSection = () => {
                             </h3>
 
                             {/* Skills List */}
-                            <ul className="space-y-1 text-sm text-gray-400">
+                            <ul className="space-y-1 text-sm sm:text-base text-gray-400">
                                 <NewSkills skills={category.skills}/>
                             </ul>
                         </div>
