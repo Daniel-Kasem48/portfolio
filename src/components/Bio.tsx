@@ -154,7 +154,7 @@ const Bio: FC = () => {
                     </div>
                     {/* Bio Text */}
                     <div className="w-full lg:w-2/3 flex flex-col justify-center items-center">
-                        <div className="bg-gradient-to-br from-gray-800 to-gray-900 bg-opacity-90 p-4 sm:p-8 rounded-2xl border-l-8 border-cyan-500 shadow-2xl w-full max-w-2xl relative">
+                        <div className="bg-gradient-to-br from-gray-800 to-gray-900 bg-opacity-90 p-2 sm:p-8 rounded-2xl border-l-8 border-cyan-500 shadow-2xl w-full max-w-2xl relative">
                             {/* Bio Text with Typewriter */}
                             <div className="hidden md:block">
                                 <Typewriter
