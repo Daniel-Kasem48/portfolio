@@ -1,7 +1,6 @@
 import {ReactNode, useEffect, useRef} from "react";
 import NewSkills from "./NewSkills.tsx";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
-import useIntersectionObserver from '../hooks/use-intersection-observer';
 import React from "react";
 
 export const techSkillsData = [
