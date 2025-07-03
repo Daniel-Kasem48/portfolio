@@ -93,7 +93,6 @@ const TechSkillsSection = () => {
             setIsVisible(true);
             return;
         }
-        setIsVisible(false);
         const ref = skillsRef.current;
         if (!ref) return;
         let hasTracked = false;
@@ -137,7 +136,7 @@ const TechSkillsSection = () => {
                 </div>
 
                 {/* Grid */}
-                <div className={`grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 transition-all duration-700 ${isVisible ? 'animate-fade-in' : 'opacity-0'}`}>
+                <div className={`grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 gap-4 sm:gap-6 transition-all duration-700 ${isVisible ? 'animate-fade-in' : ''}`}>
                     {techSkillsData.map((category, index) => (
                         <div
                             key={index}
