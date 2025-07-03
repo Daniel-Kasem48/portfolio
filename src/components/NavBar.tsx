@@ -4,14 +4,15 @@ const NavBar: FC = () => {
     const [isOpen, setIsOpen] = useState(false);
 
     const navItems = [
-        { href: "#aboutme", label: "About me" },
-        { href: "#skills", label: "Skills" },
-        { href: "#projects", label: "Projects" },
-        { href: "#opensource", label: "OpenSource" },
-        { href: "#work-experiences", label: "Work Experience" },
-        { href: "#educations", label: "Education" },
-        { href: "#certificates", label: "Certificates" },
-        { href: "#challenges", label: "Challenges" },
+        { href: "/", label: "Home" },
+        { href: "/about", label: "About" },
+        { href: "/skills", label: "Skills" },
+        { href: "/projects", label: "Projects" },
+        { href: "/opensource", label: "OpenSource" },
+        { href: "/work-experiences", label: "Work Experience" },
+        { href: "/educations", label: "Education" },
+        { href: "/certificates", label: "Certificates" },
+        { href: "/challenges", label: "Challenges" },
     ];
 
     return (
@@ -62,7 +63,7 @@ const NavBar: FC = () => {
             {/* Mobile Dropdown */}
             {isOpen && (
                 <div className="md:hidden bg-navy-blue bg-opacity-95 absolute top-[60px] left-0 w-full shadow-xl backdrop-blur-lg border-t border-black z-50">
-                    <div className="flex flex-col items-center py-6 space-y-6">
+                    <div className="flex flex-col items-center py-6 space-y-8">
                         {navItems.map((item) => (
                             <a
                                 key={item.href}

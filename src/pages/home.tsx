@@ -15,7 +15,6 @@ function Home() {
     return (
         <div className="h-full   pt-[100px]  mx-10">
             <div className="">
-                <Bio/>
                 <AIChat/>
 
 

@@ -94,7 +94,7 @@ const Bio: FC = () => {
     ];
 
     return (
-        <section id="aboutme" ref={aboutRef} className="py-10 sm:py-16 md:py-20 bg-gradient-to-b from-gray-900 to-black text-white">
+        <section id="aboutme" ref={aboutRef} className="py-20 sm:py-30 md:py-20 min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
             <div className="container mx-auto px-2 sm:px-4">
                 {/* Section Subtitle */}
             
@@ -149,7 +149,7 @@ const Bio: FC = () => {
                         </div>
                     </div>
                     {/* Divider for mobile */}
-                    <div className="block lg:hidden my-6 sm:my-8">
+                    <div className="block lg:hidden my-2 sm:my-8">
                         <div className="h-1 w-2/3 mx-auto bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full opacity-60"></div>
                     </div>
                     {/* Bio Text */}

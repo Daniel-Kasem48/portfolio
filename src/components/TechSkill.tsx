@@ -111,7 +111,7 @@ const TechSkillsSection = () => {
     }, [track]);
 
     return (
-        <section id="skills" ref={skillsRef} className="py-10 sm:py-16 md:py-20 bg-gradient-to-b from-gray-900 to-black text-white">
+        <section id="skills" ref={skillsRef} className="py-20 sm:py-16 md:py-20 bg-gradient-to-b from-gray-900 to-black text-white">
             <div className="container mx-auto px-2 sm:px-4">
                 {/* Section Title */}
                 <div className="container mx-auto">

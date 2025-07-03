@@ -57,7 +57,7 @@ const challengesAndOptimizations: IChallengeAndOptimizationItem[] = [
 
 const ChallengesAndOptimizations: FC = () => {
     return (
-        <section id="challenges" className="bg-black py-12">
+        <section id="challenges" className="bg-black py-20">
             <div className="container mx-auto px-4">
                 {/* Heading */}
                 <h2 className="
