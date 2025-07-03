@@ -29,7 +29,7 @@ export const workExperiencesData: IWorkExperience[] = [
             "Created two mobile applications: one for drivers and another for retailers.",
             "Designed and implemented a comprehensive dashboard for suppliers and super admins.",
             "Integrated ZATCA-compliant e-invoicing standards and BNPL (Buy Now, Pay Later) functionality.",
-            "Leveraged Google’s Optimization AI to solve the Vehicle Routing Problem (VRP), optimizing delivery routes.",
+            "Leveraged Google's Optimization AI to solve the Vehicle Routing Problem (VRP), optimizing delivery routes.",
             "Developing A Point of Sale system designed for retailers"
         ],
     },
@@ -72,7 +72,7 @@ export const workExperiencesData: IWorkExperience[] = [
 const WorkExperiences: FC = () => {
     return (
 
-        <section className="" id="work-experiences">
+        <section className="min-h-screen overflow-y-auto" id="work-experiences">
             <div className="pt-[80px]">
                 <div className=" mx-auto container ">
                     <p className="
