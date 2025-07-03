@@ -1,4 +1,3 @@
-import Bio from "../components/Bio.tsx";
 import Projects from "../components/Projects.tsx";
 import Footer from "../components/Footer.tsx";
 import Educations from "../components/EducationsData.tsx";
