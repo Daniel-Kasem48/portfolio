@@ -20,67 +20,6 @@ export function getImage(path: string) {
 
 export const projectsData: IProject[] = [
     {
-        title: "Oneshop (Medusa-based E-commerce)",
-        link: "",
-        images: [],
-        stack: [
-            "Medusa.js", "Node.js", "React", "E-commerce","expressjs","NoSql"
-        ],
-        description: `Developed a feature-rich e-commerce platform using Medusa.js as the backend. Integrated multiple plugins to enhance functionality, including:
-- Localization for multi-language support
-- Low Stock Alert for inventory management
-- Documents for order and product documentation
-- Notifications for real-time updates
-- AI Content Generation for automated product descriptions
-- Storefront Content Plugin for dynamic content management
-
-The platform offers a modern, scalable, and extensible solution for online retail businesses.`
-    },
-    {
-        title: "Ismail Furniture",
-        link: "https://www.ismailfurniture.com",
-        images: [
-            getImage("ismailfurniture/1.png"), // Replace with actual image path or direct URL if available
-            getImage("ismailfurniture/2.png"), // Replace with actual image path or direct URL if available
-        ],
-        stack: ["Next.js", "React", "E-commerce", "Laravel","Elasticsearch"],
-        description: `Developed a modern, responsive furniture e-commerce platform for Ismail Furniture. The site features product galleries, category browsing, blog integration, and a seamless shopping experience. Implemented best practices for SEO and performance, ensuring a fast and discoverable site.`
-    },
-    {
-        images: [getImage("number5/1.jpg"), getImage("number5/2.jpg")], // adjust image paths if needed
-        title: "Number5.ai",
-        stack: ["Node.js", "python", "zapier", "Automation Flows"], // replace/add tech you actually used
-        link: "https://www.number5.ai",
-        description: `Built intelligent automation flows for lead engagement at Number5.ai, an AI business assistant platform. 
-Designed sequences combining calls, SMS, and scheduled delays (e.g., Call ➔ SMS ➔ Wait ➔ Call again) to boost lead conversion rates. 
-Integrated multi-channel communication APIs and optimized flow reliability and scalability.`
-    },
-    {
-        title: "Ordro",
-        link: "https://play.google.com/store/apps/details?id=com.ordro.retailapp&hl=en",
-        images: [
-            getImage("ordro/1.png"),
-            getImage("ordro/2.png"),
-            getImage("ordro/3.png"),
-            getImage("ordro/4.png"),
-            getImage("ordro/5.png"),
-            getImage("ordro/6.png"),
-            getImage("ordro/7.png"),
-            getImage("ordro/8.png"),
-            getImage("ordro/9.png"),
-            "https://play-lh.googleusercontent.com/6geqlIS9GSHvaPaHQEHuenDUsuSEM1aS22CXOZbSWiZwMaxKi-VjLadmxWTGrQNka1CV=w526-h296-rw",
-        ],
-        stack: ["express", "react", "flutter","meilisearch"],
-        description: "a comprehensive solution\nencompassing promotions, shipping, and stock management functionalities. The platform is designed to\nstreamline business-to-business transactions, providing a seamless experience for users involved in buying and\nselling products.",
-    },
-    {
-        title: "Ordro Point Of Sale System",
-        link: "",
-        images: [],
-        stack: ["express", "react", "flutter"],
-        description: "A Point of Sale system designed for retailers, seamlessly integrated with the Ordro ecosystem. It features real-time inventory tracking, multi-store management, sales analytics, and seamless payment processing to enhance retail operations.",
-    },
-    {
         title: "Spantrek",
         link: "https://cloud.spantrek.com",
         images: [
@@ -110,6 +49,119 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         description: "The platform boasted a rich set of features, including immersive 3D and 2D maps, real-\ntime reservation boards, visitor management, and dynamic digital signage.",
     },
     {
+        title: "Number5 | AI Calls & Texts",
+        link: "https://apps.apple.com/us/app/number5-ai-calls-texts/id6737720979",
+        images: [
+            "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/14/3f/03/143f03b8-a3e9-3a1e-6778-7ce418c9bdc1/1.2.jpg/600x0w.jpg",
+            "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource211/v4/49/d3/e9/49d3e935-357e-a25c-5c0c-1632e4d81b1a/1.4.jpg/600x0w.jpg",
+            "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/4d/fc/a7/4dfca73b-d966-3a8a-dc33-2d89b9ead579/1.5.jpg/600x0w.jpg",
+            "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/4d/d8/ca/4dd8cad2-296b-4684-2b6b-d52502483527/1.3.jpg/600x0w.jpg",
+            "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/b4/0a/3a/b40a3a6c-6b11-d58b-4492-bbc6b89c7e23/1.1.jpg/600x0w.jpg",
+            "https://is1-ssl.mzstatic.com/image/thumb/PurpleSource221/v4/c3/29/5c/c3295c7b-1714-cfb0-723b-fded0c08d1d8/1.6.jpg/600x0w.jpg"
+        ],
+        stack: ["iOS", "AI", "VoIP", "NLP", "Privacy", "Virtual Numbers"],
+        description: `Take control of your communication with NUMBERS - Mobile Privacy Application. Easily add, manage, and toggle multiple virtual phone numbers on a single device. Enjoy free unlimited talk and text in the U.S., AI-powered call assistant, spam call elimination, customizable voicemail, and enhanced privacy. Features include:
+- Multiple virtual phone numbers
+- AutoBot AI Personal Assistant for calls
+- Call routing and management
+- SMS/MMS capabilities
+- Customizable UI (Dark/Light mode)
+- Instant activation and scalable solutions for business and personal use.`
+    },
+    {
+        images: [getImage("number5/1.jpg"), getImage("number5/2.jpg")], // adjust image paths if needed
+        title: "Number5.ai",
+        stack: ["Node.js", "python", "zapier", "Automation Flows"], // replace/add tech you actually used
+        link: "https://www.number5.ai",
+        description: `Built intelligent automation flows for lead engagement at Number5.ai, an AI business assistant platform. 
+Designed sequences combining calls, SMS, and scheduled delays (e.g., Call ➔ SMS ➔ Wait ➔ Call again) to boost lead conversion rates. 
+Integrated multi-channel communication APIs and optimized flow reliability and scalability.`
+    },
+    {
+        title: "Ordro",
+        link: "https://play.google.com/store/apps/details?id=com.ordro.retailapp&hl=en",
+        images: [
+            getImage("ordro/1.png"),
+            getImage("ordro/2.png"),
+            getImage("ordro/3.png"),
+            getImage("ordro/4.png"),
+            getImage("ordro/5.png"),
+            getImage("ordro/6.png"),
+            getImage("ordro/7.png"),
+            getImage("ordro/8.png"),
+            getImage("ordro/9.png"),
+            "https://play-lh.googleusercontent.com/6geqlIS9GSHvaPaHQEHuenDUsuSEM1aS22CXOZbSWiZwMaxKi-VjLadmxWTGrQNka1CV=w526-h296-rw",
+        ],
+        stack: ["express", "react", "flutter","meilisearch"],
+        description: "a comprehensive solution\nencompassing promotions, shipping, and stock management functionalities. The platform is designed to\nstreamline business-to-business transactions, providing a seamless experience for users involved in buying and\nselling products.",
+    },
+    {
+        title: "Vitastir",
+        link: "https://thevitatest.com",
+        stack: ["laravel", "react", "next", "nest", 'socketio'],
+        description: "a comprehensive health e-commerce platform facilitating the seamless purchase of medical products. Key features include a user-friendly interface, secure transactions, prescription management, personalized recommendations, and a health information hub.",
+        images: [
+            getImage("vita/1.png"),
+            getImage("vita/2.png"),
+            getImage("vita/3.png"),
+            getImage("vita/4.png"),
+            getImage("vita/5.png"),
+            getImage("vita/6.png"),
+            getImage("vita/7.png"),
+            getImage("vita/8.png"),
+            getImage("vita/9.png"),
+            getImage("vita/9.png"),
+            getImage("vita/9.png"),
+            getImage("vita/9.png"),
+            getImage("vita/10.png"),
+            getImage("vita/11.png"),
+            getImage("vita/12.png"),
+            getImage("vita/13.png"),
+            getImage("vita/14.png"),
+            getImage("vita/15.png"),
+            getImage("vita/16.png"),
+            getImage("vita/17.png"),
+            getImage("vita/18.png"),
+        ]
+    },
+    {
+        title: "Citizen Meds",
+        link: "https://citizenmeds.com",
+        images: [
+            getImage("citizen-meds/1.png"), // Add actual image paths if you have them
+            getImage("citizen-meds/2.png"),
+        ],
+        stack: ["react", "node", "express"], // Adjust based on actual tech stack used
+        description: "A telehealth platform providing physician-approved injection home kits for weight management and men's health. Features include seamless ordering, overnight shipping, and a comprehensive solution for GLP-1 weight loss treatments like Semaglutide and Tirzepatide.",
+    },
+    {
+        title: "Talkalize",
+        link: "https://www.talkalize.com/en",
+        images: [],
+        stack: ["laravel", "react"],
+        description: "Talkalize is an AI-powered automated response system that enhances customer engagement on WhatsApp. It enables instant replies, seamless bookings, and personalized interactions. Businesses can improve brand awareness, drive sales, and foster customer loyalty by streamlining communication and re-engaging with prospects effectively.",
+    },
+    {
+        title: "MemoNas Chat App",
+        images: [
+            getImage("memo/1.png"),
+            getImage("memo/1.png"),
+        ],
+        stack: ["node", "socketio", "express", "android", "swift"],
+        link: "https://play.google.com/store/apps/details?id=com.yawar.memo&hl=en&gl=US",
+        description: "a dynamic platform enabling one-to-one and\ngroup chats, calls, video calls, and channels. Leveraged Node.js (Express), Socket.io, and Redis for real-time\ncommunication.",
+    },
+    {
+        title: "Ismail Furniture",
+        link: "https://www.ismailfurniture.com",
+        images: [
+            getImage("ismailfurniture/1.png"), // Replace with actual image path or direct URL if available
+            getImage("ismailfurniture/2.png"), // Replace with actual image path or direct URL if available
+        ],
+        stack: ["Next.js", "React", "E-commerce", "Laravel","Elasticsearch"],
+        description: `Developed a modern, responsive furniture e-commerce platform for Ismail Furniture. The site features product galleries, category browsing, blog integration, and a seamless shopping experience. Implemented best practices for SEO and performance, ensuring a fast and discoverable site.`
+    },
+    {
         title: "Qahwah",
         images: [
             getImage("qahwah/1.webp"),
@@ -120,24 +172,6 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         stack: ["laravel", "flutter"],
         link: "https://play.google.com/store/apps/details?id=com.divcodes.qahwahhouse&hl=en",
         description: "Qahwah House, an eCommerce platform dedicated to providing an exceptional coffee experience with premium organic coffee grown in Yemen.• Implemented features to enhance user experience and strea",
-    },
-    {
-        title: "Talkalize",
-        link: "https://www.talkalize.com/en",
-        images: [],
-        stack: ["laravel", "react"],
-        description: "Talkalize is an AI-powered automated response system that enhances customer engagement on WhatsApp. It enables instant replies, seamless bookings, and personalized interactions. Businesses can improve brand awareness, drive sales, and foster customer loyalty by streamlining communication and re-engaging with prospects effectively.",
-    },
-    {
-        title: "StayOn",
-        images: [
-            "https://play-lh.googleusercontent.com/_E0qHMzDJD6z-69KXxUoALv2sLjgK_TgVxrG9FCDY-2nDewaWCyUU4wMorgBU6m4mgId=w2560-h1440-rw",
-            "https://play-lh.googleusercontent.com/Olk5mDPQqetRsK5IGR8qpQVLCGSBjn2z5mDuRwoy1Ka7zLoE6N9Ovig47GYS1tUSISwj=w2560-h1440-rw",
-            "https://play-lh.googleusercontent.com/bjd5LYx5bNSqDynvVkUrq7l1KFDfQE6eghtMLZcTNosfDsxVFjGvdVMFBr39TNG-R90M=w2560-h1440-rw"
-        ],
-        link: "https://play.google.com/store/apps/details?id=co.flexsol.stayon&hl=en_US&gl=US",
-        stack: ["laravel", "flutter"],
-        description: "The Stay On application is an application of electronic courses in an academic and high-level manner, for\n professors and lecturers known in their field.",
     },
     {
         title: "Albustan Store",
@@ -151,14 +185,15 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         description: "A modern e-commerce platform for mobile phones, electronics, and accessories, offering secure payments, real-time inventory, and personalized shopping with advanced search, order tracking, and multi-vendor support.",
     },
     {
-        title: "MemoNas Chat App",
+        title: "StayOn",
         images: [
-            getImage("memo/1.png"),
-            getImage("memo/1.png"),
+            "https://play-lh.googleusercontent.com/_E0qHMzDJD6z-69KXxUoALv2sLjgK_TgVxrG9FCDY-2nDewaWCyUU4wMorgBU6m4mgId=w2560-h1440-rw",
+            "https://play-lh.googleusercontent.com/Olk5mDPQqetRsK5IGR8qpQVLCGSBjn2z5mDuRwoy1Ka7zLoE6N9Ovig47GYS1tUSISwj=w2560-h1440-rw",
+            "https://play-lh.googleusercontent.com/bjd5LYx5bNSqDynvVkUrq7l1KFDfQE6eghtMLZcTNosfDsxVFjGvdVMFBr39TNG-R90M=w2560-h1440-rw"
         ],
-        stack: ["node", "socketio", "express", "android", "swift"],
-        link: "https://play.google.com/store/apps/details?id=com.yawar.memo&hl=en&gl=US",
-        description: "a dynamic platform enabling one-to-one and\ngroup chats, calls, video calls, and channels. Leveraged Node.js (Express), Socket.io, and Redis for real-time\ncommunication.",
+        link: "https://play.google.com/store/apps/details?id=co.flexsol.stayon&hl=en_US&gl=US",
+        stack: ["laravel", "flutter"],
+        description: "The Stay On application is an application of electronic courses in an academic and high-level manner, for\n professors and lecturers known in their field.",
     },
     {
         title: "Ha55a Exchange",
@@ -194,77 +229,29 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         ]
     },
     {
-        title: "Citizen Meds",
-        link: "https://citizenmeds.com",
-        images: [
-            getImage("citizen-meds/1.png"), // Add actual image paths if you have them
-            getImage("citizen-meds/2.png"),
+        title: "Oneshop (Medusa-based E-commerce)",
+        link: "",
+        images: [],
+        stack: [
+            "Medusa.js", "Node.js", "React", "E-commerce","expressjs","NoSql"
         ],
-        stack: ["react", "node", "express"], // Adjust based on actual tech stack used
-        description: "A telehealth platform providing physician-approved injection home kits for weight management and men's health. Features include seamless ordering, overnight shipping, and a comprehensive solution for GLP-1 weight loss treatments like Semaglutide and Tirzepatide.",
+        description: `Developed a feature-rich e-commerce platform using Medusa.js as the backend. Integrated multiple plugins to enhance functionality, including:
+- Localization for multi-language support
+- Low Stock Alert for inventory management
+- Documents for order and product documentation
+- Notifications for real-time updates
+- AI Content Generation for automated product descriptions
+- Storefront Content Plugin for dynamic content management
+
+The platform offers a modern, scalable, and extensible solution for online retail businesses.`
     },
     {
-        title: "Vitastir",
-        link: "https://thevitatest.com",
-        stack: ["laravel", "react", "next", "nest", 'socketio'],
-        description: "a comprehensive health e-commerce platform facilitating the seamless purchase of medical products. Key features include a user-friendly interface, secure transactions, prescription management, personalized recommendations, and a health information hub.",
-        images: [
-            getImage("vita/1.png"),
-            getImage("vita/2.png"),
-            getImage("vita/3.png"),
-            getImage("vita/4.png"),
-            getImage("vita/5.png"),
-            getImage("vita/6.png"),
-            getImage("vita/7.png"),
-            getImage("vita/8.png"),
-            getImage("vita/9.png"),
-            getImage("vita/9.png"),
-            getImage("vita/9.png"),
-            getImage("vita/9.png"),
-            getImage("vita/10.png"),
-            getImage("vita/11.png"),
-            getImage("vita/12.png"),
-            getImage("vita/13.png"),
-            getImage("vita/14.png"),
-            getImage("vita/15.png"),
-            getImage("vita/16.png"),
-            getImage("vita/17.png"),
-            getImage("vita/18.png"),
-        ]
+        title: "Ordro Point Of Sale System",
+        link: "",
+        images: [],
+        stack: ["express", "react", "flutter"],
+        description: "A Point of Sale system designed for retailers, seamlessly integrated with the Ordro ecosystem. It features real-time inventory tracking, multi-store management, sales analytics, and seamless payment processing to enhance retail operations.",
     },
-
-    // {
-    //     title: "Review System",
-    //     link: "",
-    //     images: [
-    //         getImage("review-system/1.png"),
-    //         getImage("review-system/2.png"),
-    //         getImage("review-system/3.png"),
-    //     ],
-    //     stack: ["django", "react"],
-    //     description: "",
-    // },
-    // {
-    //     title: "Yamama Cement",
-    //     link: "",
-    //     stack: ["netcore"],
-    //     description: "Dashboard for Yamama Cement company in ksa",
-    //     images: []
-    // },
-    // {
-    //     title: "Baraem",
-    //     link: "",
-    //     stack: ["laravel","vue"],
-    //     description: "non profit organization",
-    //     images: []
-    // },
-    // {
-    //     title: "Prokoders CMS website",
-    //     link: "https://www.prokoders.com",
-    //     stack: [""],
-    //     description: "",
-    //     images: []
-    // }
 ]
 
 //TODO mention that we use NX,SAAS Multi tenancy Structure

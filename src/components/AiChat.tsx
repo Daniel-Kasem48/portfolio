@@ -90,9 +90,16 @@ const AIChat: FC = () => {
         skills: techSkillsData,
     });
 
-    // Open chat modal on page load
+    // Open chat modal only once per day
     useEffect(() => {
-        setIsOpen(true); // Automatically opens the modal when the component mounts
+        const lastSeen = localStorage.getItem('aiChatPopupSeen');
+        const now = Date.now();
+        const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+        
+        if (!lastSeen || (now - parseInt(lastSeen)) > oneDay) {
+            setIsOpen(true); // Automatically opens the modal once per day
+            localStorage.setItem('aiChatPopupSeen', now.toString());
+        }
     }, []);
 
     // Replace with your actual Gemini API key

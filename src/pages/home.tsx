@@ -5,7 +5,6 @@ import WorkExperiences from "../components/WorkExperiences.tsx";
 import ChallengesAndOptimizations from "../components/ChallengesAndOptimizations.tsx";
 import TechSkillsSection from "../components/TechSkill.tsx";
 import CertificatesSection from "../components/CertificatesSection.tsx";
-import AIChat from "../components/AiChat.tsx";
 import OpenSource from "../components/Opensource.tsx";
 
 // import OpenSource from "../components/Opensource.tsx";
@@ -14,13 +13,8 @@ function Home() {
     return (
         <div className="h-full   pt-[100px]  mx-10">
             <div className="">
-                <AIChat/>
-
-
-                {/*<TestSkills/>*/}
-                {/*<Timeline/>*/}
+                {/* 
                 <TechSkillsSection/>
-                {/*<Skills/>*/}
                 <Projects/>
                 <OpenSource/>
                 <WorkExperiences  />
@@ -28,6 +22,7 @@ function Home() {
                 <CertificatesSection/>
                 <ChallengesAndOptimizations/>
                 <Footer/>
+                */}
             </div>
         </div>
     )

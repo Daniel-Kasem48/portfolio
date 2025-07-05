@@ -5,7 +5,6 @@ const NavBar: FC = () => {
 
     const navItems = [
         { href: "/", label: "Home" },
-        { href: "/about", label: "About" },
         { href: "/skills", label: "Skills" },
         { href: "/projects", label: "Projects" },
         { href: "/opensource", label: "OpenSource" },
