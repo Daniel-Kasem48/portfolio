@@ -11,8 +11,8 @@ import GitHub from "../assets/icons/Github.tsx";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
 
 export const bioText = `
-        I am a seasoned web developer with a strong focus on backend technologies. My expertise spans PHP with the Laravel framework, Node.js using Express and Nest.js. Recently, I've expanded my skill set to include Golang, where I've been able to harness its power for efficient and scalable backend solutions. I am proficient in working with both MySQL and PostgreSQL databases, always prioritizing project success and delivering high-quality results. My commitment to continuous learning ensures that I stay aligned with the latest industry trends and best practices.
-    `;
+Full-Stack Developer with a backend focus, experienced in Laravel, Node.js (Express, NestJS), and Golang. Proficient in React.js for building responsive UIs. Skilled in integrating AI solutions, including RAG (Retrieval-Augmented Generation) and building autonomous bots. Strong experience with both SQL and NoSQL databases. Passionate about clean architecture, scalable APIs, real-time systems, and continuous learning.
+`;
 
 
 const Bio: FC = () => {
@@ -44,14 +44,16 @@ const Bio: FC = () => {
         },
         {
             icon: <Phone/>,
-            text: "+963 931 869 085",
+            text: "(+963)931869085",
             href: "tel:+963931869085",
+            className: "font-firamono text-cyan-400 font-bold tabular-nums leading-none"
         },
         {
             icon: <WhatsApp/>,
-            text: "+963 931 869 085",
+            text: "(+963)931869085",
             href: "https://wa.me/+963931869085",
             target: "_blank",
+            className: "font-firamono text-cyan-400 font-bold tabular-nums leading-none"
         },
         {
             icon: <Location/>,
@@ -136,12 +138,12 @@ const Bio: FC = () => {
                                                 href={item.href}
                                                 target={item.target || "_self"}
                                                 rel={item.target ? "noopener noreferrer" : undefined}
-                                                className="text-gray-300 group-hover:text-white transition-colors duration-300 text-sm sm:text-base"
+                                                className={`text-gray-300 group-hover:text-white transition-colors duration-300 text-sm sm:text-base ${item.className || ''}`}
                                             >
                                                 {item.text}
                                             </a>
                                         ) : (
-                                            <span className="text-gray-300 text-sm sm:text-base">{item.text}</span>
+                                            <span className={`text-gray-300 text-sm sm:text-base ${item.className || ''}`}>{item.text}</span>
                                         )}
                                     </div>
                                 ))}

@@ -8,6 +8,7 @@ export interface ICertificate {
     date: string;
     imageUrl: string; // URL to the certificate image or logo
     link: string; // URL to view/download the certificate
+    details?: string; // Optional details about the certificate
 }
 
 export const certificates: ICertificate[] = [
@@ -66,6 +67,14 @@ export const certificates: ICertificate[] = [
         date: 'March 10, 2025',
         imageUrl: getImage("certificates/ielts-writing-section-skills-mastery.jpeg"),
         link: 'https://www.coursera.org/account/accomplishments/verify/7WMZFRXJR5L1'
+    },
+    {
+        id: 8,
+        title: 'Advanced Prompt Engineering for Everyone',
+        issuer: 'Vanderbilt University',
+        date: 'July 5, 2025',
+        imageUrl: getImage("certificates/certificate-advanced-prompt-engineering-for-everyone.jpeg"),
+        link: 'https://www.coursera.org/account/accomplishments/verify/Y07ZZPJ21GYZ',
     },
 ];
 
