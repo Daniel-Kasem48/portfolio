@@ -1,6 +1,5 @@
 import {createBrowserRouter} from "react-router-dom";
 import {MainLayout} from "./layouts";
-import Home from "./pages/home.tsx";
 import Bio from './components/Bio';
 import TechSkillsSection from './components/TechSkill.tsx';
 import Projects from './components/Projects.tsx';
