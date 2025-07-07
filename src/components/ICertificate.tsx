@@ -76,6 +76,15 @@ export const certificates: ICertificate[] = [
         imageUrl: getImage("certificates/certificate-advanced-prompt-engineering-for-everyone.jpeg"),
         link: 'https://www.coursera.org/account/accomplishments/verify/Y07ZZPJ21GYZ',
     },
+    {
+        id: 9,
+        title: 'Fundamentals of AI Agents Using RAG and LangChain',
+        issuer: 'IBM',
+        date: 'July 6, 2025',
+        imageUrl: 'https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~LFRGQD2EIQ2W/CERTIFICATE_LANDING_PAGE~LFRGQD2EIQ2W.jpeg',
+        link: 'https://www.coursera.org/account/accomplishments/verify/LFRGQD2EIQ2W',
+        details: '7 hours (approximately) | Grade Achieved: 100% | Coursera certifies successful completion.'
+    },
 ];
 
 
