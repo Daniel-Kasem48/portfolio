@@ -65,6 +65,17 @@ export const workExperiencesData: IWorkExperience[] = [
             "Implemented features enabling the sale of lectures and video courses, as well as subject tests for student exam preparation.",
         ],
     },
+    {
+        company: "Freelance",
+        location: "Remote",
+        title: "Backend Developer",
+        date: "Various (2023 – 2025)",
+        description: [
+            "Worked as a freelance backend developer for multiple clients and projects, delivering scalable and robust solutions.",
+            "• Numbers5 (Mar 2025 – Jul 2025): Developed and maintained backend services, integrated AI-powered features and automation flows for virtual phone number management.",
+            "• CleanCody: Contributed to backend development and API integrations for e-commerce and automation projects."
+        ],
+    },
 ];
 
 
