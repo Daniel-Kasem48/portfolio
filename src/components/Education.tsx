@@ -6,6 +6,8 @@ export interface IEducation {
     title: string;
     date: string;
     certificateImage?: string; // URL or path to the certificate image
+    color?: string;
+    gradient?: string;
 }
 
 const Education: FC<{ education: IEducation }> = ({ education }) => {

@@ -3,10 +3,13 @@ import Work from "../assets/icons/Work";
 
 export interface IWorkExperience {
     title: string
-    date:string
-    company:string
-    location:string
-    description:string[]
+    date: string
+    company: string
+    location: string
+    description: string[]
+    highlights?: string[]
+    color?: string
+    gradient?: string
 }
 
 const WorkExperience: FC<{ workExperience: IWorkExperience }> = ({ workExperience }) => {

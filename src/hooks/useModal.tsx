@@ -11,7 +11,7 @@ import { useLockPage } from "./useLockPage";
 import { useClickOutside } from "./use-click-outside";
 import ReactDOM from "react-dom";
 import {IModal, ModalResult} from "../interfaces";
-import {FaWindowClose} from "@react-icons/all-files/fa/FaWindowClose";
+// import {FaWindowClose} from "@react-icons/all-files/fa/FaWindowClose";
 
 const useModal = (): [ElementType<IModal>, ModalResult] => {
   const ref = useRef() as MutableRefObject<HTMLDivElement>;
@@ -59,7 +59,7 @@ const useModal = (): [ElementType<IModal>, ModalResult] => {
                             className=" absolute top-2 right-4  text-2xl outline rounded  cursor-pointer  z-[1121]"
                             onClick={() => close()}
                         >
-                            <FaWindowClose color="white" />
+                            {/* <FaWindowClose color="white" /> */}
                         </button>
                         {children}
                     </div>

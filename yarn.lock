@@ -419,15 +419,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@react-icons/all-files@npm:^4.1.0":
-  version: 4.1.0
-  resolution: "@react-icons/all-files@npm:4.1.0"
-  peerDependencies:
-    react: "*"
-  checksum: c34c644650a144e4f2157c20b3106200ac1f76b3132dcda1a40f061e000a34c78df188266395afae571d5c85bf48365824db7b1bf8b7ae6229fdc148c941ab85
-  languageName: node
-  linkType: hard
-
 "@remix-run/router@npm:1.22.0":
   version: 1.22.0
   resolution: "@remix-run/router@npm:1.22.0"
@@ -1349,7 +1340,6 @@ __metadata:
   resolution: "c@workspace:."
   dependencies:
     "@heroicons/react": ^2.2.0
-    "@react-icons/all-files": ^4.1.0
     "@types/aos": ^3.0.7
     "@types/node-telegram-bot-api": ^0.64.7
     "@types/react": ^18.2.43
@@ -1379,6 +1369,7 @@ __metadata:
     react-slick: ^0.30.1
     slick-carousel: ^1.8.1
     tailwindcss: ^3.3.6
+    three: ^0.178.0
     typescript: ^5.2.2
     typewriter-effect: ^2.21.0
     vite: ^5.0.8
@@ -5650,6 +5641,13 @@ __metadata:
   dependencies:
     any-promise: ^1.0.0
   checksum: 84e1b804bfec49f3531215f17b4a6e50fd4397b5f7c1bccc427b9c656e1ecfb13ea79d899930184f78bc2f57285c54d9a50a590c8868f4f0cef5c1d9f898b05e
+  languageName: node
+  linkType: hard
+
+"three@npm:^0.178.0":
+  version: 0.178.0
+  resolution: "three@npm:0.178.0"
+  checksum: 027aa4d1a95bc664b7a92020eb9f7db76ecb679ff6fee6032b7f48a79b1774f9edd634fea9bdcfb763aa393f8ae7b3ffe0cbb6f9af77b65a78989d4f2146a06b
   languageName: node
   linkType: hard
 
