@@ -2,7 +2,7 @@ import {FC, useEffect, useRef} from "react";
 import { motion } from "framer-motion";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
 import React from "react";
-import Education, {IEducation} from "./Education.tsx";
+import {IEducation} from "./Education.tsx";
 import {getImage} from "./Projects.tsx";
 
 export const educationsData: IEducation[] = [

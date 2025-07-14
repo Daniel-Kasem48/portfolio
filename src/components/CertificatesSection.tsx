@@ -1,4 +1,4 @@
-import CertificateCard, {ICertificate, certificates} from "./ICertificate.tsx";
+import CertificateCard, { certificates} from "./ICertificate.tsx";
 import {FC, useRef, useEffect} from "react";
 import { motion } from "framer-motion";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';

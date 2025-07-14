@@ -1,7 +1,6 @@
 import {FC, useEffect, useRef, useState} from "react";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
-import React from "react";
-import WorkExperience, {IWorkExperience} from "./WorkExperience";
+import  {IWorkExperience} from "./WorkExperience";
 
 export const workExperiencesData: IWorkExperience[] = [
     {

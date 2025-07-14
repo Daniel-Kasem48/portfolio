@@ -1,4 +1,4 @@
-import {ReactNode, useEffect, useRef} from "react";
+import { useEffect, useRef} from "react";
 import { motion } from "framer-motion";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
 import React from "react";
@@ -105,25 +105,7 @@ const TechSkillsSection = () => {
         }
     };
 
-    const cardVariants = {
-        hidden: { 
-            opacity: 0, 
-            y: 50, 
-            scale: 0.9,
-            rotateX: -15
-        },
-        visible: { 
-            opacity: 1, 
-            y: 0, 
-            scale: 1,
-            rotateX: 0,
-            transition: {
-                type: "spring",
-                stiffness: 100,
-                damping: 15
-            }
-        }
-    };
+ 
 
     const skillVariants = {
         hidden: { opacity: 0, x: -20 },

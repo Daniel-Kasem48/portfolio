@@ -1,5 +1,4 @@
 import  {FC} from "react";
-import Work from "../assets/icons/Work";
 
 export interface IWorkExperience {
     title: string
