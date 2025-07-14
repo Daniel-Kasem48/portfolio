@@ -288,7 +288,7 @@ Recruiter's Question: ${question}
                     className="fixed inset-0 z-[9999] bg-black flex items-center justify-center p-4"
                     style={{backgroundColor: 'black'}}
                 >
-                    <div 
+                    <div
                         className="relative w-full max-w-4xl h-[80vh] max-h-[700px] bg-gray-900 border border-gray-700 rounded-3xl overflow-hidden shadow-2xl shadow-black/50 flex flex-col"
                         style={{backgroundColor: '#111827'}}
                     >

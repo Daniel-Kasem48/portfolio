@@ -151,7 +151,7 @@ const WorkExperiences: FC = () => {
                         <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-ping"></div>
                     </div>
 
-                    <div className="space-y-8 sm:space-y-12 lg:space-y-16 xl:space-y-20">
+                    <div className="space-y-8 sm:space-y-12 lg:space-y-8 xl:space-y-10">
                         {workExperiencesData.map((experience, index) => {
                             const isEven = index % 2 === 0;
                             const isHovered = hoveredIndex === index;
@@ -289,7 +289,7 @@ const WorkExperiences: FC = () => {
                                     
                                     {/* Creative Connecting Elements */}
                                     {index < workExperiencesData.length - 1 && (
-                                        <div className="flex justify-center mt-6 mb-6 sm:mt-8 sm:mb-8 lg:mt-12 lg:mb-12">
+                                        <div className="flex justify-center mt-6 mb-6 sm:mt-8 sm:mb-8 lg:mt-6 lg:mb-6 xl:mt-8 xl:mb-8">
                                             <div className="relative">
                                                 <div className="w-0.5 sm:w-1 h-8 sm:h-12 bg-gradient-to-b from-cyan-500 via-blue-500 to-purple-500 rounded-full animate-pulse"></div>
                                                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 sm:w-4 sm:h-4 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-bounce"></div>

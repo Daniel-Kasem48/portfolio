@@ -339,3 +339,32 @@
 .animate-wave {
     animation: wave 10s linear infinite;
 }
+
+@keyframes borderGradientMove {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
+  }
+}
+.animate-border-gradient {
+  animation: borderGradientMove 4s linear infinite;
+}
+@keyframes glowGradientMove {
+  0% {
+    opacity: 0.4;
+    filter: blur(8px) hue-rotate(0deg);
+  }
+  50% {
+    opacity: 0.7;
+    filter: blur(16px) hue-rotate(180deg);
+  }
+  100% {
+    opacity: 0.4;
+    filter: blur(8px) hue-rotate(360deg);
+  }
+}
+.animate-glow-gradient {
+  animation: glowGradientMove 3s ease-in-out infinite;
+}

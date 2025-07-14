@@ -95,8 +95,8 @@ const ChallengesAndOptimizations: FC = () => {
                         <span className="bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent animate-gradient-x">
                             Top Challenges & Optimizations
                         </span>
-                    </h2>
-                    
+                </h2>
+
                     {/* Gradient Underline - Matching Skills */}
                     <div className="w-48 h-1 bg-gradient-to-r from-cyan-400 to-purple-600 mx-auto rounded-full animate-pulse"></div>
                     
@@ -114,9 +114,9 @@ const ChallengesAndOptimizations: FC = () => {
                             
                             {/* Card Content */}
                             <div className="relative">
-                                <ChallengeAndOptimizationItem
-                                    challengeAndOptimizationItem={p}
-                                />
+                        <ChallengeAndOptimizationItem
+                            challengeAndOptimizationItem={p}
+                        />
                             </div>
                         </div>
                     ))}

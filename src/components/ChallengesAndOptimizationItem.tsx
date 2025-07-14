@@ -68,7 +68,7 @@ const ChallengeAndOptimizationItem: FC<{
                         <span className="bg-gradient-to-r from-cyan-300 to-blue-300 bg-clip-text text-transparent">Solution</span>
                     </h4>
                     <p className="text-gray-300 leading-relaxed">{challengeAndOptimizationItem.solution}</p>
-                </div>
+            </div>
                 
                 <div className="relative p-4 rounded-xl bg-gradient-to-r from-blue-500/10 to-transparent border-l-4 border-blue-500/50 hover:border-blue-500 transition-all duration-300">
                     <h4 className="font-semibold flex items-center gap-2 text-blue-300 mb-2">
@@ -76,7 +76,7 @@ const ChallengeAndOptimizationItem: FC<{
                         <span className="bg-gradient-to-r from-blue-300 to-purple-300 bg-clip-text text-transparent">Results</span>
                     </h4>
                     <p className="text-gray-300 leading-relaxed">{challengeAndOptimizationItem.results}</p>
-                </div>
+            </div>
             </div>
             
             {/* Decorative Element - Matching Skills */}
