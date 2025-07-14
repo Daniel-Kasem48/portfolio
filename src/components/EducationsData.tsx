@@ -254,12 +254,6 @@ const Educations: FC = () => {
                                             </div>
                                         </motion.div>
 
-                                        {/* Timeline Dot */}
-                                        <div className="relative z-10">
-                                            <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg border-4 border-gray-900 group-hover:scale-110 transition-transform duration-300">
-                                                <div className="w-4 h-4 bg-white rounded-full"></div>
-                                            </div>
-                                        </div>
 
                                         {/* Spacer for mobile */}
                                         <div className="flex-1 md:hidden"></div>

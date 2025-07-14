@@ -1,58 +1,7 @@
-import {FC, useEffect, useRef} from "react";
-import { motion } from "framer-motion";
+import {FC, useEffect, useRef, useState} from "react";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
 import React from "react";
 import WorkExperience, {IWorkExperience} from "./WorkExperience";
-
-// 3D Background Component
-const ThreeDBackground: FC = () => {
-    return (
-        <div className="absolute inset-0 overflow-hidden">
-            {/* Animated Grid Pattern */}
-            <div className="absolute inset-0 opacity-10">
-                <div className="absolute inset-0" style={{
-                    backgroundImage: `
-                        linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px)
-                    `,
-                    backgroundSize: '50px 50px',
-                    animation: 'gridMove 20s linear infinite'
-                }}></div>
-            </div>
-            
-            {/* Floating Geometric Shapes */}
-            {[...Array(8)].map((_, i) => (
-                <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 bg-cyan-400/30 rounded-full"
-                    animate={{
-                        x: [0, 100, 0],
-                        y: [0, -100, 0],
-                        scale: [1, 1.5, 1],
-                        opacity: [0.3, 0.6, 0.3],
-                    }}
-                    transition={{
-                        duration: Math.random() * 15 + 15,
-                        repeat: Infinity,
-                        delay: Math.random() * 10,
-                    }}
-                    style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                    }}
-                />
-            ))}
-            
-            {/* CSS Animation for Grid */}
-            <style>{`
-                @keyframes gridMove {
-                    0% { transform: translate(0, 0); }
-                    100% { transform: translate(50px, 50px); }
-                }
-            `}</style>
-        </div>
-    );
-};
 
 export const workExperiencesData: IWorkExperience[] = [
     {
@@ -151,25 +100,15 @@ export const workExperiencesData: IWorkExperience[] = [
 const WorkExperiences: FC = () => {
     const experiencesRef = useRef(null);
     const track = usePostHogEvent();
-    const [isVisible, setIsVisible] = React.useState(false);
-
-    // Animation state
-    const [animations, setAnimations] = React.useState(workExperiencesData.map(() => ({ opacity: 0, x: -50, scale: 0.9 })));
+    const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
     useEffect(() => {
-        if (window.innerWidth < 640) {
-            setIsVisible(true);
-            setAnimations(workExperiencesData.map(() => ({ opacity: 1, x: 0, scale: 1 })));
-            return;
-        }
         const ref = experiencesRef.current;
         if (!ref) return;
         let hasTracked = false;
         const observer = new window.IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting && !hasTracked) {
-                    setIsVisible(true);
-                    setAnimations(workExperiencesData.map(() => ({ opacity: 1, x: 0, scale: 1 })));
                     track('section_viewed', { section: 'Work Experience' });
                     hasTracked = true;
                 }
@@ -180,162 +119,134 @@ const WorkExperiences: FC = () => {
         return () => observer.disconnect();
     }, [track]);
 
-    const containerVariants = {
-        hidden: { opacity: 0 },
-        visible: {
-            opacity: 1,
-            transition: {
-                staggerChildren: 0.2,
-                delayChildren: 0.3
-            }
-        }
-    };
-
-    const itemVariants = {
-        hidden: { 
-            opacity: 0, 
-            y: 50, 
-            x: -30,
-            scale: 0.9
-        },
-        visible: { 
-            opacity: 1, 
-            y: 0, 
-            x: 0,
-            scale: 1,
-            transition: {
-                type: "spring",
-                stiffness: 100,
-                damping: 15
-            }
-        }
-    };
-
     return (
-        <section id="work-experiences" ref={experiencesRef} className="py-20 sm:py-16 md:py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden">
-            {/* Enhanced Background Effects */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(236,72,153,0.1),transparent_50%)]"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(6,182,212,0.1),transparent_50%)]"></div>
-            
-            {/* 3D Background Effect */}
-            <ThreeDBackground />
-            
-            <div className="container mx-auto px-4 sm:px-6 relative z-10">
-                {/* Enhanced Section Title */}
-                <motion.div 
-                    className="text-center mb-16"
-                    initial={{ opacity: 0, y: -30 }}
-                    animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                    <div className="flex items-center justify-center mb-4">
-                        <svg className="w-8 h-8 text-cyan-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                        </svg>
-                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                        Work Experience
-                        </h2>
-                        <svg className="w-8 h-8 text-purple-400 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                        </svg>
-                    </div>
-                    <p className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto">
-                        Professional journey through innovative companies and challenging projects
-                    </p>
-                    <motion.div 
-                        className="mt-4 flex items-center justify-center"
-                        initial={{ opacity: 0 }}
-                        animate={isVisible ? { opacity: 1 } : {}}
-                        transition={{ delay: 0.5 }}
-                    >
-                        <svg className="w-5 h-5 text-green-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <polyline points="22,12 18,12 15,21 9,3 6,12 2,12"></polyline>
-                        </svg>
-                        <span className="text-green-400 text-sm font-medium">Growing expertise</span>
-                    </motion.div>
-                </motion.div>
+        <section id="work-experiences" ref={experiencesRef} className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden">
+            {/* Animated Background Elements */}
+            <div className="absolute inset-0 overflow-hidden">
+                <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute top-40 right-20 w-24 h-24 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-2xl animate-bounce"></div>
+                <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-gradient-to-r from-green-500/10 to-emerald-500/10 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute bottom-40 right-1/3 w-28 h-28 bg-gradient-to-r from-orange-500/15 to-red-500/15 rounded-full blur-2xl animate-bounce"></div>
+            </div>
 
-                {/* Enhanced Timeline */}
-                <motion.div 
-                    className="relative"
-                    variants={containerVariants}
-                    initial="hidden"
-                    animate={isVisible ? "visible" : "hidden"}
-                >
-                    {/* Timeline Line */}
-                    <div className="absolute left-8 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-cyan-500 via-blue-500 to-purple-500 transform -translate-x-1/2 hidden md:block"></div>
-                    
-                    <div className="space-y-12">
+            <div className="container mx-auto px-4 sm:px-6 relative z-10">
+                {/* Creative Section Title */}
+                <div className="text-center mb-12 sm:mb-16 lg:mb-20">
+                    <div className="relative inline-block">
+                        <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black bg-gradient-to-r from-cyan-400 via-blue-500 via-purple-600 to-pink-500 bg-clip-text text-transparent mb-4 sm:mb-6 animate-pulse">
+                            Work Journey
+                        </h2>
+                        <div className="absolute -top-2 -right-2 sm:-top-4 sm:-right-4 w-4 h-4 sm:w-8 sm:h-8 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-bounce"></div>
+                        <div className="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 w-3 h-3 sm:w-6 sm:h-6 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse"></div>
+                    </div>
+                    <p className="text-gray-400 text-base sm:text-xl lg:text-2xl max-w-3xl mx-auto leading-relaxed px-4">
+                        My professional adventure through <span className="text-cyan-400 font-semibold">innovative companies</span> and <span className="text-purple-400 font-semibold">challenging projects</span>
+                    </p>
+                </div>
+
+                {/* Creative Timeline */}
+                <div className="relative">
+                    {/* Floating Timeline Elements */}
+                    <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-transparent via-cyan-500 via-blue-500 via-purple-500 to-transparent transform -translate-x-1/2 hidden lg:block">
+                        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-ping"></div>
+                        <div className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-ping"></div>
+                    </div>
+
+                    <div className="space-y-8 sm:space-y-12 lg:space-y-16 xl:space-y-20">
                         {workExperiencesData.map((experience, index) => {
                             const isEven = index % 2 === 0;
+                            const isHovered = hoveredIndex === index;
                             
                             return (
-                                <motion.div
-                                    key={index}
-                                    initial={{ opacity: 0, x: -50, scale: 0.9 }}
-                                    animate={animations[index]}
-                                    transition={{ duration: 0.6, delay: index * 0.1 }}
+                                <div 
+                                    key={index} 
                                     className="group relative"
+                                    onMouseEnter={() => setHoveredIndex(index)}
+                                    onMouseLeave={() => setHoveredIndex(null)}
                                 >
-                                    {/* Timeline Item */}
-                                    <div className={`flex items-center ${isEven ? 'md:flex-row' : 'md:flex-row-reverse'} flex-col gap-8`}>
+                                    {/* Creative Card Container */}
+                                    <div className={`relative transform transition-all duration-700 ease-out ${
+                                        isEven 
+                                            ? 'lg:translate-x-0 hover:lg:translate-x-4' 
+                                            : 'lg:translate-x-0 hover:lg:-translate-x-4'
+                                    } ${isHovered ? 'scale-105' : 'scale-100'}`}>
                                         
-                                        {/* Content Card */}
-                                        <motion.div 
-                                            className={`flex-1 ${isEven ? 'md:text-right' : 'md:text-left'} text-center md:text-left`}
-                                            variants={itemVariants}
-                                        >
-                                            <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 overflow-hidden transition-all duration-500 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/20 group-hover:scale-105">
+                                        {/* Main Card */}
+                                        <div className={`relative ${
+                                            isEven ? 'lg:mr-auto lg:max-w-2xl' : 'lg:ml-auto lg:max-w-2xl'
+                                        }`}>
+                                            {/* Card Background with Creative Effects */}
+                                            <div className="relative bg-gradient-to-br from-gray-800/80 via-gray-900/90 to-black/95 backdrop-blur-xl border border-gray-700/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl overflow-hidden group-hover:border-cyan-500/50 transition-all duration-500">
                                                 
-                                                {/* Gradient Overlay */}
-                                                <div 
-                                                    className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-500 rounded-2xl"
-                                                    style={{ background: experience.gradient }}
-                                                ></div>
-                                                
-                                                {/* Header */}
-                                                <div className="relative z-10 mb-4">
-                                                    <div className="flex items-center justify-between mb-3">
-                                                        <div className="flex items-center gap-3">
-                                                            <div className="p-2 rounded-lg bg-gray-700/50 backdrop-blur-sm border border-gray-600/50 group-hover:border-cyan-500/50 transition-all duration-300">
-                                                                <svg className="w-5 h-5 text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                    <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
-                                                                    <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
-                                                                </svg>
+                                                {/* Animated Background Pattern */}
+                                                <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500">
+                                                    <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-cyan-500/20 via-transparent to-purple-500/20 animate-pulse"></div>
+                                                </div>
+
+                                                {/* Floating Elements */}
+                                                <div className="absolute top-4 right-4 w-3 h-3 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-bounce"></div>
+                                                <div className="absolute bottom-4 left-4 w-2 h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse"></div>
+
+                                                {/* Header Section */}
+                                                <div className="relative z-10 mb-4 sm:mb-6">
+                                                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+                                                        <div className="flex items-center gap-3 sm:gap-4">
+                                                            {/* Creative Company Icon */}
+                                                            <div className="relative">
+                                                                <div className="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-gray-700/50 to-gray-800/50 rounded-xl sm:rounded-2xl border border-gray-600/50 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                                                                    <div className="w-6 h-6 sm:w-8 sm:h-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-lg flex items-center justify-center">
+                                                                        <svg className="w-3 h-3 sm:w-4 sm:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                            <path d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2-2v2m8 0V6a2 2 0 012 2v6a2 2 0 01-2 2H8a2 2 0 01-2-2V8a2 2 0 012-2V6"></path>
+                                                                        </svg>
+                                                                    </div>
+                                                                </div>
+                                                                {/* Floating dots around icon */}
+                                                                <div className="absolute -top-1 -right-1 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-cyan-400 rounded-full animate-ping"></div>
+                                                                <div className="absolute -bottom-1 -left-1 w-1 h-1 sm:w-1.5 sm:h-1.5 bg-purple-400 rounded-full animate-pulse"></div>
                                                             </div>
-                                                            <div>
-                                                                <h3 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors duration-300">
+                                                            
+                                                            <div className="flex-1 min-w-0">
+                                                                <h3 className="text-lg sm:text-xl lg:text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300 truncate">
                                                                     {experience.company}
                                                                 </h3>
-                                                                <p className="text-gray-400 text-sm">{experience.location}</p>
+                                                                <p className="text-gray-400 text-xs sm:text-sm flex items-center gap-1 sm:gap-2">
+                                                                    <svg className="w-2.5 h-2.5 sm:w-3 sm:h-3 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                                                                        <path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                                                    </svg>
+                                                                    <span className="truncate">{experience.location}</span>
+                                                                </p>
                                                             </div>
                                                         </div>
-                                                        <div className="text-right">
-                                                            <div className="flex items-center gap-2 text-cyan-400 text-sm font-medium">
-                                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                                                                    <line x1="16" y1="2" x2="16" y2="6"></line>
-                                                                    <line x1="8" y1="2" x2="8" y2="6"></line>
-                                                                    <line x1="3" y1="10" x2="21" y2="10"></line>
-                                                                </svg>
-                                                                {experience.date}
+                                                        
+                                                        {/* Creative Date Badge */}
+                                                        <div className="relative self-start">
+                                                            <div className="bg-gradient-to-r from-gray-700/50 to-gray-800/50 border border-gray-600/50 rounded-xl sm:rounded-2xl px-3 py-1.5 sm:px-4 sm:py-2 group-hover:border-cyan-500/50 transition-colors duration-300">
+                                                                <div className="flex items-center gap-1.5 sm:gap-2 text-cyan-400 text-xs sm:text-sm font-medium">
+                                                                    <svg className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                                                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                                                                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                                                                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                                                                    </svg>
+                                                                    <span className="whitespace-nowrap">{experience.date}</span>
+                                                                </div>
                                                             </div>
+                                                            {/* Floating element on date */}
+                                                            <div className="absolute -top-0.5 -right-0.5 sm:-top-1 sm:-right-1 w-1 h-1 sm:w-1.5 sm:h-1.5 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-pulse"></div>
                                                         </div>
                                                     </div>
                                                     
-                                                    <h4 className="text-lg font-semibold text-cyan-400 mb-3">
+                                                    <h4 className="text-lg sm:text-xl font-semibold bg-gradient-to-r from-cyan-400 to-purple-400 bg-clip-text text-transparent mb-3 sm:mb-4">
                                                         {experience.title}
                                                     </h4>
                                                     
-                                                    {/* Highlights */}
-                                                    <div className="flex flex-wrap gap-2 mb-4">
+                                                    {/* Creative Highlights */}
+                                                    <div className="flex flex-wrap gap-1.5 sm:gap-2 mb-4 sm:mb-6">
                                                         {experience.highlights?.map((highlight, highlightIndex) => (
                                                             <span
                                                                 key={highlightIndex}
-                                                                className="inline-block px-3 py-1 bg-gray-700/50 backdrop-blur-sm border border-gray-600/50 rounded-full text-xs text-gray-300 hover:text-white hover:bg-gray-600/70 hover:border-cyan-500/50 transition-all duration-300"
+                                                                className="inline-block px-2.5 py-1 sm:px-4 sm:py-2 bg-gradient-to-r from-gray-700/50 to-gray-800/50 border border-gray-600/50 rounded-full text-xs sm:text-sm text-gray-300 group-hover:border-cyan-500/30 transition-all duration-300 hover:scale-105 hover:bg-gradient-to-r hover:from-cyan-500/20 hover:to-blue-500/20"
                                                             >
                                                                 {highlight}
                                                             </span>
@@ -343,58 +254,54 @@ const WorkExperiences: FC = () => {
                                                     </div>
                                                 </div>
 
-                                                {/* Description */}
+                                                {/* Description with Creative Bullets */}
                                                 <div className="relative z-10">
-                                                    <ul className="space-y-2 text-sm text-gray-300">
+                                                    <ul className="space-y-2 sm:space-y-3 text-xs sm:text-sm text-gray-300">
                                                         {experience.description.map((desc, descIndex) => (
-                                                            <li key={descIndex} className="flex items-start gap-2">
-                                                                <svg className="w-3 h-3 text-cyan-400 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                                    <polyline points="12,5 19,12 12,19"></polyline>
-                                                                </svg>
-                                                                <span>{desc}</span>
+                                                            <li key={descIndex} className="flex items-start gap-2 sm:gap-3 group/item">
+                                                                <div className="relative flex-shrink-0 mt-1">
+                                                                    <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full group-hover/item:scale-150 transition-transform duration-300"></div>
+                                                                    <div className="absolute inset-0 w-1.5 h-1.5 sm:w-2 sm:h-2 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-ping opacity-50"></div>
+                                                                </div>
+                                                                <span className="leading-relaxed group-hover/item:text-white transition-colors duration-300">{desc}</span>
                                                             </li>
                                                         ))}
                                                     </ul>
                                                 </div>
-
-                                                {/* Hover Effect Glow */}
-                                                <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-                                            </div>
-                                        </motion.div>
-
-                                        {/* Timeline Dot */}
-                                        <div className="relative z-10">
-                                            <div className="w-16 h-16 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-full flex items-center justify-center shadow-lg border-4 border-gray-900 group-hover:scale-110 transition-transform duration-300">
-                                                <div className="w-4 h-4 bg-white rounded-full"></div>
                                             </div>
                                         </div>
 
-                                        {/* Spacer for mobile */}
-                                        <div className="flex-1 md:hidden"></div>
+                                        {/* Creative Timeline Dot - Desktop */}
+                                        <div className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 hidden lg:block">
+                                            <div className="relative">
+                                                <div className="w-12 h-12 lg:w-16 lg:h-16 bg-gradient-to-br from-gray-900 to-black rounded-full flex items-center justify-center shadow-2xl border-4 border-gray-800 group-hover:border-cyan-500/50 transition-colors duration-500">
+                                                    <div className="w-6 h-6 lg:w-8 lg:h-8 bg-gradient-to-br from-cyan-500 via-blue-500 to-purple-500 rounded-full flex items-center justify-center animate-pulse">
+                                                        <div className="w-2 h-2 lg:w-3 lg:h-3 bg-white rounded-full"></div>
+                                                    </div>
+                                                </div>
+                                                {/* Floating elements around dot */}
+                                                <div className="absolute -top-1.5 -right-1.5 lg:-top-2 lg:-right-2 w-2 h-2 lg:w-3 lg:h-3 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-bounce"></div>
+                                                <div className="absolute -bottom-1.5 -left-1.5 lg:-bottom-2 lg:-left-2 w-1.5 h-1.5 lg:w-2 lg:h-2 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full animate-pulse"></div>
+                                            </div>
+                                        </div>
+
+                                  
                                     </div>
-                                </motion.div>
+                                    
+                                    {/* Creative Connecting Elements */}
+                                    {index < workExperiencesData.length - 1 && (
+                                        <div className="flex justify-center mt-6 mb-6 sm:mt-8 sm:mb-8 lg:mt-12 lg:mb-12">
+                                            <div className="relative">
+                                                <div className="w-0.5 sm:w-1 h-8 sm:h-12 bg-gradient-to-b from-cyan-500 via-blue-500 to-purple-500 rounded-full animate-pulse"></div>
+                                                <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-2 h-2 sm:w-4 sm:h-4 bg-gradient-to-r from-cyan-400 to-blue-500 rounded-full animate-bounce"></div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
                             );
                         })}
+                    </div>
                 </div>
-                </motion.div>
-
-                {/* Enhanced Bottom CTA */}
-                <motion.div 
-                    className="text-center mt-16"
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={isVisible ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.8, delay: 1 }}
-                >
-                    <div className="inline-flex items-center px-6 py-3 bg-gradient-to-r from-cyan-500/10 to-purple-500/10 backdrop-blur-sm border border-cyan-500/20 rounded-full">
-                        <svg className="w-5 h-5 text-cyan-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5z"></path>
-                        </svg>
-                        <p className="text-gray-300 text-lg font-medium">
-                            Continuously growing and taking on new challenges
-                        </p>
-                </div>
-                </motion.div>
             </div>
         </section>
     );

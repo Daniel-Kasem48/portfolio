@@ -1,4 +1,4 @@
-import {FC, useRef, useEffect} from "react";
+import {FC, useRef, useEffect, useState, useMemo, useCallback} from "react";
 // import {
 //     AndroidPlain, DotnetcorePlain,
 //     FlutterPlain, GraphqlPlain,
@@ -11,6 +11,7 @@ import {FC, useRef, useEffect} from "react";
 
 import Project, {IProject} from "./Project.tsx";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
+import { motion, AnimatePresence } from "framer-motion";
 
 // import {REPO_PREFIX} from "../../vite.config.ts";
 
@@ -18,7 +19,8 @@ export function getImage(path: string) {
     return path
 }
 
-export const projectsData: IProject[] = [
+// Add categories to projects
+export const projectsDataWithCategories: IProject[] = [
     {
         title: "Spantrek",
         link: "https://cloud.spantrek.com",
@@ -47,6 +49,8 @@ export const projectsData: IProject[] = [
         ],
         stack: ["nest", "graphql", "flutter", "react", "socketio"],
         description: "The platform boasted a rich set of features, including immersive 3D and 2D maps, real-\ntime reservation boards, visitor management, and dynamic digital signage.",
+        category: "Web Platform",
+        priority: 1
     },
     {
         title: "Number5 | AI Calls & Texts",
@@ -66,16 +70,19 @@ export const projectsData: IProject[] = [
 - Call routing and management
 - SMS/MMS capabilities
 - Customizable UI (Dark/Light mode)
-- Instant activation and scalable solutions for business and personal use.`
+- Instant activation and scalable solutions for business and personal use.`,
+        category: "Mobile App",
+        priority: 1
     },
     {
-        images: [getImage("number5/1.jpg"), getImage("number5/2.jpg")], // adjust image paths if needed
+        images: [getImage("number5/1.jpg"), getImage("number5/2.jpg")],
         title: "Number5.ai",
-        stack: ["Node.js", "python", "zapier", "Automation Flows"], // replace/add tech you actually used
+        stack: ["Node.js", "python", "zapier", "Automation Flows"],
         link: "https://www.number5.ai",
         description: `Built intelligent automation flows for lead engagement at Number5.ai, an AI business assistant platform. 
 Designed sequences combining calls, SMS, and scheduled delays (e.g., Call ➔ SMS ➔ Wait ➔ Call again) to boost lead conversion rates. 
-Integrated multi-channel communication APIs and optimized flow reliability and scalability.`
+Integrated multi-channel communication APIs and optimized flow reliability and scalability.`,
+        category: "AI Platform"
     },
     {
         title: "Ordro",
@@ -94,6 +101,7 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         ],
         stack: ["express", "react", "flutter","meilisearch"],
         description: "a comprehensive solution\nencompassing promotions, shipping, and stock management functionalities. The platform is designed to\nstreamline business-to-business transactions, providing a seamless experience for users involved in buying and\nselling products.",
+        category: "E-commerce"
     },
     {
         title: "Vitastir",
@@ -122,17 +130,19 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
             getImage("vita/16.png"),
             getImage("vita/17.png"),
             getImage("vita/18.png"),
-        ]
+        ],
+        category: "E-commerce"
     },
     {
         title: "Citizen Meds",
         link: "https://citizenmeds.com",
         images: [
-            getImage("citizen-meds/1.png"), // Add actual image paths if you have them
+            getImage("citizen-meds/1.png"),
             getImage("citizen-meds/2.png"),
         ],
-        stack: ["react", "node", "express"], // Adjust based on actual tech stack used
+        stack: ["react", "node", "express"],
         description: "A telehealth platform providing physician-approved injection home kits for weight management and men's health. Features include seamless ordering, overnight shipping, and a comprehensive solution for GLP-1 weight loss treatments like Semaglutide and Tirzepatide.",
+        category: "Healthcare"
     },
     {
         title: "Talkalize",
@@ -140,6 +150,7 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         images: [],
         stack: ["laravel", "react"],
         description: "Talkalize is an AI-powered automated response system that enhances customer engagement on WhatsApp. It enables instant replies, seamless bookings, and personalized interactions. Businesses can improve brand awareness, drive sales, and foster customer loyalty by streamlining communication and re-engaging with prospects effectively.",
+        category: "AI Platform"
     },
     {
         title: "MemoNas Chat App",
@@ -150,16 +161,18 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         stack: ["node", "socketio", "express", "android", "swift"],
         link: "https://play.google.com/store/apps/details?id=com.yawar.memo&hl=en&gl=US",
         description: "a dynamic platform enabling one-to-one and\ngroup chats, calls, video calls, and channels. Leveraged Node.js (Express), Socket.io, and Redis for real-time\ncommunication.",
+        category: "Mobile App"
     },
     {
         title: "Ismail Furniture",
         link: "https://www.ismailfurniture.com",
         images: [
-            getImage("ismailfurniture/1.png"), // Replace with actual image path or direct URL if available
-            getImage("ismailfurniture/2.png"), // Replace with actual image path or direct URL if available
+            getImage("ismailfurniture/1.png"),
+            getImage("ismailfurniture/2.png"),
         ],
         stack: ["Next.js", "React", "E-commerce", "Laravel","Elasticsearch"],
-        description: `Developed a modern, responsive furniture e-commerce platform for Ismail Furniture. The site features product galleries, category browsing, blog integration, and a seamless shopping experience. Implemented best practices for SEO and performance, ensuring a fast and discoverable site.`
+        description: `Developed a modern, responsive furniture e-commerce platform for Ismail Furniture. The site features product galleries, category browsing, blog integration, and a seamless shopping experience. Implemented best practices for SEO and performance, ensuring a fast and discoverable site.`,
+        category: "E-commerce"
     },
     {
         title: "Qahwah",
@@ -172,6 +185,7 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         stack: ["laravel", "flutter"],
         link: "https://play.google.com/store/apps/details?id=com.divcodes.qahwahhouse&hl=en",
         description: "Qahwah House, an eCommerce platform dedicated to providing an exceptional coffee experience with premium organic coffee grown in Yemen.• Implemented features to enhance user experience and strea",
+        category: "E-commerce"
     },
     {
         title: "Albustan Store",
@@ -183,6 +197,7 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         ],
         stack: ["express", "flutter"],
         description: "A modern e-commerce platform for mobile phones, electronics, and accessories, offering secure payments, real-time inventory, and personalized shopping with advanced search, order tracking, and multi-vendor support.",
+        category: "E-commerce"
     },
     {
         title: "StayOn",
@@ -194,6 +209,7 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         link: "https://play.google.com/store/apps/details?id=co.flexsol.stayon&hl=en_US&gl=US",
         stack: ["laravel", "flutter"],
         description: "The Stay On application is an application of electronic courses in an academic and high-level manner, for\n professors and lecturers known in their field.",
+        category: "Education"
     },
     {
         title: "Ha55a Exchange",
@@ -207,6 +223,7 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         link: "https://ha55a.exchange",
         stack: ["laravel"],
         description: "Spearheaded the development of a secure and efficient Iraqi money\n exchange website using Laravel PHP. This project enabled users to conveniently exchange currency while\n      ensuring the utmost security.",
+        category: "Finance"
     },
     {
         title: "LPCenter",
@@ -216,7 +233,8 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         ],
         link: "https://www.lpcentre.com",
         description: "London Premier Centre is a UK leading training provider based in London and specialises in international short courses.\"",
-        stack: ["laravel"]
+        stack: ["laravel"],
+        category: "Education"
     },
     {
         title: "Ha55a Store",
@@ -226,7 +244,8 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         images: [
             getImage("ha55a/1.png"),
             getImage("ha55a/2.png"),
-        ]
+        ],
+        category: "E-commerce"
     },
     {
         title: "Oneshop (Medusa-based E-commerce)",
@@ -243,7 +262,8 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
 - AI Content Generation for automated product descriptions
 - Storefront Content Plugin for dynamic content management
 
-The platform offers a modern, scalable, and extensible solution for online retail businesses.`
+The platform offers a modern, scalable, and extensible solution for online retail businesses.`,
+        category: "E-commerce"
     },
     {
         title: "Ordro Point Of Sale System",
@@ -251,6 +271,7 @@ The platform offers a modern, scalable, and extensible solution for online retai
         images: [],
         stack: ["express", "react", "flutter"],
         description: "A Point of Sale system designed for retailers, seamlessly integrated with the Ordro ecosystem. It features real-time inventory tracking, multi-store management, sales analytics, and seamless payment processing to enhance retail operations.",
+        category: "Retail"
     },
 ]
 
@@ -269,9 +290,91 @@ The platform offers a modern, scalable, and extensible solution for online retai
 // }
 
 const Projects: FC = () => {
-
-    const projectsRef = useRef(null);
+    const projectsRef = useRef<HTMLElement>(null);
     const track = usePostHogEvent();
+    const [selectedCategory, setSelectedCategory] = useState<string>("All");
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [sortBy, setSortBy] = useState<string>("priority");
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    
+    // Get unique categories
+    const categories = useMemo(() => {
+        const cats = ["All", ...new Set(projectsDataWithCategories.map(p => p.category).filter((cat): cat is string => Boolean(cat)))];
+        return cats;
+    }, []);
+    
+    // Debounced search query
+    const [debouncedSearchQuery, setDebouncedSearchQuery] = useState<string>("");
+    
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setDebouncedSearchQuery(searchQuery);
+        }, 300);
+        
+        return () => clearTimeout(timer);
+    }, [searchQuery]);
+    
+    // Filter and sort projects
+    const filteredProjects = useMemo(() => {
+        setIsLoading(true);
+        
+        let filtered = projectsDataWithCategories;
+        
+        // Filter by category
+        if (selectedCategory !== "All") {
+            filtered = filtered.filter(p => p.category === selectedCategory);
+        }
+        
+        // Filter by search query
+        if (debouncedSearchQuery.trim()) {
+            const query = debouncedSearchQuery.toLowerCase();
+            filtered = filtered.filter(p => 
+                p.title.toLowerCase().includes(query) ||
+                p.description.toLowerCase().includes(query) ||
+                p.stack.some(tech => tech.toLowerCase().includes(query))
+            );
+        }
+        
+        // Sort projects
+        filtered.sort((a, b) => {
+            switch (sortBy) {
+                case "priority":
+                    const aPriority = a.priority || 999;
+                    const bPriority = b.priority || 999;
+                    return aPriority - bPriority;
+                case "name":
+                    return a.title.localeCompare(b.title);
+                case "category":
+                    return (a.category || "").localeCompare(b.category || "");
+                case "newest":
+                    // For now, we'll use priority as a proxy for "newest"
+                    // You can add a date field to projects if needed
+                    return (b.priority || 999) - (a.priority || 999);
+                default:
+                    return 0;
+            }
+        });
+        
+        // Simulate loading delay for better UX
+        setTimeout(() => setIsLoading(false), 100);
+        
+        return filtered;
+    }, [selectedCategory, debouncedSearchQuery, sortBy]);
+    
+    // Memoized event handlers
+    const handleCategoryChange = useCallback((category: string) => {
+        setSelectedCategory(category);
+        track('project_filter_clicked', { category });
+    }, [track]);
+    
+    const handleProjectClick = useCallback((projectTitle: string) => {
+        track('project_clicked', { project: projectTitle });
+    }, [track]);
+    
+    const handleProjectFocus = useCallback((projectTitle: string) => {
+        track('project_focused', { project: projectTitle });
+    }, [track]);
+    
     // Section view tracking
     useEffect(() => {
         const ref = projectsRef.current;
@@ -292,49 +395,254 @@ const Projects: FC = () => {
 
     return (
         <section id="projects" ref={projectsRef}
-                 className="  pt-[80px]     container mx-auto"
+                 className="pt-20 pb-16 px-4 min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900"
         >
-            <div className=" ">
-                <p
-                    className="
-          text-4xl md:text-6xl lg:text-8xl
-
-    w-full
-    text-center
-    font-extrabold
-    mb-10
-    text-navy-blue
-    bg-black
-    py-4
-    border-b-4
-    tracking-tight
-    shadow-lg
-  "
+            <div className="container mx-auto max-w-7xl">
+                {/* Modern Header */}
+                <motion.div 
+                    className="text-center mb-16"
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8 }}
+                >
+                    <motion.h2
+                        className="text-5xl md:text-7xl lg:text-8xl font-black mb-6
+                            bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 
+                            bg-clip-text text-transparent
+                            tracking-tight leading-tight"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
                 >
                     Projects
-                </p>
+                    </motion.h2>
+                    <motion.p
+                        className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                    >
+                        Explore my portfolio of innovative projects, from mobile apps to web platforms, 
+                        showcasing cutting-edge technologies and creative solutions.
+                    </motion.p>
+                </motion.div>
 
+                {/* Search and Sort Controls */}
+                <motion.div 
+                    className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.5 }}
+                >
+                    {/* Search Bar */}
+                    {/* <div className="relative w-full max-w-md">
+                        <input
+                            type="text"
+                            placeholder="Search projects, technologies..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="w-full px-6 py-4 bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 
+                                rounded-xl text-white placeholder-gray-400 focus:outline-none 
+                                focus:border-cyan-500/50 focus:ring-2 focus:ring-cyan-500/20
+                                transition-all duration-300 pr-12"
+                        />
+                        <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
+                            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                            </svg>
+                        </div>
+                    </div> */}
+
+                    {/* Sort Dropdown */}
+                    {/* <div className="relative">
+                        <select
+                            value={sortBy}
+                            onChange={(e) => setSortBy(e.target.value)}
+                            className="px-6 py-4 bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 
+                                rounded-xl text-white focus:outline-none focus:border-cyan-500/50 
+                                focus:ring-2 focus:ring-cyan-500/20 transition-all duration-300
+                                appearance-none pr-10 cursor-pointer"
+                        >
+                            <option value="priority">Sort by Priority</option>
+                            <option value="name">Sort by Name</option>
+                            <option value="category">Sort by Category</option>
+                            <option value="newest">Sort by Newest</option>
+                        </select>
+                        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none">
+                            <svg className="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </div>
+                    </div> */}
+
+                    {/* Clear Filters Button */}
+                    {(selectedCategory !== "All" || searchQuery.trim() || sortBy !== "priority") && (
+                        <motion.button
+                            onClick={() => {
+                                setSelectedCategory("All");
+                                setSearchQuery("");
+                                setSortBy("priority");
+                                track('filters_cleared');
+                            }}
+                            className="px-6 py-4 bg-red-600/20 backdrop-blur-sm border border-red-500/30 
+                                rounded-xl text-red-300 hover:bg-red-600/30 hover:text-red-200 
+                                transition-all duration-300 flex items-center gap-2"
+                            initial={{ opacity: 0, scale: 0.9 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                        >
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                            Clear Filters
+                        </motion.button>
+                    )}
+                </motion.div>
+
+                {/* Active Filters Display */}
+                {(selectedCategory !== "All" || searchQuery.trim()) && (
+                    <motion.div 
+                        className="flex flex-wrap justify-center gap-2 mb-8"
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        transition={{ duration: 0.3 }}
+                    >
+                        {selectedCategory !== "All" && (
+                            <span className="px-3 py-1 bg-cyan-500/20 backdrop-blur-sm border border-cyan-500/30 
+                                rounded-full text-sm text-cyan-300">
+                                Category: {selectedCategory}
+                            </span>
+                        )}
+                        {searchQuery.trim() && (
+                            <span className="px-3 py-1 bg-blue-500/20 backdrop-blur-sm border border-blue-500/30 
+                                rounded-full text-sm text-blue-300">
+                                Search: "{searchQuery}"
+                            </span>
+                        )}
+                    </motion.div>
+                )}
+
+                {/* Category Filter */}
+                <motion.div 
+                    className="flex flex-wrap justify-center gap-3 mb-12"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.6 }}
+                >
+                    {categories.map((category, index) => {
+                        const projectCount = category === "All" 
+                            ? projectsDataWithCategories.length 
+                            : projectsDataWithCategories.filter(p => p.category === category).length;
+                        
+                        return (
+                            <motion.button
+                                key={category}
+                                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 relative
+                                    ${selectedCategory === category 
+                                        ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/25' 
+                                        : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white border border-gray-700/50'
+                                    }`}
+                                onClick={() => handleCategoryChange(category)}
+                                initial={{ opacity: 0, scale: 0.9 }}
+                                whileInView={{ opacity: 1, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
+                            >
+                                <span>{category}</span>
+                                <span className={`ml-2 px-2 py-1 rounded-full text-xs font-bold
+                                    ${selectedCategory === category 
+                                        ? 'bg-white/20 text-white' 
+                                        : 'bg-gray-700/50 text-gray-400'
+                                    }`}>
+                                    {projectCount}
+                                </span>
+                            </motion.button>
+                        );
+                    })}
+                </motion.div>
+
+                {/* Project Statistics */}
+                <motion.div 
+                    className="flex flex-wrap justify-center gap-6 mb-8 text-center"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, delay: 0.8 }}
+                >
+                    <div className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl px-6 py-4">
+                        <div className="text-3xl font-bold text-cyan-400 mb-1">
+                            {projectsDataWithCategories.length}
+                        </div>
+                        <div className="text-sm text-gray-400">Total Projects</div>
+                    </div>
+                    <div className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl px-6 py-4">
+                        <div className="text-3xl font-bold text-blue-400 mb-1">
+                            {new Set(projectsDataWithCategories.map(p => p.category).filter(Boolean)).size}
+                        </div>
+                        <div className="text-sm text-gray-400">Categories</div>
+                    </div>
+                    <div className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl px-6 py-4">
+                        <div className="text-3xl font-bold text-purple-400 mb-1">
+                            {projectsDataWithCategories.filter(p => p.priority === 1).length}
+                        </div>
+                        <div className="text-sm text-gray-400">Featured</div>
+                    </div>
+                </motion.div>
+
+                {/* Projects Grid */}
+                <AnimatePresence mode="wait">
+                    <motion.div
+                        key={selectedCategory}
+                        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+                        initial={{ opacity: 0, y: 50 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -50 }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        {isLoading ? (
+                            <div className="col-span-full text-center py-16">
+                                <div className="inline-flex items-center gap-3">
+                                    <div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
+                                    <p className="text-xl text-gray-400">Loading projects...</p>
+                                </div>
             </div>
-            <div
-                className="
-          grid
-          lg:grid-cols-3
-          grid-cols-1
-          gap-5
-          w-full
-          mx-auto
-          container
-        "
-            >
-                {projectsData.map((p, index) => {
+                        ) : filteredProjects.length === 0 ? (
+                            <motion.div 
+                                className="col-span-full text-center py-16"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                transition={{ duration: 0.6 }}
+                            >
+                                <div className="max-w-md mx-auto">
+                                    <svg className="w-16 h-16 text-gray-600 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M9.172 16.172a4 4 0 015.656 0M9 12h6m-6-4h6m2 5.291A7.962 7.962 0 0112 15c-2.34 0-4.47-.881-6.08-2.33" />
+                                    </svg>
+                                    <p className="text-xl text-gray-400 mb-2">No projects found</p>
+                                    <p className="text-sm text-gray-500">Try adjusting your search or filter criteria</p>
+                                </div>
+                            </motion.div>
+                        ) : (
+                            filteredProjects.map((p, index) => {
                     let hoverTimeout: NodeJS.Timeout | null = null;
                     return (
-                        <div
-                            key={index}
-                            onClick={() => track('project_clicked', { project: p.title })}
+                                    <motion.div
+                                        key={`${p.title}-${selectedCategory}`}
+                                        initial={{ opacity: 0, y: 30 }}
+                                        animate={{ opacity: 1, y: 0 }}
+                                        transition={{ duration: 0.6, delay: index * 0.1 }}
+                                        onClick={() => handleProjectClick(p.title)}
                             onMouseEnter={() => {
                                 hoverTimeout = setTimeout(() => {
-                                    track('project_focused', { project: p.title });
+                                                handleProjectFocus(p.title);
                                 }, 1000);
                             }}
                             onMouseLeave={() => {
@@ -342,34 +650,47 @@ const Projects: FC = () => {
                             }}
                         >
                             <Project project={p}/>
-                        </div>
-                    );
-                })}
+                                    </motion.div>
+                                );
+                            })
+                        )}
+                    </motion.div>
+                </AnimatePresence>
+
+                {/* Results Count */}
+                {!isLoading && filteredProjects.length > 0 && (
+                    <motion.div 
+                        className="text-center mt-12"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ duration: 0.6, delay: 0.3 }}
+                    >
+                        <p className="text-gray-400">
+                            Showing {filteredProjects.length} of {projectsDataWithCategories.length} projects
+                        </p>
+                    </motion.div>
+                )}
+
+                {/* Back to Top Button */}
+                <motion.button
+                    onClick={() => {
+                        projectsRef.current?.scrollIntoView({ behavior: 'smooth' });
+                        track('back_to_top_clicked');
+                    }}
+                    className="fixed bottom-8 right-8 z-50 p-4 bg-gradient-to-r from-cyan-500 to-blue-500 
+                        rounded-full shadow-lg shadow-cyan-500/25 hover:shadow-xl hover:shadow-cyan-500/40 
+                        transition-all duration-300 hover:scale-110"
+                    initial={{ opacity: 0, scale: 0 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                >
+                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                    </svg>
+                </motion.button>
             </div>
         </section>
     );
-
-    // return (<section id="projects">
-    //     <div>
-    //         <p className="text-4xl  w-full
-    // mx-auto
-    // container  font-extrabold mb-10">Projects </p>
-    //     </div>
-    //     <div className="
-    // grid
-    // md:grid-cols-3
-    // sm:grid-cols-1
-    // gap-5
-    // w-full
-    // mx-auto
-    // container
-    // ">
-    //         {
-    //             projects.map((p, index) => {
-    //                 return (<Project key={index} project={p}/>)
-    //             })
-    //         }
-    //     </div>
-    // </section>)
 }
 export default Projects

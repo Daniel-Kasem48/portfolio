@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from "framer-motion";
 import {getImage} from "./Projects.tsx";
 
 export interface ICertificate {
@@ -83,10 +84,8 @@ export const certificates: ICertificate[] = [
         date: 'July 6, 2025',
         imageUrl: 'https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~LFRGQD2EIQ2W/CERTIFICATE_LANDING_PAGE~LFRGQD2EIQ2W.jpeg',
         link: 'https://www.coursera.org/account/accomplishments/verify/LFRGQD2EIQ2W',
-        details: '7 hours (approximately) | Grade Achieved: 100% | Coursera certifies successful completion.'
     },
 ];
-
 
 interface CertificateCardProps {
     certificate: ICertificate;
@@ -94,34 +93,102 @@ interface CertificateCardProps {
 
 const CertificateCard: React.FC<CertificateCardProps> = ({certificate}) => {
     return (
-        <div className="bg-[black] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-            <img
+        <motion.div 
+            className="group relative rounded-2xl transition-all duration-500
+                flex-col text-white border border-gray-700/50
+                bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl
+                hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/20
+                transform hover:-translate-y-2 overflow-hidden
+                h-[400px] w-full flex flex-col"
+            whileHover={{ scale: 1.02 }}
+            transition={{ duration: 0.3 }}
+        >
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+
+            <div className="relative z-10">
+                {/* Certificate Image */}
+                <div className="relative overflow-hidden rounded-t-2xl">
+                    <motion.img
                 src={certificate.imageUrl}
                 alt={certificate.title}
-                className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-                <h3 className="text-xl font-semibold mb-2">{certificate.title}</h3>
-                <p className="text-gray-600 mb-1">Issued by: {certificate.issuer}</p>
-                <p className="text-gray-600 mb-4">Date: {certificate.date}</p>
+                        className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-110"
+                        loading="lazy"
+                    />
+                    {/* Image Overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                    
+                    {/* Certificate Badge */}
+                    <div className="absolute top-4 right-4">
+                        <div className="flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-sm border border-green-500/30 rounded-full">
+                            <svg className="w-4 h-4 text-green-300 fill-current" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+                            </svg>
+                            <span className="text-sm text-green-200 font-semibold tracking-wide">Verified</span>
+                        </div>
+                    </div>
+                </div>
 
-                {Boolean(certificate.link)
-                    &&
-                    (
-                        <a
+                {/* Certificate Details */}
+                <div className="p-6 flex-1 flex flex-col">
+                    {/* Title */}
+                    <h3 className="text-xl font-extrabold tracking-tight leading-tight mb-4
+                        text-transparent bg-clip-text bg-gradient-to-r from-white via-cyan-100 to-blue-200
+                        group-hover:from-cyan-200 group-hover:via-white group-hover:to-cyan-100 
+                        transition-all duration-500">
+                        {certificate.title}
+                    </h3>
+
+                    {/* Issuer */}
+                    <div className="flex items-center gap-2 mb-3">
+                        <svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                        <p className="text-gray-300 text-sm font-medium">{certificate.issuer}</p>
+                    </div>
+
+                    {/* Date */}
+                    <div className="flex items-center gap-2 mb-4">
+                        <svg className="w-4 h-4 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        <p className="text-gray-400 text-sm">{certificate.date}</p>
+                    </div>
+
+                    {/* Details */}
+                    {certificate.details && (
+                        <div className="mb-4">
+                            <p className="text-gray-400 text-xs leading-relaxed font-light tracking-wide">
+                                {certificate.details}
+                            </p>
+                        </div>
+                    )}
+
+                    {/* View Certificate Button */}
+                    {Boolean(certificate.link) && (
+                        <motion.a
                             href={certificate.link}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-500 hover:underline "
+                            className="inline-flex items-center justify-center gap-2 px-4 py-2
+                                rounded-lg bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500
+                                transition-all duration-300 text-white font-semibold tracking-wide shadow-lg shadow-cyan-500/25
+                                hover:shadow-xl hover:shadow-cyan-500/40 hover:scale-105 mt-auto"
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
                         >
-                            View Certificate
-                        </a>
-
-                    )
-                }
-
+                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                            <span className="text-sm">View Certificate</span>
+                        </motion.a>
+                    )}
+                </div>
             </div>
-        </div>
+
+            {/* Corner Accent */}
+            <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+        </motion.div>
     );
 };
 

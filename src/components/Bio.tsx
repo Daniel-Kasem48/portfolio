@@ -9,11 +9,108 @@ import Stackoverflow from "../assets/icons/StackOverFlow";
 import Typewriter from "typewriter-effect";
 import GitHub from "../assets/icons/Github.tsx";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
+import { motion } from "framer-motion";
+import { getImage } from "./Projects.tsx";
 
 export const bioText = `
 Full-Stack Developer with a backend focus, experienced in Laravel, Node.js (Express, NestJS), and Golang. Proficient in React.js for building responsive UIs. Skilled in integrating AI solutions, including RAG (Retrieval-Augmented Generation) and building autonomous bots. Strong experience with both SQL and NoSQL databases. Passionate about clean architecture, scalable APIs, real-time systems, and continuous learning.
 `;
 
+// 3D Background Component
+const ThreeDBackground: FC = () => {
+    return (
+        <div className="absolute inset-0 overflow-hidden">
+            {/* Animated Grid Pattern */}
+            <div className="absolute inset-0 opacity-10">
+                <div className="absolute inset-0" style={{
+                    backgroundImage: `
+                        linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px),
+                        linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '50px 50px',
+                    animation: 'gridMove 20s linear infinite'
+                }}></div>
+            </div>
+            
+            {/* Floating Geometric Shapes */}
+            {[...Array(8)].map((_, i) => (
+                <motion.div
+                    key={i}
+                    className="absolute w-2 h-2 bg-cyan-400/30 rounded-full"
+                    animate={{
+                        x: [0, 100, 0],
+                        y: [0, -100, 0],
+                        scale: [1, 1.5, 1],
+                        opacity: [0.3, 0.6, 0.3],
+                    }}
+                    transition={{
+                        duration: Math.random() * 15 + 15,
+                        repeat: Infinity,
+                        delay: Math.random() * 10,
+                    }}
+                    style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                    }}
+                />
+            ))}
+            
+            {/* Additional Floating Elements */}
+            {[...Array(4)].map((_, i) => (
+                <motion.div
+                    key={`large-${i}`}
+                    className="absolute w-1 h-1 bg-purple-400/20 rounded-full"
+                    animate={{
+                        x: [0, -50, 0],
+                        y: [0, 50, 0],
+                        scale: [1, 2, 1],
+                        opacity: [0.2, 0.4, 0.2],
+                    }}
+                    transition={{
+                        duration: Math.random() * 20 + 20,
+                        repeat: Infinity,
+                        delay: Math.random() * 15,
+                    }}
+                    style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                    }}
+                />
+            ))}
+            
+            {/* Glowing Orbs */}
+            {[...Array(3)].map((_, i) => (
+                <motion.div
+                    key={`glow-${i}`}
+                    className="absolute w-3 h-3 bg-gradient-to-r from-cyan-400/40 to-purple-400/40 rounded-full blur-sm"
+                    animate={{
+                        x: [0, 30, 0],
+                        y: [0, -30, 0],
+                        scale: [1, 1.3, 1],
+                        opacity: [0.1, 0.3, 0.1],
+                    }}
+                    transition={{
+                        duration: Math.random() * 25 + 25,
+                        repeat: Infinity,
+                        delay: Math.random() * 20,
+                    }}
+                    style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                    }}
+                />
+            ))}
+            
+            {/* CSS Animation for Grid */}
+            <style>{`
+                @keyframes gridMove {
+                    0% { transform: translate(0, 0); }
+                    100% { transform: translate(50px, 50px); }
+                }
+            `}</style>
+        </div>
+    );
+};
 
 const Bio: FC = () => {
 
@@ -96,41 +193,89 @@ const Bio: FC = () => {
     ];
 
     return (
-        <section id="aboutme" ref={aboutRef} className="py-20 sm:py-30 md:py-20 min-h-screen bg-gradient-to-b from-gray-900 to-black text-white">
-            <div className="container mx-auto px-2 sm:px-4">
-                {/* Section Subtitle */}
+        <section id="aboutme" ref={aboutRef} className="py-20 sm:py-16 md:py-20 min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden">
+            {/* Enhanced Background Effects */}
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(236,72,153,0.1),transparent_50%)]"></div>
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(6,182,212,0.1),transparent_50%)]"></div>
             
-                {/* Section Title */}
-                <div className="container mx-auto">
-                    <p
-                        className="
-          text-3xl sm:text-4xl md:text-6xl lg:text-8xl
-    w-full
-    mt-6
-    text-center
-    font-extrabold
-    mb-6
-    text-navy-blue
-    bg-black
-    border-b-4
-    border-navy-blue
-    tracking-tight
-    shadow-lg
-  "
-                    >
+            {/* 3D Background Effect */}
+            <ThreeDBackground />
+            
+            <div className="container mx-auto px-4 sm:px-6 relative z-10">
+                {/* Enhanced Section Title */}
+                <motion.div 
+                    className="text-center mb-16"
+                    initial={{ opacity: 0, y: -30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                >
+                    <div className="flex items-center justify-center mb-4">
+                        <svg className="w-8 h-8 text-cyan-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                         About Me
-                    </p>
+                        </h2>
+                        <svg className="w-8 h-8 text-purple-400 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
                 </div>
-                <div className="flex flex-col lg:flex-row gap-8 md:gap-12 mt-8">
+                    <p className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto">
+                        Full-Stack Developer passionate about building scalable solutions and innovative applications
+                    </p>
+                    <motion.div 
+                        className="mt-4 flex items-center justify-center"
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.6 }}
+                    >
+                        <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full"></div>
+                    </motion.div>
+                </motion.div>
+
+                <div className="flex flex-col lg:flex-row gap-8 md:gap-12">
                     {/* Contact Info */}
-                    <div className="w-full lg:w-1/3 flex flex-col items-center mb-8 lg:mb-0">
-                        <div className="bg-gray-800 bg-opacity-80 backdrop-blur-md p-4 sm:p-6 rounded-xl md:border border-cyan-700 shadow-lg w-full max-w-xs sm:max-w-sm md:max-w-xs">
-                            {/* Profile Image Placeholder */}
+                    <motion.div 
+                        className="w-full lg:w-1/3 flex flex-col items-center mb-8 lg:mb-0"
+                        initial={{ opacity: 0, x: -50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                    >
+                        <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-gray-700/50 shadow-2xl w-full max-w-xs sm:max-w-sm md:max-w-xs relative group hover:border-cyan-500/50 transition-all duration-500">
+                            {/* Gradient Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+                            
+                            <div className="relative z-10">
+                                {/* Profile Header */}
+                                <div className="text-center mb-6">
+                                    {/* <div className="w-32 h-32 rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 p-1 group-hover:scale-105 group-hover:shadow-cyan-400/30 transition-transform duration-300 shadow-lg">
+  <img
+    src={getImage("/my_image.webp")}
+    alt="Daniel Kasem portrait"
+    className="w-full h-full object-cover rounded-full border-4 border-gray-800 shadow-xl transition-transform duration-300 group-hover:scale-105 group-hover:shadow-cyan-400/40"
+    loading="lazy"
+    draggable="false"
+  />
+</div> */}
+                                    <h3 className="text-xl font-bold text-white mb-2">Daniel Kasem</h3>
+                                    <p className="text-cyan-400 text-sm font-medium">Full-Stack Developer</p>
+                                </div>
                             
                             <div className="space-y-4">
                                 {contactItems.map((item, index) => (
-                                    <div key={index} className="flex items-center gap-4 group">
-                                        <span className="text-cyan-400 group-hover:text-cyan-300 transition-colors duration-300">
+                                        <motion.div 
+                                            key={index} 
+                                            className="flex items-center gap-4 group/item"
+                                            initial={{ opacity: 0, x: -20 }}
+                                            whileInView={{ opacity: 1, x: 0 }}
+                                            viewport={{ once: true }}
+                                            transition={{ duration: 0.5, delay: index * 0.1 }}
+                                        >
+                                            <span className="text-cyan-400 group-hover/item:text-cyan-300 transition-colors duration-300">
                                             {item.icon}
                                         </span>
                                         {item.href ? (
@@ -138,47 +283,117 @@ const Bio: FC = () => {
                                                 href={item.href}
                                                 target={item.target || "_self"}
                                                 rel={item.target ? "noopener noreferrer" : undefined}
-                                                className={`text-gray-300 group-hover:text-white transition-colors duration-300 text-sm sm:text-base ${item.className || ''}`}
+                                                    className={`text-gray-300 group-hover/item:text-white transition-colors duration-300 text-sm sm:text-base hover:underline ${item.className || ''}`}
                                             >
                                                 {item.text}
                                             </a>
                                         ) : (
-                                            <span className={`text-gray-300 text-sm sm:text-base ${item.className || ''}`}>{item.text}</span>
+                                                <span className={`text-gray-300 text-sm sm:text-base ${item.className || ''}`}>{item.text}</span>
                                         )}
+                                        </motion.div>
+                                    ))}
                                     </div>
-                                ))}
                             </div>
+                            
+                            {/* Corner Accent */}
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
-                    </div>
+                    </motion.div>
+                    
                     {/* Divider for mobile */}
-                    <div className="block lg:hidden my-2 sm:my-8">
-                        <div className="h-1 w-2/3 mx-auto bg-gradient-to-r from-cyan-400 to-blue-600 rounded-full opacity-60"></div>
+                    <div className="block lg:hidden my-8">
+                        <div className="h-1 w-2/3 mx-auto bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full opacity-60"></div>
                     </div>
+                    
                     {/* Bio Text */}
-                    <div className="w-full lg:w-2/3 flex flex-col justify-center items-center">
-                        <div className="bg-gradient-to-br from-gray-800 to-gray-900 bg-opacity-90 p-2 sm:p-8 rounded-2xl border-l-8 border-cyan-500 shadow-2xl w-full max-w-2xl relative">
+                    <motion.div 
+                        className="w-full lg:w-2/3 flex flex-col justify-center items-center"
+                        initial={{ opacity: 0, x: 50 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.8, delay: 0.4 }}
+                    >
+                        <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-gray-700/50 shadow-2xl w-full max-w-2xl relative group hover:border-cyan-500/50 transition-all duration-500">
+                            {/* Gradient Overlay */}
+                            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
+                            
+                            <div className="relative z-10">
+                                {/* Profile Header */}
+                                <div className="flex flex-col items-center mb-8">
+                                    <div className="relative w-56 h-64 flex items-center justify-center">
+                                        {/* Blurred Gradient Glow */}
+                                        <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-cyan-400 via-purple-500 to-blue-500 blur-2xl opacity-60 scale-110"></div>
+                                        <img
+                                            src={getImage("/my_image.webp")}
+                                            alt="Daniel Kasem portrait"
+                                            className="w-full h-full object-cover rounded-2xl shadow-2xl"
+                                            loading="lazy"
+                                            draggable="false"
+                                        />
+                                    </div>
+                                </div>
+                                {/* Bio Header */}
+                                <div className="flex items-center gap-3 mb-6">
+                                    <svg className="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                    </svg>
+                                    <h3 className="text-2xl font-bold text-white">Professional Summary</h3>
+                                </div>
+                                
                             {/* Bio Text with Typewriter */}
                             <div className="hidden md:block">
                                 <Typewriter
                                     options={{
                                         cursor: "_",
-                                        delay: 20, // Faster typing speed
+                                            delay: 20,
                                         deleteSpeed: 30,
                                     }}
                                     onInit={(typewriter) => {
                                         typewriter
                                             .typeString(
-                                                `<blockquote class=\"text-base md:text-lg lg:text-2xl leading-relaxed text-gray-400 font-light pl-6 rounded-bl-2xl\">${bioText}</blockquote>`
+                                                    `<blockquote class="text-lg leading-relaxed text-gray-300 font-light pl-6 border-l-4 border-cyan-500 rounded-bl-2xl">${bioText}</blockquote>`
                                             )
                                             .start();
                                     }}
                                 />
                             </div>
-                            <blockquote className="block md:hidden text-base leading-relaxed text-gray-400 font-light pl-6 rounded-bl-2xl">
+                                <blockquote className="block md:hidden text-lg leading-relaxed text-gray-300 font-light pl-6 border-l-4 border-cyan-500 rounded-bl-2xl">
                                 {bioText}
                             </blockquote>
+                                
+                                {/* Key Highlights */}
+                                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    <div className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg">
+                                        <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-gray-300 text-sm">Backend Focus</span>
+                                    </div>
+                                    <div className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg">
+                                        <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-gray-300 text-sm">AI Integration</span>
+                                    </div>
+                                    <div className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg">
+                                        <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-gray-300 text-sm">Clean Architecture</span>
+                                    </div>
+                                    <div className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg">
+                                        <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-gray-300 text-sm">Real-time Systems</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            {/* Corner Accent */}
+                            <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
-                    </div>
+                    </motion.div>
                 </div>
             </div>
         </section>

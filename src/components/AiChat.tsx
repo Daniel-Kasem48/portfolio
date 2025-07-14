@@ -1,15 +1,14 @@
-import {FC, useState, useEffect} from "react";
+import {FC, useState, useEffect, useRef} from "react";
 import {IEducation} from "./Education.tsx";
 import {IWorkExperience} from "./WorkExperience.tsx";
 import {IProject} from "./Project.tsx";
 import {certificates, ICertificate} from "./ICertificate.tsx";
 import {educationsData} from "./EducationsData.tsx";
-import {projectsData} from "./Projects.tsx";
+import {projectsDataWithCategories as projectsData} from "./Projects.tsx";
 import {workExperiencesData} from "./WorkExperiences.tsx";
 import {techSkillsData} from "./TechSkill.tsx";
 import ReactMarkdown from "react-markdown";
 import {bioText} from "./Bio.tsx";
-
 
 export interface SkillCategory {
     category: string;
@@ -22,6 +21,13 @@ interface PortfolioData {
     workExperiences: IWorkExperience[];
     certificates: ICertificate[];
     skills: SkillCategory[];
+}
+
+interface ChatMessage {
+    id: string;
+    type: 'user' | 'ai';
+    content: string;
+    timestamp: Date;
 }
 
 const jsonToPortfolioString = (data: PortfolioData): string => {
@@ -77,10 +83,13 @@ const jsonToPortfolioString = (data: PortfolioData): string => {
 };
 
 const AIChat: FC = () => {
-    const [isOpen, setIsOpen] = useState(false); // Start closed, but we'll open it with useEffect
+    const [isOpen, setIsOpen] = useState(false);
     const [input, setInput] = useState("");
-    const [messages, setMessages] = useState<string[]>([]);
+    const [messages, setMessages] = useState<ChatMessage[]>([]);
     const [isLoading, setIsLoading] = useState(false);
+    const [isTyping, setIsTyping] = useState(false);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const portfolioData = jsonToPortfolioString({
         certificates: certificates,
@@ -90,14 +99,26 @@ const AIChat: FC = () => {
         skills: techSkillsData,
     });
 
+    // Auto-scroll to bottom when new messages arrive
+    useEffect(() => {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    }, [messages]);
+
+    // Focus input when modal opens
+    useEffect(() => {
+        if (isOpen) {
+            setTimeout(() => inputRef.current?.focus(), 300);
+        }
+    }, [isOpen]);
+
     // Open chat modal only once per day
     useEffect(() => {
         const lastSeen = localStorage.getItem('aiChatPopupSeen');
         const now = Date.now();
-        const oneDay = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+        const oneDay = 24 * 60 * 60 * 1000;
         
         if (!lastSeen || (now - parseInt(lastSeen)) > oneDay) {
-            setIsOpen(true); // Automatically opens the modal once per day
+            setIsOpen(true);
             localStorage.setItem('aiChatPopupSeen', now.toString());
         }
     }, []);
@@ -110,14 +131,24 @@ const AIChat: FC = () => {
     const TELEGRAM_CHAT_ID = "1002448649276"
     const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
+    const addMessage = (type: 'user' | 'ai', content: string) => {
+        const newMessage: ChatMessage = {
+            id: Date.now().toString(),
+            type,
+            content,
+            timestamp: new Date()
+        };
+        setMessages(prev => [...prev, newMessage]);
+    };
 
-    // Placeholder for handleSubmit (assuming you'll add API logic here)
     const handleSubmit = async (e: React.FormEvent, question: string = input) => {
         e.preventDefault();
-        if (!question.trim()) return;
+        if (!question.trim() || isLoading) return;
 
-        setMessages([...messages, `You: ${question}`]);
+        addMessage('user', question);
         setIsLoading(true);
+        setIsTyping(true);
+        setInput("");
 
         const prompt = `
 You are Daniel Kasem, and the following is your complete portfolio data:
@@ -154,9 +185,14 @@ Recruiter's Question: ${question}
 
             const data = await response.json();
             const aiResponse = data.candidates[0]?.content?.parts[0]?.text || "Sorry, I couldn't process that.";
-            setMessages((prev) => [...prev, `AI: ${aiResponse}`]);
+            
+            // Simulate typing effect
+            setTimeout(() => {
+                setIsTyping(false);
+                addMessage('ai', aiResponse);
+            }, 1000);
 
-            // Send to Telegram directly
+            // Send to Telegram
             fetch(TELEGRAM_API_URL, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"},
@@ -169,437 +205,280 @@ Recruiter's Question: ${question}
 
         } catch (error) {
             console.error("Error fetching Gemini API:", error);
-            setMessages((prev) => [...prev, "AI: Oops, something went wrong. Try again!"]);
+            setIsTyping(false);
+            addMessage('ai', "Oops, something went wrong. Try again!");
         } finally {
             setIsLoading(false);
-            setInput("");
         }
     };
 
+    const formatTime = (date: Date) => {
+        return date.toLocaleTimeString('en-US', { 
+            hour: '2-digit', 
+            minute: '2-digit',
+            hour12: true 
+        });
+    };
 
     return (
         <>
-            {/* Floating Button */}
-            <div className="relative group">
+            {/* Modern Floating Button */}
+            <div className="fixed bottom-6 right-6 z-50 group">
                 <button
                     onClick={() => setIsOpen(true)}
                     className="
-                        fixed bottom-4 right-4 sm:bottom-8 sm:right-8
-                        bg-gradient-to-br
-                        from-navy-blue to-black
-                        text-cyan-400
-                        p-4
-                        sm:p-5 rounded-full
-                        shadow-xl
-                        shadow-cyan-500/30
-                        hover:bg-gradient-to-br
-                        hover:from-cyan-400
-                        hover:to-navy-blue
-                        hover:text-white hover:shadow-cyan-500/60
-                        transition-all duration-300 ease-in-out
+                        relative w-16 h-16 sm:w-20 sm:h-20
+                        bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600
+                        text-white rounded-full
+                        shadow-2xl shadow-cyan-500/30
+                        hover:shadow-cyan-500/50
+                        transition-all duration-500 ease-out
                         transform hover:scale-110 hover:rotate-12
-                        z-40
+                        group-hover:shadow-cyan-500/60
+                        backdrop-blur-sm border border-cyan-400/20
                     "
                 >
+                    {/* Animated background */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-purple-500/20 rounded-full animate-pulse"></div>
+                    
+                    {/* Icon */}
+                    <div className="relative z-10 flex items-center justify-center">
                     <svg
-                        className="w-6 h-6 sm:w-8 sm:h-8"
+                            className="w-8 h-8 sm:w-10 sm:h-10"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
-                        xmlns="http://www.w3.org/2000/svg"
                     >
                         <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth="2"
-                            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5v-2a2 2 0 012-2h10a2 2 0 012 2v2h-4m-6 0v2a2 2 0 002 2h2a2 2 0 002-2v-2"
+                                d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"
                         />
                     </svg>
+                    </div>
+
+                    {/* Pulse effect */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 animate-ping opacity-20"></div>
                 </button>
+
+                {/* Tooltip */}
                 <div className="
-                    absolute bottom-16 right-0
-                    hidden group-hover:block
-                    bg-cyan-900 text-white
-                    text-sm rounded-lg
-                    px-3 py-2
-                    shadow-lg
-                    z-50
-                    whitespace-nowrap
+                    absolute bottom-full right-0 mb-3
+                    bg-gradient-to-r from-gray-900/95 to-gray-800/95
+                    backdrop-blur-xl border border-gray-700/50
+                    text-white text-sm rounded-2xl
+                    px-4 py-3 shadow-2xl
+                    opacity-0 group-hover:opacity-100
+                    transform translate-y-2 group-hover:translate-y-0
+                    transition-all duration-300 ease-out
+                    whitespace-nowrap z-50
                 ">
-                    Chat with me about my portfolio!
+                    <div className="flex items-center gap-2">
+                        <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                        Chat with my AI about my portfolio!
+                    </div>
+                    <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900/95"></div>
                 </div>
             </div>
 
-            {/* Chat Modal - Opens on Load */}
+            {/* Modern Chat Modal */}
             {isOpen && (
-                <div className="
-                    fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50
-                    animate-fadeIn
-                ">
-                    <div
-                        className="
-                            bg-[gray]
-                            w-full max-w-[90vw] sm:max-w-2xl mx-2 sm:mx-6 p-4 sm:p-8
-                            rounded-2xl sm:rounded-3xl
-                            border border-navy-blue
-                            shadow-2xl shadow-cyan-500/20
-                            relative
-                            overflow-hidden
-                            transform animate-bounceIn
-                        "
+                <div 
+                    className="fixed inset-0 z-[9999] bg-black flex items-center justify-center p-4"
+                    style={{backgroundColor: 'black'}}
+                >
+                    <div 
+                        className="relative w-full max-w-4xl h-[80vh] max-h-[700px] bg-gray-900 border border-gray-700 rounded-3xl overflow-hidden shadow-2xl shadow-black/50 flex flex-col"
+                        style={{backgroundColor: '#111827'}}
                     >
-                        <div className="
-                            absolute top-0 left-0 w-full h-1 sm:h-2
-                            bg-gradient-to-r from-cyan-400 via-blue-600 to-transparent
-                        "/>
+                        {/* Removed animated background elements for solid background */}
+
+                        {/* Header */}
+                        <div 
+                            className="relative z-10 bg-gray-800 border-b border-gray-700 p-6"
+                            style={{backgroundColor: '#1f2937'}}
+                        >
+                            <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-4">
+                                    <div className="relative">
+                                        <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
+                                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                                            </svg>
+                                        </div>
+                                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                                    </div>
+                                    <div>
+                                        <h3 className="text-xl font-bold text-white">
+                                            AI Portfolio Assistant
+                                        </h3>
+                                        <p className="text-gray-400 text-sm">
+                                            Ask me anything about my skills, projects, or experience!
+                                        </p>
+                                    </div>
+                                </div>
+                                
                         <button
                             onClick={() => setIsOpen(false)}
                             className="
-                                absolute top-3 right-3 sm:top-6 sm:right-6
-                                text-cyan-400 hover:text-cyan-300
-                                transition-colors duration-300
+                                        p-2 rounded-xl bg-gray-800/50 hover:bg-gray-700/50
+                                        text-gray-400 hover:text-white
+                                        transition-all duration-300
+                                        hover:scale-110
                             "
                         >
-                            <svg
-                                className="w-6 h-6 sm:w-8 sm:h-8"
-                                fill="none"
-                                stroke="currentColor"
-                                viewBox="0 0 24 24"
-                                xmlns="http://www.w3.org/2000/svg"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    strokeWidth="2"
-                                    d="M6 18L18 6M6 6l12 12"
-                                />
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
                             </svg>
                         </button>
-                        <h3 className="
-                            text-lg sm:text-2xl font-bold text-white mb-4 sm:mb-8
-                            bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600
-                        ">
-                            Hey! Chat with My AI About My Portfolio
-                        </h3>
-                        <div className="
-                            h-[60vh] sm:h-96 overflow-y-auto text-gray-200 mb-4 sm:mb-8
-                            scrollbar-thin scrollbar-thumb-cyan-400 scrollbar-track-gray-800
-                            scrollbar-rounded scrollbar-hover:scrollbar-thumb-cyan-300
-                        ">
+                            </div>
+                        </div>
+
+                        {/* Messages Container */}
+                        <div className="relative z-10 flex-1 overflow-hidden flex flex-col">
+                            <div className="flex-1 overflow-y-auto p-6 space-y-4">
                             {messages.length === 0 && (
-                                <div className="text-center text-cyan-300 py-4">
-                                    Ask me anything about my skills, projects, or experience!
+                                    <div className="text-center py-12">
+                                        <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                            <svg className="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                                            </svg>
+                                        </div>
+                                        <h4 className="text-lg font-semibold text-white mb-2">
+                                            Welcome to my AI Assistant!
+                                        </h4>
+                                        <p className="text-gray-400 max-w-md mx-auto">
+                                            I'm here to answer questions about my portfolio, skills, projects, and experience. Feel free to ask anything!
+                                        </p>
                                 </div>
                             )}
-                            {messages.map((msg, idx) => (
+
+                                {messages.map((message) => (
                                 <div
-                                    key={idx}
-                                    className={`py-2 px-3 sm:py-3 sm:px-5 mb-2 sm:mb-3 rounded-lg sm:rounded-xl ${
-                                        msg.startsWith("You:")
-                                            ? "bg-navy-blue text-cyan-300 text-right ml-auto mr-1 sm:mr-2"
-                                            : "bg-gray-600 text-gray-200"
-                                    } max-w-[85%] w-fit shadow-sm`}
-                                >
-                                    {msg.startsWith("AI:") ? (
-                                        <ReactMarkdown children={msg.replace("AI: ", "")}/>
-                                    ) : (
-                                        msg
-                                    )}
+                                        key={message.id}
+                                        className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
+                                    >
+                                        <div 
+                                            className={`
+                                                max-w-[80%] lg:max-w-[70%]
+                                                ${message.type === 'user' 
+                                                    ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white' 
+                                                    : 'bg-gray-800 border border-gray-600 text-gray-200'
+                                                }
+                                                rounded-2xl px-4 py-3 shadow-lg
+                                                animate-fadeInUp
+                                            `}
+                                            style={message.type === 'ai' ? {backgroundColor: '#1f2937'} : {}}
+                                        >
+                                            <div className="prose prose-invert max-w-none">
+                                                {message.type === 'ai' ? (
+                                                    <ReactMarkdown>{message.content}</ReactMarkdown>
+                                                ) : (
+                                                    <p className="text-sm sm:text-base">{message.content}</p>
+                                                )}
+                                            </div>
+                                            <div className={`
+                                                text-xs mt-2 opacity-70
+                                                ${message.type === 'user' ? 'text-cyan-100' : 'text-gray-400'}
+                                            `}>
+                                                {formatTime(message.timestamp)}
+                                            </div>
+                                        </div>
                                 </div>
                             ))}
-                            {isLoading && (
-                                <div className="
-                                    py-2 px-3 sm:py-3 sm:px-5 mb-2 sm:mb-3 rounded-lg sm:rounded-xl
-                                    bg-gray-600 text-gray-200 max-w-[85%] w-fit shadow-sm animate-pulse
-                                ">
-                                    AI: Thinking...
+
+                                {/* Typing indicator */}
+                                {isTyping && (
+                                    <div className="flex justify-start">
+                                        <div 
+                                            className="bg-gray-800 border border-gray-600 rounded-2xl px-4 py-3 shadow-lg"
+                                            style={{backgroundColor: '#1f2937'}}
+                                        >
+                                            <div className="flex items-center gap-2">
+                                                <div className="flex space-x-1">
+                                                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
+                                                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                                                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                                                </div>
+                                                <span className="text-gray-400 text-sm">AI is typing...</span>
+                                            </div>
+                                        </div>
                                 </div>
                             )}
+
+                                <div ref={messagesEndRef} />
+                            </div>
                         </div>
-                        <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 sm:gap-4">
+
+                        {/* Input Area */}
+                        <div 
+                            className="relative z-10 bg-gray-800 border-t border-gray-700 p-6"
+                            style={{backgroundColor: '#1f2937'}}
+                        >
+                            <form onSubmit={handleSubmit} className="flex gap-3">
+                                <div className="flex-1 relative">
                             <input
+                                        ref={inputRef}
                                 type="text"
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 className="
-                                    flex-1 bg-gray-600 text-[black] p-3 sm:p-4
-                                    rounded-lg sm:rounded-xl border border-navy-blue
-                                    focus:outline-none focus:ring-2 focus:ring-cyan-400
-                                    placeholder-gray-300 transition-all duration-300
-                                    text-base sm:text-lg
+                                            w-full bg-gray-800
+                                            text-white placeholder-gray-400
+                                            px-4 py-3 pr-12
+                                            rounded-2xl border border-gray-600
+                                            focus:outline-none focus:ring-2 focus:ring-cyan-500
+                                            focus:border-cyan-500
+                                            transition-all duration-300
+                                            text-sm sm:text-base
                                 "
-                                placeholder="Ask about my skills..."
-                                disabled={isLoading}
+                                style={{backgroundColor: '#1f2937'}}
+                                        placeholder="Ask about my skills, projects, or experience..."
+                                        disabled={isLoading || isTyping}
                             />
+                                    <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
+                                        <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                                    </div>
+                                </div>
+                                
                             <button
                                 type="submit"
+                                    disabled={isLoading || isTyping || !input.trim()}
                                 className="
-                                    bg-gradient-to-r from-cyan-400 to-blue-600
-                                    text-white px-4 py-3 sm:px-6 sm:py-4
-                                    rounded-lg sm:rounded-xl
-                                    hover:bg-gradient-to-r hover:from-cyan-300 hover:to-blue-500
-                                    transition-all duration-300 transform hover:scale-105
-                                    font-semibold disabled:opacity-50 disabled:cursor-not-allowed
-                                "
-                                disabled={isLoading}
+                                        px-6 py-3
+                                        bg-gradient-to-r from-cyan-500 to-blue-600
+                                        hover:from-cyan-400 hover:to-blue-500
+                                        text-white font-semibold
+                                        rounded-2xl shadow-lg
+                                        transition-all duration-300
+                                        transform hover:scale-105
+                                        disabled:opacity-50 disabled:cursor-not-allowed
+                                        disabled:hover:scale-100
+                                        flex items-center gap-2
+                                    "
                             >
-                                {isLoading ? "Sending..." : "Send"}
+                                    {isLoading || isTyping ? (
+                                        <>
+                                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                            Sending...
+                                        </>
+                                    ) : (
+                                        <>
+                                            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                                            </svg>
+                                            Send
+                                        </>
+                                    )}
                             </button>
                         </form>
+                        </div>
                     </div>
                 </div>
             )}
         </>
     );
 };
-
-// const AIChat: FC = () => {
-//     const [isOpen, setIsOpen] = useState(false);
-//     const [input, setInput] = useState("");
-//     const [messages, setMessages] = useState<string[]>([]);
-//     const [isLoading, setIsLoading] = useState(false);
-//
-//     const portfolioData = jsonToPortfolioString({
-//         certificates: certificates,
-//         educations: educationsData,
-//         projects: projectsData,
-//         workExperiences: workExperiencesData,
-//         skills: techSkillsData
-//     })
-//
-//     // Replace with your actual Gemini API key
-//     const API_KEY = "AIzaSyCKRVn92ORlYJYWY8somJsAma3WLXQMBwc";
-//     const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${API_KEY}`;
-//     const TELEGRAM_BOT_TOKEN = "7636512900:AAHhTpTDA1UY73FzcQuD97tiEV2kLTyT6Jc"
-//     const TELEGRAM_CHAT_ID = "1002448649276"
-//     const TELEGRAM_API_URL = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-//
-//     const handleSubmit = async (e: React.FormEvent, question: string = input) => {
-//         e.preventDefault();
-//         if (!question.trim()) return;
-//
-//         setMessages([...messages, `You: ${question}`]);
-//         setIsLoading(true);
-//
-//         const prompt = `
-//         ${portfolioData}
-//
-//         A recruiter will ask you a question based on this information. Answer the recruiter's question accurately, using ONLY the information provided in my portfolio. DO NOT generate any information outside of the portfolio data. Keep your answer concise and limit it to a maximum of 250 words. Respond DIRECTLY to the question, without any introductory phrases like 'Okay, I understand' or 'Here's my answer'. Format your response using markdown to make it usable by react-markdown, including bullet points, headings, and code blocks where appropriate
-//
-//         Recruiter's Question: ${question}
-//     `;
-//
-//         try {
-//             const response = await fetch(API_URL, {
-//                 method: "POST",
-//                 headers: {
-//                     "Content-Type": "application/json",
-//                 },
-//                 body: JSON.stringify({
-//                     contents: [
-//                         {
-//                             parts: [{text: prompt}],
-//                         },
-//                     ],
-//                 }),
-//             });
-//
-//             if (!response.ok) throw new Error("API request failed");
-//
-//             const data = await response.json();
-//             const aiResponse = data.candidates[0]?.content?.parts[0]?.text || "Sorry, I couldn't process that.";
-//             setMessages((prev) => [...prev, `AI: ${aiResponse}`]);
-//
-//             // Send to Telegram directly
-//             fetch(TELEGRAM_API_URL, {
-//                 method: "POST",
-//                 headers: {"Content-Type": "application/json"},
-//                 body: JSON.stringify({
-//                     chat_id: -TELEGRAM_CHAT_ID,
-//                     text: `Question:${question}`,
-//                     parse_mode: "Markdown",
-//                 }),
-//             }).catch((error) => console.error("Error sending to Telegram:", error));
-//
-//         } catch (error) {
-//             console.error("Error fetching Gemini API:", error);
-//             setMessages((prev) => [...prev, "AI: Oops, something went wrong. Try again!"]);
-//         } finally {
-//             setIsLoading(false);
-//             setInput("");
-//         }
-//     };
-//
-//     return (
-//         <>
-//             {/* Floating Button */}
-//             <div className="relative group">
-//                 <button
-//                     onClick={() => setIsOpen(true)}
-//                     className="
-//             fixed bottom-4 right-4 sm:bottom-8 sm:right-8
-//             bg-gradient-to-br
-//             from-navy-blue to-black
-//             text-cyan-400
-//             p-4
-//             sm:p-5 rounded-full
-//             shadow-xl
-//             shadow-cyan-500/30
-//             hover:bg-gradient-to-br
-//             hover:from-cyan-400
-//             hover:to-navy-blue
-//             hover:text-white hover:shadow-cyan-500/60
-//             transition-all duration-300 ease-in-out
-//             transform hover:scale-110 hover:rotate-12
-//             z-40
-//         "
-//                 >
-//                     <svg
-//                         className="w-6 h-6 sm:w-8 sm:h-8"
-//                         fill="none"
-//                         stroke="currentColor"
-//                         viewBox="0 0 24 24"
-//                         xmlns="http://www.w3.org/2000/svg"
-//                     >
-//                         <path
-//                             strokeLinecap="round"
-//                             strokeLinejoin="round"
-//                             strokeWidth="2"
-//                             d="M8 10h.01M12 10h.01M16 10h.01M9 16H5v-2a2 2 0 012-2h10a2 2 0 012 2v2h-4m-6 0v2a2 2 0 002 2h2a2 2 0 002-2v-2"
-//                         />
-//                     </svg>
-//                 </button>
-//                 {/* Tooltip */}
-//                 <div className="
-//         absolute bottom-16 right-0
-//         hidden group-hover:block
-//         bg-cyan-900 text-white
-//         text-sm rounded-lg
-//         px-3 py-2
-//         shadow-lg
-//         z-50
-//         whitespace-nowrap
-//     ">
-//                     Chat with me about my portfolio!
-//                 </div>
-//             </div>
-//
-//             {/* Chat Modal */}
-//             {isOpen && (
-//                 <div
-//                     className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 animate-fade-in">
-//                     <div
-//                         className="
-//                             bg-[gray]
-//                             w-full max-w-[90vw] sm:max-w-2xl mx-2 sm:mx-6 p-4 sm:p-8
-//                             rounded-2xl sm:rounded-3xl
-//                             border border-navy-blue
-//                             shadow-2xl shadow-cyan-500/20
-//                             relative
-//                             overflow-hidden
-//                         "
-//                     >
-//                         {/* Decorative Top Gradient */}
-//                         <div
-//                             className="absolute top-0 left-0 w-full h-1 sm:h-2 bg-gradient-to-r from-cyan-400 via-blue-600 to-transparent"/>
-//
-//                         {/* Close Button */}
-//                         <button
-//                             onClick={() => setIsOpen(false)}
-//                             className="absolute top-3 right-3 sm:top-6 sm:right-6 text-cyan-400 hover:text-cyan-300 transition-colors duration-300"
-//                         >
-//                             <svg
-//                                 className="w-6 h-6 sm:w-8 sm:h-8"
-//                                 fill="none"
-//                                 stroke="currentColor"
-//                                 viewBox="0 0 24 24"
-//                                 xmlns="http://www.w3.org/2000/svg"
-//                             >
-//                                 <path
-//                                     strokeLinecap="round"
-//                                     strokeLinejoin="round"
-//                                     strokeWidth="2"
-//                                     d="M6 18L18 6M6 6l12 12"
-//                                 />
-//                             </svg>
-//                         </button>
-//
-//                         {/* Header */}
-//                         <h3 className="text-lg sm:text-2xl font-bold text-white mb-4 sm:mb-8 bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-600">
-//                             Chat with My AI
-//                         </h3>
-//
-//                         {/* Messages */}
-//                         <div
-//                             className="h-[60vh] sm:h-96 overflow-y-auto text-gray-200 mb-4 sm:mb-8 scrollbar-thin scrollbar-thumb-cyan-400 scrollbar-track-gray-800 scrollbar-rounded scrollbar-hover:scrollbar-thumb-cyan-300">
-//                             {messages.map((msg, idx) => (
-//                                 <div
-//                                     key={idx}
-//                                     className={`py-2 px-3 sm:py-3 sm:px-5 mb-2 sm:mb-3 rounded-lg sm:rounded-xl ${
-//                                         msg.startsWith("You:")
-//                                             ? "bg-navy-blue text-cyan-300 text-right ml-auto mr-1 sm:mr-2"
-//                                             : "bg-gray-600 text-gray-200"
-//                                     } max-w-[85%] w-fit shadow-sm`}
-//                                 >
-//                                     {msg.startsWith("AI:") ? (
-//                                         <ReactMarkdown children={msg.replace("AI: ", "")}/>
-//                                     ) : (
-//                                         msg
-//                                     )}
-//                                 </div>
-//                             ))}
-//                             {isLoading && (
-//                                 <div
-//                                     className="py-2 px-3 sm:py-3 sm:px-5 mb-2 sm:mb-3 rounded-lg sm:rounded-xl bg-gray-600 text-gray-200 max-w-[85%] w-fit shadow-sm animate-pulse">
-//                                     AI: Thinking...
-//                                 </div>
-//                             )}
-//                         </div>
-//
-//                         {/* Input Form */}
-//                         <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 sm:gap-4">
-//                             <input
-//                                 type="text"
-//                                 value={input}
-//                                 onChange={(e) => setInput(e.target.value)}
-//                                 className="
-//                                     flex-1
-//                                     bg-gray-600
-//                                     text-[black]
-//                                     p-3 sm:p-4
-//                                     rounded-lg sm:rounded-xl
-//                                     border border-navy-blue
-//                                     focus:outline-none focus:ring-2 focus:ring-cyan-400
-//                                     placeholder-gray-300
-//                                     transition-all duration-300
-//                                     text-base sm:text-lg
-//                                 "
-//                                 placeholder="Ask about my skills..."
-//                                 disabled={isLoading}
-//                             />
-//                             <button
-//                                 type="submit"
-//                                 className="
-//                                     bg-gradient-to-r from-cyan-400 to-blue-600
-//                                     text-white
-//                                     px-4 py-3 sm:px-6 sm:py-4
-//                                     rounded-lg sm:rounded-xl
-//                                     hover:bg-gradient-to-r hover:from-cyan-300 hover:to-blue-500
-//                                     transition-all duration-300
-//                                     transform hover:scale-105
-//                                     font-semibold
-//                                     disabled:opacity-50 disabled:cursor-not-allowed
-//                                 "
-//                                 disabled={isLoading}
-//                             >
-//                                 {isLoading ? "Sending..." : "Send"}
-//                             </button>
-//                         </form>
-//                     </div>
-//                 </div>
-//             )}
-//         </>
-//     )
-// };
 
 export default AIChat;

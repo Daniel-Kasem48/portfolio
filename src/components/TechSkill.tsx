@@ -181,7 +181,7 @@ const TechSkillsSection = () => {
                             <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5z"></path>
                         </svg>
                         <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                            Tech Skills
+                        Tech Skills
                         </h2>
                         <svg className="w-8 h-8 text-purple-400 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path d="M9.937 15.5A2 2 0 0 0 8.5 14.063l-6.135-1.582a.5.5 0 0 1 0-.962L8.5 9.936A2 2 0 0 0 9.937 8.5l1.582-6.135a.5.5 0 0 1 .962 0L14.063 8.5A2 2 0 0 0 15.5 9.937l6.135 1.582a.5.5 0 0 1 0 .962L15.5 14.063a2 2 0 0 0-1.437 1.437l-1.582 6.135a.5.5 0 0 1-.962 0L9.937 15.5z"></path>
@@ -239,12 +239,12 @@ const TechSkillsSection = () => {
                                                     <path d="M12 3c0 1-1 2-2 2s-2 1-2 2 1 2 2 2 2-1 2-2 1-2 2-2 2-1 2-2-1-2-2-2-2 1-2 2z"></path>
                                                 </svg>
                                             </div>
-                                        </div>
-                                        
+                </div>
+
                                         <h3 className="text-xl font-bold text-white mb-4 group-hover:text-cyan-300 transition-colors duration-300">
-                                            {category.category}
-                                        </h3>
-                                    </div>
+                                {category.category}
+                            </h3>
+                        </div>
 
                                     {/* Enhanced Skills List */}
                                     <div className="relative z-10">
@@ -262,8 +262,8 @@ const TechSkillsSection = () => {
                                                 >
                                                     {skill}
                                                 </motion.span>
-                                            ))}
-                                        </div>
+                    ))}
+                </div>
                                     </div>
 
                                     {/* Enhanced Hover Effect Glow */}

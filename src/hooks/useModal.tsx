@@ -56,10 +56,13 @@ const useModal = (): [ElementType<IModal>, ModalResult] => {
                         ref={ref}
                     >
                         <button
-                            className=" absolute top-2 right-4  text-2xl outline rounded  cursor-pointer  z-[1121]"
+                            className="absolute top-2 right-4 text-2xl outline rounded cursor-pointer z-[1121] p-2 bg-black/40 hover:bg-black/60 transition-colors"
                             onClick={() => close()}
+                            aria-label="Close modal"
                         >
-                            {/* <FaWindowClose color="white" /> */}
+                            <svg className="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                            </svg>
                         </button>
                         {children}
                     </div>
