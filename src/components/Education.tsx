@@ -7,6 +7,7 @@ export interface IEducation {
     date: string;
     certificateImage?: string; // URL or path to the certificate image
     color?: string;
+    
     gradient?: string;
 }
 
