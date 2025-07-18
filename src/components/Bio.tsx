@@ -1,4 +1,5 @@
 import {FC, useEffect, useRef} from "react";
+import { Link } from "react-router-dom";
 import Email from "../assets/icons/Email";
 import Phone from "../assets/icons/Phone";
 import WhatsApp from "../assets/icons/WhatsApp";
@@ -36,7 +37,7 @@ const ThreeDBackground: FC = () => {
             {[...Array(8)].map((_, i) => (
                 <motion.div
                     key={i}
-                    className="absolute w-2 h-2 bg-cyan-400/30 rounded-full"
+                    className="absolute w-1 h-1 sm:w-2 sm:h-2 bg-cyan-400/20 sm:bg-cyan-400/30 rounded-full hidden sm:block"
                     animate={{
                         x: [0, 100, 0],
                         y: [0, -100, 0],
@@ -59,7 +60,7 @@ const ThreeDBackground: FC = () => {
             {[...Array(4)].map((_, i) => (
                 <motion.div
                     key={`large-${i}`}
-                    className="absolute w-1 h-1 bg-purple-400/20 rounded-full"
+                    className="absolute w-0.5 h-0.5 sm:w-1 sm:h-1 bg-purple-400/10 sm:bg-purple-400/20 rounded-full hidden sm:block"
                     animate={{
                         x: [0, -50, 0],
                         y: [0, 50, 0],
@@ -78,11 +79,11 @@ const ThreeDBackground: FC = () => {
                 />
             ))}
             
-            {/* Glowing Orbs */}
+            {/* Glowing Orbs - Only on larger screens */}
             {[...Array(3)].map((_, i) => (
                 <motion.div
                     key={`glow-${i}`}
-                    className="absolute w-3 h-3 bg-gradient-to-r from-cyan-400/40 to-purple-400/40 rounded-full blur-sm"
+                    className="absolute w-2 h-2 sm:w-3 sm:h-3 bg-gradient-to-r from-cyan-400/20 sm:from-cyan-400/40 to-purple-400/20 sm:to-purple-400/40 rounded-full blur-sm hidden md:block"
                     animate={{
                         x: [0, 30, 0],
                         y: [0, -30, 0],
@@ -193,7 +194,7 @@ const Bio: FC = () => {
     ];
 
     return (
-        <section id="aboutme" ref={aboutRef} className="py-20 sm:py-16 md:py-20 min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden">
+        <section id="aboutme" ref={aboutRef} className="py-12 sm:py-16 md:py-20 min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden">
             {/* Enhanced Background Effects */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(236,72,153,0.1),transparent_50%)]"></div>
@@ -205,7 +206,7 @@ const Bio: FC = () => {
             <div className="container mx-auto px-4 sm:px-6 relative z-10">
                 {/* Enhanced Section Title */}
                 <motion.div 
-                    className="text-center mb-16"
+                    className="text-center mb-8 sm:mb-12 md:mb-16"
                     initial={{ opacity: 0, y: -30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true }}
@@ -215,16 +216,24 @@ const Bio: FC = () => {
                         <svg className="w-8 h-8 text-cyan-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
                         About Me
                         </h2>
                         <svg className="w-8 h-8 text-purple-400 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                 </div>
-                    <p className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto">
+                    <p className="text-gray-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4">
                         Full-Stack Developer passionate about building scalable solutions and innovative applications
                     </p>
+                    <div className="mt-4 flex items-center justify-center md:hidden">
+                        <span className="text-gray-500 text-sm mr-2">Tap the menu to explore</span>
+                        <div className="flex space-x-1">
+                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
+                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                        </div>
+                    </div>
                     <motion.div 
                         className="mt-4 flex items-center justify-center"
                         initial={{ opacity: 0 }}
@@ -236,73 +245,59 @@ const Bio: FC = () => {
                     </motion.div>
                 </motion.div>
 
-                <div className="flex flex-col lg:flex-row gap-8 md:gap-12">
+                <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-12">
                     {/* Contact Info */}
                     <motion.div 
-                        className="w-full lg:w-1/3 flex flex-col items-center mb-8 lg:mb-0"
+                        className="w-full lg:w-2/5 flex flex-col items-center mb-8 lg:mb-0"
                         initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
-                        <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-gray-700/50 shadow-2xl w-full max-w-xs sm:max-w-sm md:max-w-xs relative group hover:border-cyan-500/50 transition-all duration-500">
-                            {/* Gradient Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-                            
-                            <div className="relative z-10">
+                        <div className="relative w-full max-w-sm sm:max-w-md md:max-w-sm p-0">
+                            {/* Vertical Gradient Accent Bar */}
+                            <div className="absolute left-0 top-4 sm:top-6 bottom-4 sm:bottom-6 w-1.5 sm:w-2 rounded-full bg-gradient-to-b from-cyan-400 via-blue-500 to-purple-500 shadow-lg z-20"></div>
+                            <div className="relative z-10 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-cyan-500/30 shadow-[0_8px_32px_0_rgba(58,199,255,0.25)] w-full ml-2 sm:ml-4">
                                 {/* Profile Header */}
-                                <div className="text-center mb-6">
-                                    {/* <div className="w-32 h-32 rounded-full bg-gradient-to-br from-cyan-400 to-purple-600 p-1 group-hover:scale-105 group-hover:shadow-cyan-400/30 transition-transform duration-300 shadow-lg">
-  <img
-    src={getImage("/my_image.webp")}
-    alt="Daniel Kasem portrait"
-    className="w-full h-full object-cover rounded-full border-4 border-gray-800 shadow-xl transition-transform duration-300 group-hover:scale-105 group-hover:shadow-cyan-400/40"
-    loading="lazy"
-    draggable="false"
-  />
-</div> */}
-                                    <h3 className="text-xl font-bold text-white mb-2">Daniel Kasem</h3>
-                                    <p className="text-cyan-400 text-sm font-medium">Full-Stack Developer</p>
+                                <div className="text-center mb-6 sm:mb-8">
+                                    <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white mb-1 tracking-tight">Daniel Kasem</h3>
+                                    <p className="text-base sm:text-lg font-semibold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">Full-Stack Developer</p>
                                 </div>
-                            
-                            <div className="space-y-4">
-                                {contactItems.map((item, index) => (
+                                <div className="space-y-4 sm:space-y-5">
+                                    {contactItems.map((item, index) => (
                                         <motion.div 
                                             key={index} 
-                                            className="flex items-center gap-4 group/item"
+                                            className="flex items-center gap-3 sm:gap-4 group/item p-2 -ml-2 rounded-lg hover:bg-gray-800/30 transition-all duration-300"
                                             initial={{ opacity: 0, x: -20 }}
                                             whileInView={{ opacity: 1, x: 0 }}
                                             viewport={{ once: true }}
                                             transition={{ duration: 0.5, delay: index * 0.1 }}
                                         >
-                                            <span className="text-cyan-400 group-hover/item:text-cyan-300 transition-colors duration-300">
-                                            {item.icon}
-                                        </span>
-                                        {item.href ? (
-                                            <a
-                                                href={item.href}
-                                                target={item.target || "_self"}
-                                                rel={item.target ? "noopener noreferrer" : undefined}
-                                                    className={`text-gray-300 group-hover/item:text-white transition-colors duration-300 text-sm sm:text-base hover:underline ${item.className || ''}`}
-                                            >
-                                                {item.text}
-                                            </a>
-                                        ) : (
-                                                <span className={`text-gray-300 text-sm sm:text-base ${item.className || ''}`}>{item.text}</span>
-                                        )}
+                                            <span className="text-cyan-400 group-hover/item:text-cyan-300 transition-colors duration-300 text-lg sm:text-xl flex-shrink-0">
+                                                {item.icon}
+                                            </span>
+                                            {item.href ? (
+                                                <a
+                                                    href={item.href}
+                                                    target={item.target || "_self"}
+                                                    rel={item.target ? "noopener noreferrer" : undefined}
+                                                    className={`text-gray-200 group-hover/item:text-white transition-colors duration-300 text-sm sm:text-base md:text-lg hover:underline break-all active:text-cyan-400 ${item.className || ''}`}
+                                                >
+                                                    {item.text}
+                                                </a>
+                                            ) : (
+                                                <span className={`text-gray-200 text-sm sm:text-base md:text-lg ${item.className || ''}`}>{item.text}</span>
+                                            )}
                                         </motion.div>
                                     ))}
-                                    </div>
+                                </div>
                             </div>
-                            
-                            {/* Corner Accent */}
-                            <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
                     </motion.div>
                     
                     {/* Divider for mobile */}
-                    <div className="block lg:hidden my-8">
-                        <div className="h-1 w-2/3 mx-auto bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full opacity-60"></div>
+                    <div className="block lg:hidden my-6 sm:my-8">
+                        <div className="h-0.5 sm:h-1 w-1/2 sm:w-2/3 mx-auto bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full opacity-60"></div>
                     </div>
                     
                     {/* Bio Text */}
@@ -319,8 +314,8 @@ const Bio: FC = () => {
                             
                             <div className="relative z-10">
                                 {/* Profile Header */}
-                                <div className="flex flex-col items-center mb-8">
-                                    <div className="relative w-56 h-64 flex items-center justify-center">
+                                <div className="flex flex-col items-center mb-6 sm:mb-8">
+                                    <div className="relative w-48 h-56 sm:w-56 sm:h-64 flex items-center justify-center">
                                         {/* Blurred Gradient Glow */}
                                         <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-cyan-400 via-purple-500 to-blue-500 blur-2xl opacity-60 scale-110"></div>
                                         <img
@@ -333,11 +328,11 @@ const Bio: FC = () => {
                                     </div>
                                 </div>
                                 {/* Bio Header */}
-                                <div className="flex items-center gap-3 mb-6">
-                                    <svg className="w-6 h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div className="flex items-center gap-3 mb-4 sm:mb-6">
+                                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                                     </svg>
-                                    <h3 className="text-2xl font-bold text-white">Professional Summary</h3>
+                                    <h3 className="text-xl sm:text-2xl font-bold text-white">Professional Summary</h3>
                                 </div>
                                 
                             {/* Bio Text with Typewriter */}
@@ -357,35 +352,35 @@ const Bio: FC = () => {
                                     }}
                                 />
                             </div>
-                                <blockquote className="block md:hidden text-lg leading-relaxed text-gray-300 font-light pl-6 border-l-4 border-cyan-500 rounded-bl-2xl">
+                                <blockquote className="block md:hidden text-base sm:text-lg leading-relaxed text-gray-300 font-light pl-4 sm:pl-6 border-l-4 border-cyan-500 rounded-bl-2xl">
                                 {bioText}
                             </blockquote>
                                 
                                 {/* Key Highlights */}
-                                <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg">
-                                        <svg className="w-5 h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
+                                    <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
+                                        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
-                                        <span className="text-gray-300 text-sm">Backend Focus</span>
+                                        <span className="text-gray-300 text-xs sm:text-sm">Backend Focus</span>
                                     </div>
-                                    <div className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg">
-                                        <svg className="w-5 h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
+                                        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
-                                        <span className="text-gray-300 text-sm">AI Integration</span>
+                                        <span className="text-gray-300 text-xs sm:text-sm">AI Integration</span>
                                     </div>
-                                    <div className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg">
-                                        <svg className="w-5 h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
+                                        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
-                                        <span className="text-gray-300 text-sm">Clean Architecture</span>
+                                        <span className="text-gray-300 text-xs sm:text-sm">Clean Architecture</span>
                                     </div>
-                                    <div className="flex items-center gap-3 p-3 bg-gray-800/50 rounded-lg">
-                                        <svg className="w-5 h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
+                                        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
-                                        <span className="text-gray-300 text-sm">Real-time Systems</span>
+                                        <span className="text-gray-300 text-xs sm:text-sm">Real-time Systems</span>
                                     </div>
                                 </div>
                             </div>
@@ -394,6 +389,43 @@ const Bio: FC = () => {
                             <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         </div>
                     </motion.div>
+                </div>
+            </div>
+            
+            {/* Section Preview Cards - Mobile Only */}
+            <div className="fixed bottom-6 left-4 right-4 md:hidden z-50">
+                <div className="bg-black/90 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-cyan-400/30">
+                    <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center gap-2">
+                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                            <span className="text-white text-sm font-medium">About Me</span>
+                            <span className="text-gray-400 text-xs">1/8</span>
+                        </div>
+                        <span className="text-gray-400 text-xs">Swipe to explore →</span>
+                    </div>
+                    
+                    {/* Mini Preview Cards */}
+                    <div className="flex gap-2 overflow-x-auto pb-2">
+                        {[
+                            { title: "Skills", icon: "⚡", desc: "Tech Stack & Tools", href: "/skills" },
+                            { title: "Projects", icon: "🚀", desc: "Recent Work", href: "/projects" },
+                            { title: "Experience", icon: "💼", desc: "Work History", href: "/work-experiences" },
+                            { title: "Education", icon: "🎓", desc: "Academic Background", href: "/educations" },
+                            { title: "Certificates", icon: "📜", desc: "Certifications", href: "/certificates" }
+                        ].map((section, index) => (
+                            <Link
+                                key={section.href}
+                                to={section.href}
+                                className="flex-shrink-0 bg-gray-800/50 hover:bg-gray-700/50 rounded-lg p-3 min-w-[120px] transition-all duration-200 hover:scale-105 border border-gray-700/30"
+                            >
+                                <div className="text-center">
+                                    <div className="text-lg mb-1">{section.icon}</div>
+                                    <div className="text-white text-xs font-medium mb-1">{section.title}</div>
+                                    <div className="text-gray-400 text-xs">{section.desc}</div>
+                                </div>
+                            </Link>
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>
