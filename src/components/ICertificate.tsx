@@ -85,6 +85,14 @@ export const certificates: ICertificate[] = [
         imageUrl: 'https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~LFRGQD2EIQ2W/CERTIFICATE_LANDING_PAGE~LFRGQD2EIQ2W.jpeg',
         link: 'https://www.coursera.org/account/accomplishments/verify/LFRGQD2EIQ2W',
     },
+    {
+        id: 10,
+        title: 'Develop Generative AI Applications: Get Started',
+        issuer: 'IBM',
+        date: 'July 2025',
+        imageUrl: 'https://s3.amazonaws.com/coursera_assets/meta_images/generated/CERTIFICATE_LANDING_PAGE/CERTIFICATE_LANDING_PAGE~LFRGQD2EIQ2W/CERTIFICATE_LANDING_PAGE~LFRGQD2EIQ2W.jpeg',
+        link: 'https://www.coursera.org/learn/develop-generative-ai-applications-get-started?utm_source=IBM&utm_medium=institutions&utm_campaign=IBMBadge',
+    },
 ];
 
 interface CertificateCardProps {

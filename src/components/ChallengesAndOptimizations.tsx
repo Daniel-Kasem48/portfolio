@@ -51,6 +51,14 @@ const challengesAndOptimizations: IChallengeAndOptimizationItem[] = [
         solution:
             "Refactored Query Logic: Separated the operations by first filtering the primary data set. Relational data was fetched in a subsequent query.,Pagination Optimization: Ensured that pagination was handled efficiently by focusing on indexed fields.",
         results: "The response time improved dramatically, reducing from 2 minutes to 400 milliseconds.The solution ensured scalable and efficient data retrieval, even as the number of products continued to grow."
+    },
+    {
+        title: "Performance Optimization in PDF Catalog Generation",
+        context: "In a WeasyPrint-based PDF catalog generator running on AWS Lambda, we faced performance challenges when generating large product catalogs with hundreds of images and products.",
+        problem: "Challenge: Initial implementation had slow PDF generation times due to sequential image processing and inefficient resource utilization. Large catalogs with many product images were taking several minutes to generate, causing Lambda timeouts and poor user experience.",
+        investigationAndApproach: "Analyzed the bottlenecks in the PDF generation pipeline: Sequential image downloading was the primary bottleneck. Memory usage was inefficient for large catalogs. Network timeouts were causing failures for unreliable image sources.",
+        solution: "Implemented concurrent image processing using ThreadPoolExecutor with 15 worker threads. Added image caching system in `/tmp/images/` to avoid re-downloads. Implemented URL optimization by replacing 'md' with 'sm' for smaller image sizes. Added fallback to placeholder images for failed downloads. Implemented proper timeout handling for network requests.",
+        results: "Reduced PDF generation time from several minutes to under 30 seconds for large catalogs. Eliminated Lambda timeout issues. Improved memory efficiency through image caching. Achieved 90% reduction in failed generations through robust error handling."
     }
 ];
 
