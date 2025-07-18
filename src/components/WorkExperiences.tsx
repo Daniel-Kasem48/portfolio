@@ -119,7 +119,7 @@ const WorkExperiences: FC = () => {
     }, [track]);
 
     return (
-        <section id="work-experiences" ref={experiencesRef} className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden">
+        <section id="work-experiences" ref={experiencesRef} className="pt-24 pb-20 sm:pt-28 sm:pb-20 md:pt-32 md:pb-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden">
             {/* Animated Background Elements */}
             <div className="absolute inset-0 overflow-hidden">
                 <div className="absolute top-20 left-10 w-32 h-32 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl animate-pulse"></div>

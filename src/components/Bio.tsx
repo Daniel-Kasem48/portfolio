@@ -1,5 +1,4 @@
 import {FC, useEffect, useRef} from "react";
-import { Link } from "react-router-dom";
 import Email from "../assets/icons/Email";
 import Phone from "../assets/icons/Phone";
 import WhatsApp from "../assets/icons/WhatsApp";
@@ -194,7 +193,7 @@ const Bio: FC = () => {
     ];
 
     return (
-        <section id="aboutme" ref={aboutRef} className="py-12 sm:py-16 md:py-20 min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden">
+        <section id="aboutme" ref={aboutRef} className="pt-24 pb-12 sm:pt-28 sm:pb-16 md:pt-32 md:pb-20 min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden">
             {/* Enhanced Background Effects */}
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(236,72,153,0.1),transparent_50%)]"></div>
@@ -245,19 +244,19 @@ const Bio: FC = () => {
                     </motion.div>
                 </motion.div>
 
-                <div className="flex flex-col lg:flex-row gap-6 sm:gap-8 md:gap-12">
+                <div className="flex flex-col lg:flex-row-reverse gap-6 sm:gap-8 md:gap-12">
                     {/* Contact Info */}
                     <motion.div 
                         className="w-full lg:w-2/5 flex flex-col items-center mb-8 lg:mb-0"
-                        initial={{ opacity: 0, x: -50 }}
+                        initial={{ opacity: 0, x: 50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.2 }}
                     >
                         <div className="relative w-full max-w-sm sm:max-w-md md:max-w-sm p-0">
                             {/* Vertical Gradient Accent Bar */}
-                            <div className="absolute left-0 top-4 sm:top-6 bottom-4 sm:bottom-6 w-1.5 sm:w-2 rounded-full bg-gradient-to-b from-cyan-400 via-blue-500 to-purple-500 shadow-lg z-20"></div>
-                            <div className="relative z-10 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-cyan-500/30 shadow-[0_8px_32px_0_rgba(58,199,255,0.25)] w-full ml-2 sm:ml-4">
+                            <div className="absolute right-0 top-4 sm:top-6 bottom-4 sm:bottom-6 w-1.5 sm:w-2 rounded-full bg-gradient-to-b from-cyan-400 via-blue-500 to-purple-500 shadow-lg z-20"></div>
+                            <div className="relative z-10 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-cyan-500/30 shadow-[0_8px_32px_0_rgba(58,199,255,0.25)] w-full mr-2 sm:mr-4">
                                 {/* Profile Header */}
                                 <div className="text-center mb-6 sm:mb-8">
                                     <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white mb-1 tracking-tight">Daniel Kasem</h3>
@@ -303,7 +302,7 @@ const Bio: FC = () => {
                     {/* Bio Text */}
                     <motion.div 
                         className="w-full lg:w-2/3 flex flex-col justify-center items-center"
-                        initial={{ opacity: 0, x: 50 }}
+                        initial={{ opacity: 0, x: -50 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.8, delay: 0.4 }}
@@ -393,7 +392,7 @@ const Bio: FC = () => {
             </div>
             
             {/* Section Preview Cards - Mobile Only */}
-            <div className="fixed bottom-6 left-4 right-4 md:hidden z-50">
+            {/* <div className="fixed bottom-6 left-4 right-4 md:hidden z-40">
                 <div className="bg-black/90 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-cyan-400/30">
                     <div className="flex items-center justify-between mb-3">
                         <div className="flex items-center gap-2">
@@ -405,7 +404,7 @@ const Bio: FC = () => {
                     </div>
                     
                     {/* Mini Preview Cards */}
-                    <div className="flex gap-2 overflow-x-auto pb-2">
+                    {/* <div className="flex gap-2 overflow-x-auto pb-2">
                         {[
                             { title: "Skills", icon: "⚡", desc: "Tech Stack & Tools", href: "/skills" },
                             { title: "Projects", icon: "🚀", desc: "Recent Work", href: "/projects" },
@@ -427,7 +426,7 @@ const Bio: FC = () => {
                         ))}
                     </div>
                 </div>
-            </div>
+            </div> */}
         </section>
     );
 };

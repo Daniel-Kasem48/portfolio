@@ -223,7 +223,7 @@ Recruiter's Question: ${question}
     return (
         <>
             {/* Modern Floating Button */}
-            <div className="fixed bottom-6 right-6 z-50 group">
+            <div className="fixed bottom-6 right-6 md:bottom-6 md:right-6 sm:bottom-28 sm:right-6 z-[100] group">
                 <button
                     onClick={() => setIsOpen(true)}
                     className="
