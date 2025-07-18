@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from "react";
+import  { FC, useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const NavBar: FC = () => {

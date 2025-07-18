@@ -412,7 +412,7 @@ const Bio: FC = () => {
                             { title: "Experience", icon: "💼", desc: "Work History", href: "/work-experiences" },
                             { title: "Education", icon: "🎓", desc: "Academic Background", href: "/educations" },
                             { title: "Certificates", icon: "📜", desc: "Certifications", href: "/certificates" }
-                        ].map((section, index) => (
+                        ].map((section) => (
                             <Link
                                 key={section.href}
                                 to={section.href}
