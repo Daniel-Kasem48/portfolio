@@ -179,7 +179,7 @@ const Educations: FC = () => {
                                             animate={isVisible ? { opacity: 1, y: 0, scale: 1 } : {}}
                                             transition={{ duration: 0.4, delay: index * 0.1 }}
                                         >
-                                            <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 overflow-hidden transition-all duration-500 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/20 group-hover:scale-105">
+                                            <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 overflow-hidden transition-all duration-500 hover:border-cyan-500/50 shadow-[0_8px_32px_0_rgba(58,199,255,0.25)] hover:shadow-cyan-500/20 group-hover:scale-105">
                                                 
                                                 {/* Gradient Overlay */}
                                                 <div 

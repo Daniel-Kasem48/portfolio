@@ -79,7 +79,7 @@ const OpenSourceCard: FC<{ project: OpenSourceProject; index: number; isVisible:
             className="group relative"
         >
             {/* Enhanced Card */}
-            <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 h-full overflow-hidden transition-all duration-500 hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/20 group-hover:scale-105">
+            <div className="relative bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 rounded-2xl p-6 h-full overflow-hidden transition-all duration-500 hover:border-cyan-500/50 shadow-[0_8px_32px_0_rgba(58,199,255,0.25)] hover:shadow-cyan-500/20 group-hover:scale-105">
                 
                 {/* Enhanced Gradient Overlay */}
                 <div 

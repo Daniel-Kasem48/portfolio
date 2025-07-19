@@ -22,7 +22,7 @@ const Project: FC<{ project: IProject }> = ({ project }) => {
         <div className="group relative rounded-2xl transition-all duration-500
             flex-col p-6 text-white border border-gray-700/50
             bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl
-            hover:border-cyan-500/50 hover:shadow-2xl hover:shadow-cyan-500/20
+            hover:border-cyan-500/50 shadow-[0_8px_32px_0_rgba(58,199,255,0.25)] hover:shadow-cyan-500/20
             transform hover:-translate-y-2 h-full overflow-hidden">
 
             <SliderModal className="z-50">

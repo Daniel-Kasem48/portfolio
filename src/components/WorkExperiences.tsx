@@ -175,7 +175,7 @@ const WorkExperiences: FC = () => {
                                             isEven ? 'lg:mr-auto lg:max-w-2xl' : 'lg:ml-auto lg:max-w-2xl'
                                         }`}>
                                             {/* Card Background with Creative Effects */}
-                                            <div className="relative bg-gradient-to-br from-gray-800/80 via-gray-900/90 to-black/95 backdrop-blur-xl border border-gray-700/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-2xl overflow-hidden group-hover:border-cyan-500/50 transition-all duration-500">
+                                            <div className="relative bg-gradient-to-br from-gray-800/80 via-gray-900/90 to-black/95 backdrop-blur-xl border border-gray-700/50 rounded-2xl sm:rounded-3xl p-4 sm:p-6 lg:p-8 shadow-[0_8px_32px_0_rgba(58,199,255,0.25)] overflow-hidden group-hover:border-cyan-500/50 transition-all duration-500">
                                                 
                                                 {/* Animated Background Pattern */}
                                                 <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-500">

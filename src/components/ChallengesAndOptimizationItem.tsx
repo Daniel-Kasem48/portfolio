@@ -14,7 +14,7 @@ const ChallengeAndOptimizationItem: FC<{
 }> = ({ challengeAndOptimizationItem }) => {
     return (
         <div
-            className="group flex flex-col rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 shadow-2xl hover:shadow-cyan-500/20 hover:border-cyan-500/50 transition-all duration-500 p-8 text-white relative overflow-hidden hover:scale-[1.03] hover:bg-gradient-to-br hover:from-gray-800/70 hover:to-gray-900/70"
+            className="group flex flex-col rounded-2xl bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl border border-gray-700/50 shadow-[0_8px_32px_0_rgba(58,199,255,0.25)] hover:shadow-cyan-500/20 hover:border-cyan-500/50 transition-all duration-500 p-8 text-white relative overflow-hidden hover:scale-[1.03] hover:bg-gradient-to-br hover:from-gray-800/70 hover:to-gray-900/70"
         >
             {/* Animated Gradient Background - Matching Skills */}
             <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
