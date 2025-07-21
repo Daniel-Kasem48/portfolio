@@ -1,9 +1,11 @@
+'use client'
 import  { FC, useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const NavBar: FC = () => {
     const [isOpen, setIsOpen] = useState(false);
-    const location = useLocation();
+    const pathname = usePathname();
 
     // Hide body scroll when mobile menu is open
     useEffect(() => {
@@ -33,7 +35,7 @@ const NavBar: FC = () => {
             <div className="flex justify-between h-full items-center container mx-auto px-4 sm:px-6">
                 {/* Logo / Name */}
                 <div className="items-center flex h-full justify-center">
-                    <Link to="/" className="flex items-center space-x-2">
+                    <Link href="/" className="flex items-center space-x-2">
                         <span className="text-2xl sm:text-3xl font-bold text-cyan-400">Daniel</span>
                         <span className="text-cyan-400 text-2xl sm:text-3xl">.</span>
                     </Link>
@@ -63,9 +65,9 @@ const NavBar: FC = () => {
                     {navItems.map((item) => (
                         <Link
                             key={item.href}
-                            to={item.href}
+                            href={item.href}
                             className={`text-white hover:text-cyan-400 transition-all duration-300 font-medium ${
-                                location.pathname === item.href ? 'text-cyan-400 border-b-2 border-cyan-400' : ''
+                                pathname === item.href ? 'text-cyan-400 border-b-2 border-cyan-400' : ''
                             }`}
                         >
                             {item.label}
@@ -89,9 +91,9 @@ const NavBar: FC = () => {
                         {navItems.map((item) => (
                             <Link
                                 key={item.href}
-                                to={item.href}
+                                href={item.href}
                                 className={`text-white text-base font-medium px-4 py-3 rounded-lg hover:bg-gray-700 hover:text-cyan-400 transition-all duration-200 flex items-center justify-between group ${
-                                    location.pathname === item.href ? 'bg-gray-700 text-cyan-400' : ''
+                                    pathname === item.href ? 'bg-gray-700 text-cyan-400' : ''
                                 }`}
                                 onClick={() => setIsOpen(false)}
                             >

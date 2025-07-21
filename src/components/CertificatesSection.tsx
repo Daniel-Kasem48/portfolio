@@ -1,98 +1,62 @@
-import CertificateCard, { certificates} from "./ICertificate.tsx";
-import {FC, useRef, useEffect} from "react";
+'use client'
+import CertificateCard, { certificates} from "./ICertificate";
+import {FC, useRef, useEffect, useMemo} from "react";
 import { motion } from "framer-motion";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
 
-// 3D Background Component
-const ThreeDBackground: FC = () => {
+// Lightweight Background Component
+const OptimizedBackground: FC = () => {
+    // Pre-calculate positions to avoid Math.random() on every render
+    const floatingElements = useMemo(() => 
+        Array.from({ length: 3 }, (_, i) => ({
+            id: i,
+            left: [25, 75, 50][i],
+            top: [20, 80, 60][i],
+            duration: [20, 25, 30][i],
+            delay: [0, 5, 10][i]
+        })), []
+    );
+
     return (
         <div className="absolute inset-0 overflow-hidden">
-            {/* Animated Grid Pattern */}
-            <div className="absolute inset-0 opacity-10">
+            {/* Simple animated grid */}
+            <div className="absolute inset-0 opacity-5">
                 <div className="absolute inset-0" style={{
                     backgroundImage: `
                         linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px),
                         linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px)
                     `,
-                    backgroundSize: '50px 50px',
-                    animation: 'gridMove 20s linear infinite'
+                    backgroundSize: '60px 60px',
+                    animation: 'gridMove 30s linear infinite'
                 }}></div>
             </div>
             
-            {/* Floating Geometric Shapes */}
-            {[...Array(8)].map((_, i) => (
+            {/* Reduced floating elements */}
+            {floatingElements.map((element) => (
                 <motion.div
-                    key={i}
-                    className="absolute w-2 h-2 bg-cyan-400/30 rounded-full"
+                    key={element.id}
+                    className="absolute w-2 h-2 bg-cyan-400/20 rounded-full"
                     animate={{
-                        x: [0, 100, 0],
-                        y: [0, -100, 0],
-                        scale: [1, 1.5, 1],
-                        opacity: [0.3, 0.6, 0.3],
-                    }}
-                    transition={{
-                        duration: Math.random() * 15 + 15,
-                        repeat: Infinity,
-                        delay: Math.random() * 10,
-                    }}
-                    style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                    }}
-                />
-            ))}
-            
-            {/* Additional Floating Elements */}
-            {[...Array(4)].map((_, i) => (
-                <motion.div
-                    key={`large-${i}`}
-                    className="absolute w-1 h-1 bg-purple-400/20 rounded-full"
-                    animate={{
-                        x: [0, -50, 0],
-                        y: [0, 50, 0],
-                        scale: [1, 2, 1],
+                        y: [-10, 10, -10],
                         opacity: [0.2, 0.4, 0.2],
                     }}
                     transition={{
-                        duration: Math.random() * 20 + 20,
+                        duration: element.duration,
                         repeat: Infinity,
-                        delay: Math.random() * 15,
+                        delay: element.delay,
+                        ease: "linear"
                     }}
                     style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
+                        left: `${element.left}%`,
+                        top: `${element.top}%`,
                     }}
                 />
             ))}
             
-            {/* Glowing Orbs */}
-            {[...Array(3)].map((_, i) => (
-                <motion.div
-                    key={`glow-${i}`}
-                    className="absolute w-3 h-3 bg-gradient-to-r from-cyan-400/40 to-purple-400/40 rounded-full blur-sm"
-                    animate={{
-                        x: [0, 30, 0],
-                        y: [0, -30, 0],
-                        scale: [1, 1.3, 1],
-                        opacity: [0.1, 0.3, 0.1],
-                    }}
-                    transition={{
-                        duration: Math.random() * 25 + 25,
-                        repeat: Infinity,
-                        delay: Math.random() * 20,
-                    }}
-                    style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                    }}
-                />
-            ))}
-            
-            {/* CSS Animation for Grid */}
             <style>{`
                 @keyframes gridMove {
                     0% { transform: translate(0, 0); }
-                    100% { transform: translate(50px, 50px); }
+                    100% { transform: translate(60px, 60px); }
                 }
             `}</style>
         </div>
@@ -128,8 +92,8 @@ const CertificatesSection: FC = () => {
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(236,72,153,0.1),transparent_50%)]"></div>
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(6,182,212,0.1),transparent_50%)]"></div>
             
-            {/* 3D Background Effect */}
-            <ThreeDBackground />
+            {/* Optimized Background Effect */}
+            <OptimizedBackground />
             
             <div className="container mx-auto px-4 sm:px-6 relative z-10">
                 {/* Enhanced Section Title */}
@@ -168,18 +132,22 @@ const CertificatesSection: FC = () => {
                 {/* Certificates Grid */}
                 <motion.div
                     className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
+                    initial="hidden"
+                    whileInView="visible"
                     viewport={{ once: true }}
-                    transition={{ duration: 0.8, delay: 0.6 }}
+                    transition={{ duration: 0.6, staggerChildren: 0.1 }}
+                    variants={{
+                        hidden: { opacity: 0 },
+                        visible: { opacity: 1 }
+                    }}
                 >
-                    {certificates.map((certificate, index) => (
+                    {certificates.map((certificate) => (
                         <motion.div
                             key={certificate.id}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                            variants={{
+                                hidden: { opacity: 0, y: 20 },
+                                visible: { opacity: 1, y: 0 }
+                            }}
                         >
                             <CertificateCard certificate={certificate}/>
                         </motion.div>

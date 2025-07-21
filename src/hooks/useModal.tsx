@@ -33,6 +33,11 @@ const useModal = (): [ElementType<IModal>, ModalResult] => {
 
   const ModalWrapper: FC<IModal> = useCallback(
     ({ children, className = "" }) => {
+      if (typeof document === 'undefined') return null;
+      
+      const modalRoot = document.getElementById("modal");
+      if (!modalRoot) return null;
+      
       return ReactDOM.createPortal(
         <>
             {isOpen && (<div
@@ -73,7 +78,7 @@ const useModal = (): [ElementType<IModal>, ModalResult] => {
              //    )
           }
         </>,
-        document.getElementById("modal") as Element | DocumentFragment
+        modalRoot
       );
     },
 

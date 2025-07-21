@@ -9,7 +9,7 @@ function Location() {
 			version="1.1"
 			id="Layer_1"
 			viewBox="0 0 512 512"
-			enable-background="new 0 0 512 512"
+			enableBackground="new 0 0 512 512"
 		>
 			<path
 				fill="currentColor"

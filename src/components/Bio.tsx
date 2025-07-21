@@ -1,4 +1,6 @@
+'use client'
 import {FC, useEffect, useRef} from "react";
+import Image from "next/image";
 import Email from "../assets/icons/Email";
 import Phone from "../assets/icons/Phone";
 import WhatsApp from "../assets/icons/WhatsApp";
@@ -7,10 +9,10 @@ import Location from "../assets/icons/Location";
 import Date from "../assets/icons/Date";
 import Stackoverflow from "../assets/icons/StackOverFlow";
 import Typewriter from "typewriter-effect";
-import GitHub from "../assets/icons/Github.tsx";
+import GitHub from "../assets/icons/Github";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
 import { motion } from "framer-motion";
-import { getImage } from "./Projects.tsx";
+import { useRandomFloatingElements } from '../hooks/useRandomValues';
 
 export const bioText = `
 Full-Stack Developer with a backend focus, experienced in Laravel, Node.js (Express, NestJS), and Golang. Proficient in React.js for building responsive UIs. Skilled in integrating AI solutions, including RAG (Retrieval-Augmented Generation) and building autonomous bots. Strong experience with both SQL and NoSQL databases. Passionate about clean architecture, scalable APIs, real-time systems, and continuous learning.
@@ -18,6 +20,10 @@ Full-Stack Developer with a backend focus, experienced in Laravel, Node.js (Expr
 
 // 3D Background Component
 const ThreeDBackground: FC = () => {
+    const floatingElements = useRandomFloatingElements(8);
+    const mediumElements = useRandomFloatingElements(4);
+    const largeElements = useRandomFloatingElements(3);
+    
     return (
         <div className="absolute inset-0 overflow-hidden">
             {/* Animated Grid Pattern */}
@@ -33,7 +39,7 @@ const ThreeDBackground: FC = () => {
             </div>
             
             {/* Floating Geometric Shapes */}
-            {[...Array(8)].map((_, i) => (
+            {floatingElements.map((element, i) => (
                 <motion.div
                     key={i}
                     className="absolute w-1 h-1 sm:w-2 sm:h-2 bg-cyan-400/20 sm:bg-cyan-400/30 rounded-full hidden sm:block"
@@ -44,19 +50,19 @@ const ThreeDBackground: FC = () => {
                         opacity: [0.3, 0.6, 0.3],
                     }}
                     transition={{
-                        duration: Math.random() * 15 + 15,
+                        duration: element.duration,
                         repeat: Infinity,
-                        delay: Math.random() * 10,
+                        delay: element.delay,
                     }}
                     style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
+                        left: `${element.left}%`,
+                        top: `${element.top}%`,
                     }}
                 />
             ))}
             
             {/* Additional Floating Elements */}
-            {[...Array(4)].map((_, i) => (
+            {mediumElements.map((element, i) => (
                 <motion.div
                     key={`large-${i}`}
                     className="absolute w-0.5 h-0.5 sm:w-1 sm:h-1 bg-purple-400/10 sm:bg-purple-400/20 rounded-full hidden sm:block"
@@ -67,19 +73,19 @@ const ThreeDBackground: FC = () => {
                         opacity: [0.2, 0.4, 0.2],
                     }}
                     transition={{
-                        duration: Math.random() * 20 + 20,
+                        duration: element.duration + 5,
                         repeat: Infinity,
-                        delay: Math.random() * 15,
+                        delay: element.delay + 5,
                     }}
                     style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
+                        left: `${element.left}%`,
+                        top: `${element.top}%`,
                     }}
                 />
             ))}
             
             {/* Glowing Orbs - Only on larger screens */}
-            {[...Array(3)].map((_, i) => (
+            {largeElements.map((element, i) => (
                 <motion.div
                     key={`glow-${i}`}
                     className="absolute w-2 h-2 sm:w-3 sm:h-3 bg-gradient-to-r from-cyan-400/20 sm:from-cyan-400/40 to-purple-400/20 sm:to-purple-400/40 rounded-full blur-sm hidden md:block"
@@ -90,13 +96,13 @@ const ThreeDBackground: FC = () => {
                         opacity: [0.1, 0.3, 0.1],
                     }}
                     transition={{
-                        duration: Math.random() * 25 + 25,
+                        duration: element.duration + 10,
                         repeat: Infinity,
-                        delay: Math.random() * 20,
+                        delay: element.delay + 10,
                     }}
                     style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
+                        left: `${element.left}%`,
+                        top: `${element.top}%`,
                     }}
                 />
             ))}
@@ -317,12 +323,14 @@ const Bio: FC = () => {
                                     <div className="relative w-48 h-56 sm:w-56 sm:h-64 flex items-center justify-center">
                                         {/* Blurred Gradient Glow */}
                                         <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-cyan-400 via-purple-500 to-blue-500 blur-2xl opacity-60 scale-110"></div>
-                                        <img
-                                            src={getImage("/my_image.webp")}
+                                        <Image
+                                            src="/my_image.webp"
                                             alt="Daniel Kasem portrait"
-                                            className="w-full h-full object-cover rounded-2xl shadow-2xl"
-                                            loading="lazy"
-                                            draggable="false"
+                                            fill
+                                            className="object-cover rounded-2xl shadow-2xl"
+                                            sizes="(max-width: 640px) 300px, 400px"
+                                            priority
+                                            draggable={false}
                                         />
                                     </div>
                                 </div>

@@ -27,3 +27,6 @@ This is a portfolio website project with a new UI branch.
 
 ## Notes
 Add any important context, decisions, or reminders here.
+
+## Development Guidelines
+- Always use yarn for package management

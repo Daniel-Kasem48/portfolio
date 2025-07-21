@@ -1,3 +1,4 @@
+'use client'
 import {FC, useRef, useEffect, useState, useMemo, useCallback} from "react";
 // import {
 //     AndroidPlain, DotnetcorePlain,
@@ -9,14 +10,14 @@ import {FC, useRef, useEffect, useState, useMemo, useCallback} from "react";
 // import {SiSocketDotIo} from "@react-icons/all-files/si/SiSocketDotIo";
 // import {SiReact} from "@react-icons/all-files/si/SiReact";
 
-import Project, {IProject} from "./Project.tsx";
+import Project, {IProject} from "./Project";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
 import { motion, AnimatePresence } from "framer-motion";
 
 // import {REPO_PREFIX} from "../../vite.config.ts";
 
 export function getImage(path: string) {
-    return path
+    return `/${path}`
 }
 
 // Add categories to projects
@@ -33,7 +34,6 @@ export const projectsDataWithCategories: IProject[] = [
             getImage("spantrek/5.png"),
             getImage("spantrek/6.png"),
             getImage("spantrek/7.png"),
-            getImage("spantrek/8.png"),
             getImage("spantrek/8.png"),
             getImage("spantrek/9.png"),
             getImage("spantrek/10.png"),
@@ -118,9 +118,6 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
             getImage("vita/7.png"),
             getImage("vita/8.png"),
             getImage("vita/9.png"),
-            getImage("vita/9.png"),
-            getImage("vita/9.png"),
-            getImage("vita/9.png"),
             getImage("vita/10.png"),
             getImage("vita/11.png"),
             getImage("vita/12.png"),
@@ -155,7 +152,6 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
     {
         title: "MemoNas Chat App",
         images: [
-            getImage("memo/1.png"),
             getImage("memo/1.png"),
         ],
         stack: ["node", "socketio", "express", "android", "swift"],
@@ -338,18 +334,20 @@ const Projects: FC = () => {
         // Sort projects
         filtered.sort((a, b) => {
             switch (sortBy) {
-                case "priority":
+                case "priority": {
                     const aPriority = a.priority || 999;
                     const bPriority = b.priority || 999;
                     return aPriority - bPriority;
+                }
                 case "name":
                     return a.title.localeCompare(b.title);
                 case "category":
                     return (a.category || "").localeCompare(b.category || "");
-                case "newest":
+                case "newest": {
                     // For now, we'll use priority as a proxy for "newest"
                     // You can add a date field to projects if needed
                     return (b.priority || 999) - (a.priority || 999);
+                }
                 default:
                     return 0;
             }

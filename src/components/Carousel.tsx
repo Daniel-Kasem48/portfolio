@@ -4,7 +4,7 @@ import {FC} from "react";
 import SlickSlider from "react-slick";
 import {LazyImage} from "react-lazy-images";
 
-import Loader from "./Loader.tsx";
+import Loader from "./Loader";
 
 
 const Carousel: FC<{ slides: string[] }> = ({slides}) => {

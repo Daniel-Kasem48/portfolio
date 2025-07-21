@@ -1,3 +1,4 @@
+'use client'
 import {FC, useEffect, useRef} from "react";
 import { motion } from "framer-motion";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';

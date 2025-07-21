@@ -1,3 +1,4 @@
+'use client'
 import {FC, useEffect, useRef, useState} from "react";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
 import  {IWorkExperience} from "./WorkExperience";

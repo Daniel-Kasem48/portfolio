@@ -1,5 +1,5 @@
 import {FC} from "react";
-import Skill, {ISkill} from "./Skill.tsx";
+import Skill, {ISkill} from "./Skill";
 
 const Skills: FC = () => {
         const mySkills: ISkill[] = [{

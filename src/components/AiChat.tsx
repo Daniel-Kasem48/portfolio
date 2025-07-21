@@ -1,14 +1,15 @@
+'use client'
 import {FC, useState, useEffect, useRef} from "react";
-import {IEducation} from "./Education.tsx";
-import {IWorkExperience} from "./WorkExperience.tsx";
-import {IProject} from "./Project.tsx";
-import {certificates, ICertificate} from "./ICertificate.tsx";
-import {educationsData} from "./EducationsData.tsx";
-import {projectsDataWithCategories as projectsData} from "./Projects.tsx";
-import {workExperiencesData} from "./WorkExperiences.tsx";
-import {techSkillsData} from "./TechSkill.tsx";
+import {IEducation} from "./Education";
+import {IWorkExperience} from "./WorkExperience";
+import {IProject} from "./Project";
+import {certificates, ICertificate} from "./ICertificate";
+import {educationsData} from "./EducationsData";
+import {projectsDataWithCategories as projectsData} from "./Projects";
+import {workExperiencesData} from "./WorkExperiences";
+import {techSkillsData} from "./TechSkill";
 import ReactMarkdown from "react-markdown";
-import {bioText} from "./Bio.tsx";
+import {bioText} from "./Bio";
 
 export interface SkillCategory {
     category: string;

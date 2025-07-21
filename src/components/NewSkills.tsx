@@ -1,4 +1,21 @@
+import { useMemo } from 'react';
+import { useRandomValues } from '../hooks/useRandomValues';
+
 const NewSkills = ({skills}: { skills: string[] }) => {
+    const randomValues = useRandomValues(20 * 4); // 4 values per element
+    
+    const codeRainElements = useMemo(() => {
+        return Array.from({length: 20}).map((_, i) => {
+            const baseIndex = i * 4;
+            return {
+                left: randomValues[baseIndex] * 100,
+                animationDelay: randomValues[baseIndex + 1] * 5,
+                animationDuration: 3 + randomValues[baseIndex + 2] * 2,
+                skillIndex: Math.floor(randomValues[baseIndex + 3] * skills.length)
+            };
+        });
+    }, [randomValues, skills.length]);
+    
     return (
         <section className="py-12 px-4 max-w-5xl mx-auto relative overflow-hidden">
             {/*<h2 className="text-4xl font-extrabold mb-12 text-center text-white tracking-wide relative z-10">*/}
@@ -7,17 +24,17 @@ const NewSkills = ({skills}: { skills: string[] }) => {
             <div className="relative h-64 flex items-center justify-center">
                 {/* Background "code rain" effect */}
                 <div className="absolute inset-0 opacity-20">
-                    {Array.from({length: 20}).map((_, i) => (
+                    {codeRainElements.map((element, i) => (
                         <span
                             key={i}
                             className="absolute text-cyan-400/50 text-xs animate-fall"
                             style={{
-                                left: `${Math.random() * 100}%`,
-                                animationDelay: `${Math.random() * 5}s`,
-                                animationDuration: `${3 + Math.random() * 2}s`,
+                                left: `${element.left}%`,
+                                animationDelay: `${element.animationDelay}s`,
+                                animationDuration: `${element.animationDuration}s`,
                             }}
                         >
-                            {skills[Math.floor(Math.random() * skills.length)]}
+                            {skills[element.skillIndex] || skills[0]}
                         </span>
                     ))}
                 </div>

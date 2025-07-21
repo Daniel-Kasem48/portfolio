@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from "framer-motion";
-import {getImage} from "./Projects.tsx";
+import {getImage} from "./Projects";
 
 export interface ICertificate {
     id: number;
@@ -99,7 +99,7 @@ interface CertificateCardProps {
     certificate: ICertificate;
 }
 
-const CertificateCard: React.FC<CertificateCardProps> = ({certificate}) => {
+const CertificateCard: React.FC<CertificateCardProps> = React.memo(({certificate}) => {
     return (
         <motion.div 
             className="group relative rounded-2xl transition-all duration-500
@@ -198,6 +198,8 @@ const CertificateCard: React.FC<CertificateCardProps> = ({certificate}) => {
             <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
         </motion.div>
     );
-};
+});
+
+CertificateCard.displayName = 'CertificateCard';
 
 export default CertificateCard;

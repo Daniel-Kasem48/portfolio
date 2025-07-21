@@ -1,12 +1,13 @@
 import { FC } from "react";
 import { motion } from "framer-motion";
-import useModal from "../hooks/useModal.tsx";
-import Carousel from "./Carousel.tsx";
+import Image from "next/image";
+import useModal from "../hooks/useModal";
+import Carousel from "./Carousel";
 
 export interface IProject {
     images: string[];
     title: string;
-    stack: any[];
+    stack: string[];
     link: string;
     description: string;
     category?: string;
@@ -35,18 +36,22 @@ const Project: FC<{ project: IProject }> = ({ project }) => {
             <div className="relative z-10 flex h-full flex-col justify-between">
                 {/* Featured Image */}
                 {featuredImage && (
-                    <div className="mb-6 overflow-hidden rounded-xl">
-                        <motion.img
-                            src={featuredImage}
-                            alt={`${title} preview`}
-                            className="w-full h-48 object-cover
-                                transform transition-transform duration-500
-                                group-hover:scale-110"
-                            loading="lazy"
+                    <div className="mb-6 overflow-hidden rounded-xl relative h-48">
+                        <motion.div
+                            className="transform transition-transform duration-500 group-hover:scale-110 w-full h-full relative"
                             whileHover={{ scale: 1.05 }}
-                        />
+                        >
+                            <Image
+                                src={featuredImage}
+                                alt={`${title} preview`}
+                                fill
+                                className="object-cover"
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                priority={false}
+                            />
+                        </motion.div>
                         {/* Image Overlay */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none"></div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-xl pointer-events-none z-10"></div>
                     </div>
                 )}
 

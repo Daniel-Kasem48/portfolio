@@ -1,5 +1,6 @@
-import {FC} from "react";
-import ChallengeAndOptimizationItem, {IChallengeAndOptimizationItem} from "./ChallengesAndOptimizationItem.tsx";
+import {FC, useMemo} from "react";
+import ChallengeAndOptimizationItem, {IChallengeAndOptimizationItem} from "./ChallengesAndOptimizationItem";
+import { useRandomValues } from '../hooks/useRandomValues';
 
 const challengesAndOptimizations: IChallengeAndOptimizationItem[] = [
     {
@@ -49,6 +50,20 @@ const challengesAndOptimizations: IChallengeAndOptimizationItem[] = [
 
 
 const ChallengesAndOptimizations: FC = () => {
+    const randomValues = useRandomValues(15 * 4); // 15 particles, 4 values each
+    
+    const floatingParticles = useMemo(() => {
+        return Array.from({length: 15}).map((_, i) => {
+            const baseIndex = i * 4;
+            return {
+                left: randomValues[baseIndex] * 100,
+                top: randomValues[baseIndex + 1] * 100,
+                animationDuration: randomValues[baseIndex + 2] * 4 + 4,
+                animationDelay: randomValues[baseIndex + 3] * 2,
+            };
+        });
+    }, [randomValues]);
+    
     return (
         <section id="challenges" className="relative pt-24 pb-20 sm:pt-28 sm:pb-20 md:pt-32 md:pb-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white overflow-hidden">
             {/* Enhanced Background Effects - Matching Skills Section */}
@@ -58,7 +73,7 @@ const ChallengesAndOptimizations: FC = () => {
             
             {/* Floating Particles with Skills Color Scheme */}
             <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-                {[...Array(20)].map((_, i) => (
+                {floatingParticles.map((particle, i) => (
                     <div
                         key={i}
                         className={`absolute w-2 h-2 rounded-full animate-pulse ${
@@ -67,10 +82,10 @@ const ChallengesAndOptimizations: FC = () => {
                             'bg-purple-600/30'
                         }`}
                         style={{
-                            left: `${Math.random() * 100}%`,
-                            top: `${Math.random() * 100}%`,
-                            animationDuration: `${Math.random() * 4 + 4}s`,
-                            animationDelay: `${Math.random() * 2}s`,
+                            left: `${particle.left}%`,
+                            top: `${particle.top}%`,
+                            animationDuration: `${particle.animationDuration}s`,
+                            animationDelay: `${particle.animationDelay}s`,
                         }}
                     />
                 ))}
