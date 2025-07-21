@@ -3,7 +3,7 @@ export const siteConfig = {
   title: "Daniel Kasem - Full-Stack Developer",
   description: "Full-Stack Developer with a backend focus, experienced in Laravel, Node.js (Express, NestJS), and Golang. Proficient in React.js for building responsive UIs. Skilled in integrating AI solutions, including RAG and building autonomous bots.",
   url: process.env.NEXT_PUBLIC_SITE_URL || "https://daniel-kasem.dev",
-  ogImage: "/og-image.png",
+  ogImage: "/opengraph-image.webp",
   links: {
     github: "https://github.com/specture48",
     linkedin: "https://www.linkedin.com/in/daniel-kasem-70bba9a4/",
