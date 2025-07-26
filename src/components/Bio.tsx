@@ -1,4 +1,5 @@
-import {FC, useEffect, useRef} from "react";
+import {FC, useEffect, useRef, useState} from "react";
+import { Link } from "react-router-dom";
 import Email from "../assets/icons/Email";
 import Phone from "../assets/icons/Phone";
 import WhatsApp from "../assets/icons/WhatsApp";
@@ -113,9 +114,10 @@ const ThreeDBackground: FC = () => {
 };
 
 const Bio: FC = () => {
-
+    const [showExplorePrompt, setShowExplorePrompt] = useState(false);
     const aboutRef = useRef(null);
     const track = usePostHogEvent();
+    
     useEffect(() => {
         const ref = aboutRef.current;
         if (!ref) return;
@@ -132,6 +134,15 @@ const Bio: FC = () => {
         observer.observe(ref);
         return () => observer.disconnect();
     }, [track]);
+
+    // Show explore prompt after user spends time on page
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setShowExplorePrompt(true);
+        }, 8000); // Show after 8 seconds
+        
+        return () => clearTimeout(timer);
+    }, []);
 
     const contactItems = [
         {
@@ -225,12 +236,20 @@ const Bio: FC = () => {
                     <p className="text-gray-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4">
                         Full-Stack Developer passionate about building scalable solutions and innovative applications
                     </p>
-                    <div className="mt-4 flex items-center justify-center md:hidden">
-                        <span className="text-gray-500 text-sm mr-2">Tap the menu to explore</span>
-                        <div className="flex space-x-1">
-                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
-                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                    <div className="mt-4 flex flex-col items-center md:hidden">
+                        <div className="flex items-center mb-3">
+                            <span className="text-gray-400 text-sm mr-2">Tap menu to explore more sections</span>
+                            <div className="flex space-x-1">
+                                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
+                                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                            </div>
+                        </div>
+                        <div className="flex items-center gap-2 text-xs text-gray-500">
+                            <span className="px-2 py-1 bg-gray-800/50 rounded-full border border-cyan-500/30">Skills</span>
+                            <span className="px-2 py-1 bg-gray-800/50 rounded-full border border-purple-500/30">Projects</span>
+                            <span className="px-2 py-1 bg-gray-800/50 rounded-full border border-blue-500/30">Experience</span>
+                            <span className="text-gray-600">+5 more</span>
                         </div>
                     </div>
                     <motion.div 
@@ -391,42 +410,60 @@ const Bio: FC = () => {
                 </div>
             </div>
             
-            {/* Section Preview Cards - Mobile Only */}
-            {/* <div className="fixed bottom-6 left-4 right-4 md:hidden z-40">
-                <div className="bg-black/90 backdrop-blur-sm rounded-lg p-4 shadow-lg border border-cyan-400/30">
-                    <div className="flex items-center justify-between mb-3">
-                        <div className="flex items-center gap-2">
-                            <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                            <span className="text-white text-sm font-medium">About Me</span>
-                            <span className="text-gray-400 text-xs">1/8</span>
-                        </div>
-                        <span className="text-gray-400 text-xs">Swipe to explore →</span>
-                    </div>
-                    
-                    {/* Mini Preview Cards */}
-                    {/* <div className="flex gap-2 overflow-x-auto pb-2">
-                        {[
-                            { title: "Skills", icon: "⚡", desc: "Tech Stack & Tools", href: "/skills" },
-                            { title: "Projects", icon: "🚀", desc: "Recent Work", href: "/projects" },
-                            { title: "Experience", icon: "💼", desc: "Work History", href: "/work-experiences" },
-                            { title: "Education", icon: "🎓", desc: "Academic Background", href: "/educations" },
-                            { title: "Certificates", icon: "📜", desc: "Certifications", href: "/certificates" }
-                        ].map((section) => (
-                            <Link
-                                key={section.href}
-                                to={section.href}
-                                className="flex-shrink-0 bg-gray-800/50 hover:bg-gray-700/50 rounded-lg p-3 min-w-[120px] transition-all duration-200 hover:scale-105 border border-gray-700/30"
+            {/* Floating Explore Prompt - Mobile Only */}
+            {showExplorePrompt && (
+                <motion.div 
+                    className="fixed bottom-6 left-4 right-4 md:hidden z-40"
+                    initial={{ y: 100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    exit={{ y: 100, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeOut" }}
+                >
+                    <div className="bg-gradient-to-r from-gray-900/95 to-gray-800/95 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-cyan-400/40">
+                        <div className="flex items-center justify-between mb-3">
+                            <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                                <span className="text-white text-sm font-medium">Discover More</span>
+                            </div>
+                            <button 
+                                onClick={() => setShowExplorePrompt(false)}
+                                className="text-gray-400 hover:text-white transition-colors p-1"
+                                aria-label="Close"
                             >
-                                <div className="text-center">
-                                    <div className="text-lg mb-1">{section.icon}</div>
-                                    <div className="text-white text-xs font-medium mb-1">{section.title}</div>
-                                    <div className="text-gray-400 text-xs">{section.desc}</div>
-                                </div>
-                            </Link>
-                        ))}
+                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                </svg>
+                            </button>
+                        </div>
+                        
+                        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+                            {[
+                                { title: "Skills", icon: "⚡", color: "cyan", href: "/skills" },
+                                { title: "Projects", icon: "🚀", color: "purple", href: "/projects" },
+                                { title: "Experience", icon: "💼", color: "blue", href: "/work-experiences" },
+                                { title: "Education", icon: "🎓", color: "green", href: "/educations" }
+                            ].map((section) => (
+                                <Link
+                                    key={section.href}
+                                    to={section.href}
+                                    className={`flex-shrink-0 bg-gray-800/70 hover:bg-gray-700/70 rounded-lg p-3 min-w-[90px] transition-all duration-200 hover:scale-105 border border-${section.color}-500/30 hover:border-${section.color}-400/50`}
+                                    onClick={() => setShowExplorePrompt(false)}
+                                >
+                                    <div className="text-center">
+                                        <div className="text-lg mb-1">{section.icon}</div>
+                                        <div className="text-white text-xs font-medium">{section.title}</div>
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                        
+                        <div className="mt-3 text-center">
+                            <span className="text-gray-400 text-xs">Tap any section to explore • </span>
+                            <span className="text-cyan-400 text-xs">4 more in menu</span>
+                        </div>
                     </div>
-                </div>
-            </div> */}
+                </motion.div>
+            )}
         </section>
     );
 };
