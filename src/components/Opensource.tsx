@@ -68,6 +68,19 @@ const projects: OpenSourceProject[] = [
         color: "from-orange-500 to-red-500",
         gradient: "linear-gradient(135deg, #f97316 0%, #ef4444 100%)"
     },
+    {
+        name: "Medusa Abandoned Cart Recovery",
+        description: "A plugin for Medusa.js that helps recover abandoned shopping carts through automated customer engagement.",
+        features: [
+            "Automated cart recovery",
+            "Email notifications",
+            "Customizable recovery strategies",
+            "Analytics and insights"
+        ],
+        github: "https://github.com/specture48/medusa-abandoned-cart-recovery",
+        color: "from-indigo-500 to-purple-500",
+        gradient: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)"
+    },
 ];
 
 const OpenSourceCard: FC<{ project: OpenSourceProject; index: number; isVisible: boolean }> = ({project, index, isVisible}) => {
