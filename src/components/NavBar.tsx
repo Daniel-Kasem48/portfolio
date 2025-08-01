@@ -39,7 +39,7 @@ const NavBar: FC = () => {
     ];
 
     return (
-        <div className="z-[90] h-[80px] shadow-xl fixed top-0 w-full bg-gray-900 border-b border-gray-700">
+        <div className="z-[90] h-[80px] shadow-xl fixed top-0 w-full bg-gray-900 bg-opacity-100 border-b border-gray-700 backdrop-blur-none" style={{backgroundColor: '#111827'}}>
             <div className="flex justify-between h-full items-center container mx-auto px-4 sm:px-6">
                 {/* Logo / Name */}
                 <div className="items-center flex h-full justify-center">
@@ -178,6 +178,18 @@ const NavBar: FC = () => {
                 isOpen ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0 pointer-events-none'
             }`} style={{backgroundColor: '#1a1a1a'}}>
                 <div className="flex flex-col py-4 px-4 space-y-2 max-h-[calc(100vh-80px)] overflow-y-auto">
+                        <a
+                            href="/cv.pdf"
+                            download="Daniel-CV.pdf"
+                            className="text-white text-base font-medium bg-cyan-600 hover:bg-cyan-700 px-4 py-3 rounded-lg transition-all duration-200 inline-flex items-center justify-center w-full mb-2"
+                            onClick={() => setIsOpen(false)}
+                        >
+                            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <span>Download CV</span>
+                        </a>
+                        <div className="border-t border-gray-800 mb-2"></div>
                         {navItems.map((item) => (
                             <Link
                                 key={item.href}
@@ -199,19 +211,6 @@ const NavBar: FC = () => {
                                 </svg>
                             </Link>
                         ))}
-                        <div className="pt-3 mt-3 border-t border-gray-800">
-                            <a
-                                href="/cv.pdf"
-                                download="Daniel-CV.pdf"
-                                className="text-white text-base font-medium bg-cyan-600 hover:bg-cyan-700 px-4 py-3 rounded-lg transition-all duration-200 inline-flex items-center justify-center w-full"
-                                onClick={() => setIsOpen(false)}
-                            >
-                                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                </svg>
-                                <span>Download CV</span>
-                            </a>
-                        </div>
                     </div>
                 </div>
         </div>

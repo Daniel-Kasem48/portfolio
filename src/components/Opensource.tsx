@@ -81,6 +81,20 @@ const projects: OpenSourceProject[] = [
         color: "from-indigo-500 to-purple-500",
         gradient: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)"
     },
+    {
+        name: "Medusa Twilio SMS",
+        description: "A notification provider plugin for Medusa.js that enables SMS notifications through Twilio integration.",
+        features: [
+            "SMS notifications for Medusa",
+            "Twilio integration",
+            "Order updates via SMS",
+            "Customizable notification templates"
+        ],
+        github: "https://github.com/specture48/medusa-twilio-sms",
+        npm: "https://www.npmjs.com/package/medusa-twilio-sms",
+        color: "from-red-500 to-orange-500",
+        gradient: "linear-gradient(135deg, #ef4444 0%, #f97316 100%)"
+    },
 ];
 
 const OpenSourceCard: FC<{ project: OpenSourceProject; index: number; isVisible: boolean }> = ({project, index, isVisible}) => {
