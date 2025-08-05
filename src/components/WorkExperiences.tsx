@@ -6,7 +6,7 @@ export const workExperiencesData: IWorkExperience[] = [
     {
         company: "CogentSoft",
         location: "Beirut, Lebanon",
-        title: "Backend Engineer",
+        title: "Software Engineer",
         date: "May 2022 – Present",
         description: [
             "Developed and maintained microservices using NestJS, Node.js, and Golang to design scalable backend architectures and Restfull APIs.",
