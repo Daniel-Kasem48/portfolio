@@ -35,6 +35,7 @@ const NavBar: FC = () => {
         { href: "/work-experiences", label: "Work Experience", desc: "Professional journey", icon: "💼" },
         { href: "/educations", label: "Education", desc: "Academic background", icon: "🎓" },
         { href: "/certificates", label: "Certificates", desc: "Achievements & certifications", icon: "📜" },
+        { href: "/languages", label: "Languages", desc: "Language proficiencies", icon: "🌐" },
         { href: "/challenges", label: "Challenges", desc: "Problem-solving examples", icon: "🧩" },
     ];
 
@@ -56,7 +57,7 @@ const NavBar: FC = () => {
                             Explore
                         </span>
                         <span className={`text-cyan-400 text-xs font-medium transition-all duration-1000 ${showExploreGlow ? 'text-yellow-300 animate-pulse' : ''}`}>
-                            8 sections
+                            9 sections
                         </span>
                         {showExploreGlow && (
                             <>

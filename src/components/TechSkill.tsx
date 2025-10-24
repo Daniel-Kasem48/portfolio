@@ -6,7 +6,7 @@ import React from "react";
 export const techSkillsData = [
     {
         category: "Backend Development",
-        skills: ["Node.js", "TypeScript", "NestJS", "Express.js", "Laravel", "Go", "Python", "PHP"],
+        skills: ["Python", "FastAPI", "Node.js", "TypeScript", "NestJS", "Express.js", "Laravel", "Go", "PHP"],
         color: "from-blue-500 to-cyan-500",
         proficiency: 95,
         gradient: "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)"
@@ -27,9 +27,9 @@ export const techSkillsData = [
     },
     {
         category: "AI & Machine Learning",
-        skills: ["OpenAI API", "RAG (Retrieval-Augmented Generation)", "LangChain", "Prompt Engineering", "AI Agents", "Autobots"],
+        skills: ["Python AI", "FastAPI", "RAG (Retrieval-Augmented Generation)", "FAISS Vector Database", "Semantic Search", "AI Assistants", "LangChain", "OpenAI API", "Prompt Engineering", "Vector Embeddings"],
         color: "from-orange-500 to-red-500",
-        proficiency: 88,
+        proficiency: 92,
         gradient: "linear-gradient(135deg, #f97316 0%, #ef4444 100%)"
     },
     {

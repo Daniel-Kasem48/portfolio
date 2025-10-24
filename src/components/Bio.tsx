@@ -14,7 +14,7 @@ import { motion } from "framer-motion";
 import { getImage } from "./Projects.tsx";
 
 export const bioText = `
-Full-Stack Developer with a backend focus, experienced in Laravel, Node.js (Express, NestJS), and Golang. Proficient in React.js for building responsive UIs. Skilled in integrating AI solutions, including RAG (Retrieval-Augmented Generation) and building autonomous bots. Strong experience with both SQL and NoSQL databases. Passionate about clean architecture, scalable APIs, real-time systems, and continuous learning.
+Full-Stack Developer specializing in Python AI solutions and backend architecture. Expert in building RAG systems with FastAPI, implementing semantic search using FAISS vector databases, and developing intelligent AI assistants. Experienced in Python, Node.js (Express, NestJS), Laravel, and Golang for comprehensive backend development. Proficient in React.js for building responsive UIs. Passionate about clean architecture, scalable APIs, real-time systems, and cutting-edge AI technologies.
 `;
 
 // 3D Background Component
@@ -234,7 +234,7 @@ const Bio: FC = () => {
                         </svg>
                 </div>
                     <p className="text-gray-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4">
-                        Full-Stack Developer passionate about building scalable solutions and innovative applications
+                        Python AI Specialist passionate about building intelligent systems with RAG, semantic search, and scalable FastAPI solutions
                     </p>
                     <div className="mt-4 flex flex-col items-center md:hidden">
                         <div className="flex items-center mb-3">
@@ -377,28 +377,28 @@ const Bio: FC = () => {
                                 {/* Key Highlights */}
                                 <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                                     <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
+                                        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                        <span className="text-gray-300 text-xs sm:text-sm">Python AI Expert</span>
+                                    </div>
+                                    <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
                                         <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
-                                        <span className="text-gray-300 text-xs sm:text-sm">Backend Focus</span>
+                                        <span className="text-gray-300 text-xs sm:text-sm">RAG Systems</span>
                                     </div>
                                     <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
                                         <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
-                                        <span className="text-gray-300 text-xs sm:text-sm">AI Integration</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
-                                        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                        <span className="text-gray-300 text-xs sm:text-sm">Clean Architecture</span>
+                                        <span className="text-gray-300 text-xs sm:text-sm">Semantic Search</span>
                                     </div>
                                     <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
                                         <svg className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                                         </svg>
-                                        <span className="text-gray-300 text-xs sm:text-sm">Real-time Systems</span>
+                                        <span className="text-gray-300 text-xs sm:text-sm">AI Assistants</span>
                                     </div>
                                 </div>
                             </div>

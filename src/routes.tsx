@@ -7,6 +7,7 @@ import OpenSource from './components/Opensource.tsx';
 import WorkExperiences from './components/WorkExperiences.tsx';
 import Educations from './components/EducationsData.tsx';
 import CertificatesSection from './components/CertificatesSection.tsx';
+import LanguagesSection from './components/LanguagesSection.tsx';
 import ChallengesAndOptimizations from './components/ChallengesAndOptimizations.tsx';
 
 
@@ -46,6 +47,10 @@ const routers = createBrowserRouter([
             {
                 path: "certificates",
                 element: <CertificatesSection/>,
+            },
+            {
+                path: "languages",
+                element: <LanguagesSection/>,
             },
             {
                 path: "challenges",
