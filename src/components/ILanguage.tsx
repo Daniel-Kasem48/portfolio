@@ -123,9 +123,6 @@ const LanguageCard: React.FC<LanguageCardProps> = ({ language }) => {
 
                 {/* Proficiency Bar */}
                 <div className="mb-6">
-                    <div className="flex items-center justify-between mb-2">
-                        <span className="text-gray-400 text-sm">Proficiency Level</span>
-                    </div>
                     <div className="w-full bg-gray-700/50 rounded-full h-3 overflow-hidden">
                         <motion.div
                             className={`h-full bg-gradient-to-r ${proficiencyColor} rounded-full`}

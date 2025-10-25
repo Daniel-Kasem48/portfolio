@@ -16,7 +16,7 @@ export const educationsData: IEducation[] = [
     {
         institution: "Tishreen University",
         title: "Bachelor of Informatics Engineering",
-        date: "Sep 2016 - Dec 2021",
+        date: "Sep 2016 - Dec 2022",
         certificateImage: getImage("certificates/graduation.jpeg"),
         color: "from-purple-500 to-pink-500",
         gradient: "linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%)"

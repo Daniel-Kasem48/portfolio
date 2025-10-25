@@ -27,7 +27,7 @@ export const techSkillsData = [
     },
     {
         category: "AI & Machine Learning",
-        skills: ["Python AI", "FastAPI", "RAG (Retrieval-Augmented Generation)", "FAISS Vector Database", "Semantic Search", "AI Assistants", "LangChain", "OpenAI API", "Prompt Engineering", "Vector Embeddings"],
+        skills: ["Python AI", "FastAPI", "RAG (Retrieval-Augmented Generation)", "Qdrant Vector DB", "FAISS Vector Database", "Semantic Search", "AI Assistants", "LangChain", "OpenAI API", "Prompt Engineering", "Vector Embeddings"],
         color: "from-orange-500 to-red-500",
         proficiency: 92,
         gradient: "linear-gradient(135deg, #f97316 0%, #ef4444 100%)"

@@ -39,11 +39,11 @@ const challengesAndOptimizations: IChallengeAndOptimizationItem[] = [
     },
     {
         title: "PDF Catalog Generation Performance",
-        context: "AWS Lambda-based PDF generator using WeasyPrint for product catalogs.",
-        problem: "Sequential image processing caused Lambda timeouts for catalogs with 500+ products. Generation took 5+ minutes.",
-        investigationAndApproach: "Identified bottlenecks: sequential downloads, large image sizes, no caching.",
-        solution: "Implemented ThreadPoolExecutor (15 workers), image caching in /tmp/, automatic image size optimization, and fallback placeholders.",
-        results: "Generation time reduced to <30 seconds • 90% fewer failures • Handled 10x larger catalogs within Lambda limits"
+        context: "PDF generator using WeasyPrint for product catalogs with variants, migrated from AWS Lambda to Fargate.",
+        problem: "Sequential image processing caused Lambda timeouts for catalogs with 500+ products and variants. Generation took 5+ minutes.",
+        investigationAndApproach: "Identified bottlenecks: sequential downloads, large image sizes, no caching. Migrated to AWS Fargate for better resource control.",
+        solution: "Implemented ThreadPoolExecutor (15 workers), image caching, automatic image size optimization, and migrated to Fargate for longer execution times.",
+        results: "Generation time reduced to <30 seconds • 90% fewer failures • Handled 10x larger catalogs • Eliminated Lambda timeout constraints"
     }
 ];
 
