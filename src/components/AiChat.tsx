@@ -79,7 +79,9 @@ const jsonToPortfolioString = (data: PortfolioData): string => {
         'Download CV:https://daniel-kasem48.github.io/portfolio/cv.pdf',
         'https://www.linkedin.com/in/daniel-kasem-70bba9a4/',
         'https://stackoverflow.com/users/21441411/daniel-kasem',
-    ].join(',')}\nBIO:${bioText}\n${certificatesStr}\n${projectsStr}\n${skillsStr}\n${educationsStr}\n${workExperiencesStr}`;
+    ].join(',')}\n
+    Languages: IELTS Academic score 7.5 (English proficiency), Native Arabic speaker\n
+    BIO:${bioText}\n${certificatesStr}\n${projectsStr}\n${skillsStr}\n${educationsStr}\n${workExperiencesStr}`;
 };
 
 const AIChat: FC = () => {
