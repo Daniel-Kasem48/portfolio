@@ -22,6 +22,25 @@ export function getImage(path: string) {
 // Add categories to projects
 export const projectsDataWithCategories: IProject[] = [
     {
+        title: "Ordro",
+        link: "https://play.google.com/store/apps/details?id=com.ordro.retailapp&hl=en",
+        images: [
+            getImage("ordro/1.png"),
+            getImage("ordro/2.png"),
+            getImage("ordro/3.png"),
+            getImage("ordro/4.png"),
+            getImage("ordro/5.png"),
+            getImage("ordro/6.png"),
+            getImage("ordro/7.png"),
+            getImage("ordro/8.png"),
+            getImage("ordro/9.png"),
+            "https://play-lh.googleusercontent.com/6geqlIS9GSHvaPaHQEHuenDUsuSEM1aS22CXOZbSWiZwMaxKi-VjLadmxWTGrQNka1CV=w526-h296-rw",
+        ],
+        stack: ["express", "react", "flutter","meilisearch"],
+        description: "a comprehensive solution\nencompassing promotions, shipping, and stock management functionalities. The platform is designed to\nstreamline business-to-business transactions, providing a seamless experience for users involved in buying and\nselling products.",
+        category: "E-commerce"
+    },
+    {
         title: "Spantrek",
         link: "https://cloud.spantrek.com",
         images: [
@@ -78,30 +97,11 @@ export const projectsDataWithCategories: IProject[] = [
         images: [getImage("number5/1.jpg"), getImage("number5/2.jpg")],
         title: "Number5.ai",
         stack: ["Node.js", "python", "zapier", "Automation Flows"],
-        link: "https://www.number5.ai",
+        link: "",
         description: `Built intelligent automation flows for lead engagement at Number5.ai, an AI business assistant platform. 
 Designed sequences combining calls, SMS, and scheduled delays (e.g., Call ➔ SMS ➔ Wait ➔ Call again) to boost lead conversion rates. 
 Integrated multi-channel communication APIs and optimized flow reliability and scalability.`,
         category: "AI Platform"
-    },
-    {
-        title: "Ordro",
-        link: "https://play.google.com/store/apps/details?id=com.ordro.retailapp&hl=en",
-        images: [
-            getImage("ordro/1.png"),
-            getImage("ordro/2.png"),
-            getImage("ordro/3.png"),
-            getImage("ordro/4.png"),
-            getImage("ordro/5.png"),
-            getImage("ordro/6.png"),
-            getImage("ordro/7.png"),
-            getImage("ordro/8.png"),
-            getImage("ordro/9.png"),
-            "https://play-lh.googleusercontent.com/6geqlIS9GSHvaPaHQEHuenDUsuSEM1aS22CXOZbSWiZwMaxKi-VjLadmxWTGrQNka1CV=w526-h296-rw",
-        ],
-        stack: ["express", "react", "flutter","meilisearch"],
-        description: "a comprehensive solution\nencompassing promotions, shipping, and stock management functionalities. The platform is designed to\nstreamline business-to-business transactions, providing a seamless experience for users involved in buying and\nselling products.",
-        category: "E-commerce"
     },
     {
         title: "Vitastir",

@@ -3,6 +3,14 @@ import ChallengeAndOptimizationItem, {IChallengeAndOptimizationItem} from "./Cha
 
 const challengesAndOptimizations: IChallengeAndOptimizationItem[] = [
     {
+        title: "PDF Catalog Generation Performance",
+        context: "PDF generator using WeasyPrint for product catalogs with variants, migrated from AWS Lambda to Fargate.",
+        problem: "Sequential image processing caused Lambda timeouts for catalogs with 500+ products and variants. Generation took 5+ minutes.",
+        investigationAndApproach: "Identified bottlenecks: sequential downloads, large image sizes, no caching. Migrated to AWS Fargate for better resource control.",
+        solution: "Implemented ThreadPoolExecutor (15 workers), image caching, automatic image size optimization, and migrated to Fargate for longer execution times.",
+        results: "Generation time reduced to <30 seconds • 90% fewer failures • Handled 10x larger catalogs • Eliminated Lambda timeout constraints"
+    },
+    {
         title: "Route Optimization in a Large B2B System",
         context:
             "B2B logistics system managing fleet vehicles for shipment pickups and deliveries.",
@@ -36,14 +44,6 @@ const challengesAndOptimizations: IChallengeAndOptimizationItem[] = [
         solution:
             "Split complex queries into optimized steps: filter first, then fetch relations. Added strategic database indexes.",
         results: "Response time reduced from 2 minutes to 400ms • 300x performance improvement • Zero downtime migration"
-    },
-    {
-        title: "PDF Catalog Generation Performance",
-        context: "PDF generator using WeasyPrint for product catalogs with variants, migrated from AWS Lambda to Fargate.",
-        problem: "Sequential image processing caused Lambda timeouts for catalogs with 500+ products and variants. Generation took 5+ minutes.",
-        investigationAndApproach: "Identified bottlenecks: sequential downloads, large image sizes, no caching. Migrated to AWS Fargate for better resource control.",
-        solution: "Implemented ThreadPoolExecutor (15 workers), image caching, automatic image size optimization, and migrated to Fargate for longer execution times.",
-        results: "Generation time reduced to <30 seconds • 90% fewer failures • Handled 10x larger catalogs • Eliminated Lambda timeout constraints"
     }
 ];
 
