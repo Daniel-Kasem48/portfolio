@@ -11,6 +11,14 @@ const challengesAndOptimizations: IChallengeAndOptimizationItem[] = [
         results: "Generation time reduced to <30 seconds • 90% fewer failures • Handled 10x larger catalogs • Eliminated Lambda timeout constraints"
     },
     {
+        title: "Batch Embedding Processing for Vector Database Semantic Search",
+        context: "AI-powered semantic search system requiring efficient processing of large document collections for vector database indexing.",
+        problem: "Processing 1K+ documents for embedding generation was taking too long sequentially, causing memory overflow and API rate limit hits with OpenAI embeddings API.",
+        investigationAndApproach: "Analyzed bottlenecks: sequential processing, memory leaks from large text chunks, and API rate limiting. Designed batch processing architecture with queue management.",
+        solution: "Implemented chunked batch processing with Redis queue, rate limiting middleware, and memory-efficient text processing. Added retry logic and progress tracking.",
+        results: "Processing time reduced by 70% • 70% memory usage reduction • Zero API timeouts • 40% cost reduction through batch optimization • Scalable to 10K+ documents • Real-time progress monitoring"
+    },
+    {
         title: "Route Optimization in a Large B2B System",
         context:
             "B2B logistics system managing fleet vehicles for shipment pickups and deliveries.",
