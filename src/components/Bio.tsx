@@ -1,469 +1,288 @@
-import {FC, useEffect, useRef, useState} from "react";
+import { FC, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Email from "../assets/icons/Email";
 import Phone from "../assets/icons/Phone";
 import WhatsApp from "../assets/icons/WhatsApp";
 import LinkedIn from "../assets/icons/LinkedIn";
 import Location from "../assets/icons/Location";
-import Date from "../assets/icons/Date";
+import DateIcon from "../assets/icons/Date";
 import Stackoverflow from "../assets/icons/StackOverFlow";
-import Typewriter from "typewriter-effect";
 import GitHub from "../assets/icons/Github.tsx";
-import { usePostHogEvent } from '../hooks/usePostHogEvent';
+import Typewriter from "typewriter-effect";
 import { motion } from "framer-motion";
+import { usePostHogEvent } from "../hooks/usePostHogEvent";
 import { getImage } from "./Projects.tsx";
 
-export const bioText = `
-Full-Stack Developer specializing in Python AI solutions and backend architecture. Expert in building RAG systems with FastAPI, implementing semantic search using FAISS vector databases, and developing intelligent AI assistants. Experienced in Python, Node.js (Express, NestJS), Laravel, and Golang for comprehensive backend development. Proficient in React.js for building responsive UIs. Passionate about clean architecture, scalable APIs, real-time systems, and cutting-edge AI technologies.
-`;
+export const bioText = `Full-Stack Developer specializing in Python AI solutions and backend architecture. Expert in building RAG systems with FastAPI, implementing semantic search using FAISS vector databases, and developing intelligent AI assistants. Experienced in Python, Node.js (Express, NestJS), Laravel, and Golang for comprehensive backend development. Proficient in React.js for building responsive UIs. Passionate about clean architecture, scalable APIs, real-time systems, and cutting-edge AI technologies.`;
 
-// 3D Background Component
-const ThreeDBackground: FC = () => {
-    return (
-        <div className="absolute inset-0 overflow-hidden">
-            {/* Animated Grid Pattern */}
-            <div className="absolute inset-0 opacity-10">
-                <div className="absolute inset-0" style={{
-                    backgroundImage: `
-                        linear-gradient(rgba(6, 182, 212, 0.1) 1px, transparent 1px),
-                        linear-gradient(90deg, rgba(6, 182, 212, 0.1) 1px, transparent 1px)
-                    `,
-                    backgroundSize: '50px 50px',
-                    animation: 'gridMove 20s linear infinite'
-                }}></div>
-            </div>
-            
-            {/* Floating Geometric Shapes */}
-            {[...Array(8)].map((_, i) => (
-                <motion.div
-                    key={i}
-                    className="absolute w-1 h-1 sm:w-2 sm:h-2 bg-cyan-400/20 sm:bg-cyan-400/30 rounded-full hidden sm:block"
-                    animate={{
-                        x: [0, 100, 0],
-                        y: [0, -100, 0],
-                        scale: [1, 1.5, 1],
-                        opacity: [0.3, 0.6, 0.3],
-                    }}
-                    transition={{
-                        duration: Math.random() * 15 + 15,
-                        repeat: Infinity,
-                        delay: Math.random() * 10,
-                    }}
-                    style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                    }}
-                />
-            ))}
-            
-            {/* Additional Floating Elements */}
-            {[...Array(4)].map((_, i) => (
-                <motion.div
-                    key={`large-${i}`}
-                    className="absolute w-0.5 h-0.5 sm:w-1 sm:h-1 bg-purple-400/10 sm:bg-purple-400/20 rounded-full hidden sm:block"
-                    animate={{
-                        x: [0, -50, 0],
-                        y: [0, 50, 0],
-                        scale: [1, 2, 1],
-                        opacity: [0.2, 0.4, 0.2],
-                    }}
-                    transition={{
-                        duration: Math.random() * 20 + 20,
-                        repeat: Infinity,
-                        delay: Math.random() * 15,
-                    }}
-                    style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                    }}
-                />
-            ))}
-            
-            {/* Glowing Orbs - Only on larger screens */}
-            {[...Array(3)].map((_, i) => (
-                <motion.div
-                    key={`glow-${i}`}
-                    className="absolute w-2 h-2 sm:w-3 sm:h-3 bg-gradient-to-r from-cyan-400/20 sm:from-cyan-400/40 to-purple-400/20 sm:to-purple-400/40 rounded-full blur-sm hidden md:block"
-                    animate={{
-                        x: [0, 30, 0],
-                        y: [0, -30, 0],
-                        scale: [1, 1.3, 1],
-                        opacity: [0.1, 0.3, 0.1],
-                    }}
-                    transition={{
-                        duration: Math.random() * 25 + 25,
-                        repeat: Infinity,
-                        delay: Math.random() * 20,
-                    }}
-                    style={{
-                        left: `${Math.random() * 100}%`,
-                        top: `${Math.random() * 100}%`,
-                    }}
-                />
-            ))}
-            
-            {/* CSS Animation for Grid */}
-            <style>{`
-                @keyframes gridMove {
-                    0% { transform: translate(0, 0); }
-                    100% { transform: translate(50px, 50px); }
-                }
-            `}</style>
-        </div>
-    );
-};
+const stats = [
+    { value: "5+", label: "Years building" },
+    { value: "20+", label: "Projects shipped" },
+    { value: "8+", label: "Tech stacks" },
+];
+
+const highlights = ["Python AI Expert", "RAG Systems", "Semantic Search", "AI Assistants"];
+
+const socials = [
+    { icon: <GitHub />, href: "https://github.com/specture48", label: "GitHub" },
+    { icon: <LinkedIn />, href: "https://www.linkedin.com/in/daniel-kasem-70bba9a4/", label: "LinkedIn" },
+    { icon: <Stackoverflow />, href: "https://stackoverflow.com/users/21441411/daniel-kasem", label: "Stack Overflow" },
+    { icon: <Email />, href: "mailto:daniel.f.kasem@gmail.com", label: "Email" },
+];
 
 const Bio: FC = () => {
-    const [showExplorePrompt, setShowExplorePrompt] = useState(false);
-    const aboutRef = useRef(null);
+    const ref = useRef<HTMLElement>(null);
     const track = usePostHogEvent();
-    
+
     useEffect(() => {
-        const ref = aboutRef.current;
-        if (!ref) return;
-        let hasTracked = false;
-        const observer = new window.IntersectionObserver(
+        const el = ref.current;
+        if (!el) return;
+        let done = false;
+        const observer = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting && !hasTracked) {
-                    track('section_viewed', { section: 'About Me' });
-                    hasTracked = true;
+                if (entry.isIntersecting && !done) {
+                    track("section_viewed", { section: "About Me" });
+                    done = true;
                 }
             },
-            { threshold: 0.3 }
+            { threshold: 0.2 }
         );
-        observer.observe(ref);
+        observer.observe(el);
         return () => observer.disconnect();
     }, [track]);
 
-    // Show explore prompt after user spends time on page
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setShowExplorePrompt(true);
-        }, 8000); // Show after 8 seconds
-        
-        return () => clearTimeout(timer);
-    }, []);
-
     const contactItems = [
+        { icon: <Email />, text: "daniel.f.kasem@gmail.com", href: "mailto:daniel.f.kasem@gmail.com" },
+        { icon: <Phone />, text: "(+963) 931 869 085", href: "tel:+963931869085", mono: true },
+        { icon: <WhatsApp />, text: "(+963) 931 869 085", href: "https://wa.me/+963931869085", target: "_blank", mono: true },
         {
-            icon: <Email/>,
-            text: "daniel.f.kasem@gmail.com",
-            href: "mailto:daniel.f.kasem@gmail.com",
-        },
-        {
-            icon: <Phone/>,
-            text: "(+963)931869085",
-            href: "tel:+963931869085",
-            className: "font-firamono text-cyan-400 font-bold tabular-nums leading-none"
-        },
-        {
-            icon: <WhatsApp/>,
-            text: "(+963)931869085",
-            href: "https://wa.me/+963931869085",
-            target: "_blank",
-            className: "font-firamono text-cyan-400 font-bold tabular-nums leading-none"
-        },
-        {
-            icon: <Location/>,
+            icon: <Location />,
             text: (
                 <>
-                    <a
-                        href="https://www.google.com/maps/place/Latakia,+Syria"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="hover:underline"
-                    >
+                    <a href="https://www.google.com/maps/place/Latakia,+Syria" target="_blank" rel="noopener noreferrer" className="hover:underline">
                         Syria, Latakia
                     </a>
-                    <span className="text-cyan-400 text-sm italic ml-2">(Willing To Relocate)</span>
+                    <span className="ml-2 text-xs italic text-aurora-cyan">(Willing to relocate)</span>
                 </>
             ),
         },
-        {
-            icon: <Date/>,
-            text: "March 22th, 1999",
-        },
-        {
-            icon: <LinkedIn/>,
-            text: "/in/daniel-kasem",
-            href: "https://www.linkedin.com/in/daniel-kasem-70bba9a4/",
-            target: "_blank",
-        },
-        {
-            icon: <GitHub/>,
-            text: "daniel-kasem",
-            href: "https://github.com/specture48",
-            target: "_blank",
-        },
-        {
-            icon: <Stackoverflow/>,
-            text: "daniel-kasem",
-            href: "https://stackoverflow.com/users/21441411/daniel-kasem",
-            target: "_blank",
-        },
+        { icon: <DateIcon />, text: "March 22, 1999" },
+        { icon: <LinkedIn />, text: "/in/daniel-kasem", href: "https://www.linkedin.com/in/daniel-kasem-70bba9a4/", target: "_blank" },
+        { icon: <GitHub />, text: "specture48", href: "https://github.com/specture48", target: "_blank" },
+        { icon: <Stackoverflow />, text: "daniel-kasem", href: "https://stackoverflow.com/users/21441411/daniel-kasem", target: "_blank" },
     ];
 
     return (
-        <section id="aboutme" ref={aboutRef} className="pt-24 pb-12 sm:pt-28 sm:pb-16 md:pt-32 md:pb-20 min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900 text-white relative overflow-hidden">
-            {/* Enhanced Background Effects */}
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(59,130,246,0.1),transparent_50%)]"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(236,72,153,0.1),transparent_50%)]"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,rgba(6,182,212,0.1),transparent_50%)]"></div>
-            
-            {/* 3D Background Effect */}
-            <ThreeDBackground />
-            
-            <div className="container mx-auto px-4 sm:px-6 relative z-10">
-                {/* Enhanced Section Title */}
-                <motion.div 
-                    className="text-center mb-8 sm:mb-12 md:mb-16"
-                    initial={{ opacity: 0, y: -30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
-                >
-                    <div className="flex items-center justify-center mb-4">
-                        <svg className="w-8 h-8 text-cyan-400 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
-                        About Me
-                        </h2>
-                        <svg className="w-8 h-8 text-purple-400 ml-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                </div>
-                    <p className="text-gray-400 text-base sm:text-lg md:text-xl max-w-2xl mx-auto px-4">
-                        Python AI Specialist passionate about building intelligent systems with RAG, semantic search, and scalable FastAPI solutions
-                    </p>
-                    <div className="mt-4 flex flex-col items-center md:hidden">
-                        <div className="flex items-center mb-3">
-                            <span className="text-gray-400 text-sm mr-2">Tap menu to explore more sections</span>
-                            <div className="flex space-x-1">
-                                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
-                                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                            </div>
-                        </div>
-                        <div className="flex items-center gap-2 text-xs text-gray-500">
-                            <span className="px-2 py-1 bg-gray-800/50 rounded-full border border-cyan-500/30">Skills</span>
-                            <span className="px-2 py-1 bg-gray-800/50 rounded-full border border-purple-500/30">Projects</span>
-                            <span className="px-2 py-1 bg-gray-800/50 rounded-full border border-blue-500/30">Experience</span>
-                            <span className="text-gray-600">+5 more</span>
-                        </div>
-                    </div>
-                    <motion.div 
-                        className="mt-4 flex items-center justify-center"
-                        initial={{ opacity: 0 }}
-                        whileInView={{ opacity: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.6 }}
-                    >
-                        <div className="w-16 h-1 bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full"></div>
-                    </motion.div>
-                </motion.div>
+        <section
+            id="aboutme"
+            ref={ref}
+            className="relative isolate min-h-screen overflow-hidden aurora-bg pb-24 pt-28 sm:pt-32"
+        >
+            {/* faint grid */}
+            <div
+                className="pointer-events-none absolute inset-0 -z-10 bg-grid-faint opacity-60 [mask-image:radial-gradient(ellipse_at_center,black,transparent_75%)]"
+                style={{ backgroundSize: "56px 56px", animation: "gridMove 22s linear infinite" }}
+            />
 
-                <div className="flex flex-col lg:flex-row-reverse gap-6 sm:gap-8 md:gap-12">
-                    {/* Contact Info */}
-                    <motion.div 
-                        className="w-full lg:w-2/5 flex flex-col items-center mb-8 lg:mb-0"
-                        initial={{ opacity: 0, x: 50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
+            <div className="container relative z-10 mx-auto px-5 sm:px-6 lg:px-8">
+                {/* ===== HERO ===== */}
+                <div className="grid items-center gap-12 lg:grid-cols-12 lg:gap-8">
+                    {/* Left: text */}
+                    <motion.div
+                        className="order-2 text-center lg:order-1 lg:col-span-7 lg:text-left"
+                        initial={{ opacity: 0, y: 24 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <div className="relative w-full max-w-sm sm:max-w-md md:max-w-sm p-0">
-                            {/* Vertical Gradient Accent Bar */}
-                            <div className="absolute right-0 top-4 sm:top-6 bottom-4 sm:bottom-6 w-1.5 sm:w-2 rounded-full bg-gradient-to-b from-cyan-400 via-blue-500 to-purple-500 shadow-lg z-20"></div>
-                            <div className="relative z-10 bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-cyan-500/30 shadow-[0_8px_32px_0_rgba(58,199,255,0.25)] w-full mr-2 sm:mr-4">
-                                {/* Profile Header */}
-                                <div className="text-center mb-6 sm:mb-8">
-                                    <h3 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white mb-1 tracking-tight">Daniel Kasem</h3>
-                                    <p className="text-base sm:text-lg font-semibold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-500 bg-clip-text text-transparent">Full-Stack Developer</p>
-                                </div>
-                                <div className="space-y-4 sm:space-y-5">
-                                    {contactItems.map((item, index) => (
-                                        <motion.div 
-                                            key={index} 
-                                            className="flex items-center gap-3 sm:gap-4 group/item p-2 -ml-2 rounded-lg hover:bg-gray-800/30 transition-all duration-300"
-                                            initial={{ opacity: 0, x: -20 }}
-                                            whileInView={{ opacity: 1, x: 0 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 0.5, delay: index * 0.1 }}
-                                        >
-                                            <span className="text-cyan-400 group-hover/item:text-cyan-300 transition-colors duration-300 text-lg sm:text-xl flex-shrink-0">
-                                                {item.icon}
-                                            </span>
-                                            {item.href ? (
-                                                <a
-                                                    href={item.href}
-                                                    target={item.target || "_self"}
-                                                    rel={item.target ? "noopener noreferrer" : undefined}
-                                                    className={`text-gray-200 group-hover/item:text-white transition-colors duration-300 text-sm sm:text-base md:text-lg hover:underline break-all active:text-cyan-400 ${item.className || ''}`}
-                                                >
-                                                    {item.text}
-                                                </a>
-                                            ) : (
-                                                <span className={`text-gray-200 text-sm sm:text-base md:text-lg ${item.className || ''}`}>{item.text}</span>
-                                            )}
-                                        </motion.div>
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-                    
-                    {/* Divider for mobile */}
-                    <div className="block lg:hidden my-6 sm:my-8">
-                        <div className="h-0.5 sm:h-1 w-1/2 sm:w-2/3 mx-auto bg-gradient-to-r from-cyan-400 to-purple-600 rounded-full opacity-60"></div>
-                    </div>
-                    
-                    {/* Bio Text */}
-                    <motion.div 
-                        className="w-full lg:w-2/3 flex flex-col justify-center items-center"
-                        initial={{ opacity: 0, x: -50 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                    >
-                        <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-gray-700/50 shadow-2xl w-full max-w-2xl relative group hover:border-cyan-500/50 transition-all duration-500">
-                            {/* Gradient Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/0 via-cyan-500/5 to-cyan-500/0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"></div>
-                            
-                            <div className="relative z-10">
-                                {/* Profile Header */}
-                                <div className="flex flex-col items-center mb-6 sm:mb-8">
-                                    <div className="relative w-48 h-56 sm:w-56 sm:h-64 flex items-center justify-center">
-                                        {/* Blurred Gradient Glow */}
-                                        <div className="absolute inset-0 -z-10 rounded-2xl bg-gradient-to-br from-cyan-400 via-purple-500 to-blue-500 blur-2xl opacity-60 scale-110"></div>
-                                        <img
-                                            src={getImage("/my_image.webp")}
-                                            alt="Daniel Kasem portrait"
-                                            className="w-full h-full object-cover rounded-2xl shadow-2xl"
-                                            loading="lazy"
-                                            draggable="false"
-                                        />
-                                    </div>
-                                </div>
-                                {/* Bio Header */}
-                                <div className="flex items-center gap-3 mb-4 sm:mb-6">
-                                    <svg className="w-5 h-5 sm:w-6 sm:h-6 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                                    </svg>
-                                    <h3 className="text-xl sm:text-2xl font-bold text-white">Professional Summary</h3>
-                                </div>
-                                
-                            {/* Bio Text with Typewriter */}
-                            <div className="hidden md:block">
+                        <span className="inline-flex items-center gap-2 rounded-full border border-aurora-cyan/30 bg-aurora-cyan/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-aurora-cyan">
+                            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-aurora-cyan" />
+                            Available for work
+                        </span>
+
+                        <h1 className="mt-6 text-display font-extrabold leading-none text-white">
+                            Daniel Kasem
+                        </h1>
+
+                        <div className="mt-3 flex items-center justify-center gap-2 text-xl font-semibold sm:text-2xl lg:justify-start">
+                            <span className="text-slate-400">I build</span>
+                            <span className="text-gradient">
                                 <Typewriter
                                     options={{
-                                        cursor: "_",
-                                            delay: 20,
+                                        loop: true,
+                                        delay: 55,
                                         deleteSpeed: 30,
-                                    }}
-                                    onInit={(typewriter) => {
-                                        typewriter
-                                            .typeString(
-                                                    `<blockquote class="text-lg leading-relaxed text-gray-300 font-light pl-6 border-l-4 border-cyan-500 rounded-bl-2xl">${bioText}</blockquote>`
-                                            )
-                                            .start();
+                                        strings: [
+                                            "AI-powered systems",
+                                            "RAG pipelines",
+                                            "scalable APIs",
+                                            "semantic search",
+                                            "real-time apps",
+                                        ],
+                                        autoStart: true,
                                     }}
                                 />
+                            </span>
+                        </div>
+
+                        <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg lg:mx-0">
+                            Full-Stack Developer specializing in Python AI, RAG systems, and backend
+                            architecture — turning complex problems into clean, scalable products.
+                        </p>
+
+                        {/* CTAs */}
+                        <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
+                            <Link
+                                to="/projects"
+                                className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-aurora-cyan to-aurora-violet px-6 py-3 text-sm font-semibold text-ink-950 transition-all duration-300 hover:shadow-glow-cyan hover:brightness-110"
+                            >
+                                View Projects
+                                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                </svg>
+                            </Link>
+                            <a
+                                href="/cv.pdf"
+                                download="Daniel-Kasem-CV.pdf"
+                                className="inline-flex items-center gap-2 rounded-xl border border-white/15 bg-white/5 px-6 py-3 text-sm font-semibold text-white transition-all duration-300 hover:border-aurora-cyan/50 hover:bg-white/10"
+                            >
+                                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                Download Resume
+                            </a>
+                        </div>
+
+                        {/* Socials */}
+                        <div className="mt-8 flex items-center justify-center gap-3 lg:justify-start">
+                            {socials.map((s) => (
+                                <a
+                                    key={s.label}
+                                    href={s.href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    aria-label={s.label}
+                                    className="flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-lg text-slate-300 transition-all duration-300 hover:-translate-y-0.5 hover:border-aurora-cyan/50 hover:text-aurora-cyan"
+                                >
+                                    {s.icon}
+                                </a>
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    {/* Right: portrait */}
+                    <motion.div
+                        className="order-1 flex justify-center lg:order-2 lg:col-span-5"
+                        initial={{ opacity: 0, scale: 0.92 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+                    >
+                        <div className="relative">
+                            <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-br from-aurora-cyan/30 via-aurora-violet/20 to-aurora-fuchsia/30 opacity-70 blur-3xl" />
+                            <div className="glass-card relative overflow-hidden rounded-[1.75rem] p-2">
+                                <img
+                                    src={getImage("/my_image.webp")}
+                                    alt="Daniel Kasem"
+                                    className="h-72 w-64 rounded-[1.4rem] object-cover sm:h-96 sm:w-80"
+                                    draggable={false}
+                                />
                             </div>
-                                <blockquote className="block md:hidden text-base sm:text-lg leading-relaxed text-gray-300 font-light pl-4 sm:pl-6 border-l-4 border-cyan-500 rounded-bl-2xl">
-                                {bioText}
-                            </blockquote>
-                                
-                                {/* Key Highlights */}
-                                <div className="mt-6 sm:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-                                    <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
-                                        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-orange-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                        <span className="text-gray-300 text-xs sm:text-sm">Python AI Expert</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
-                                        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                        <span className="text-gray-300 text-xs sm:text-sm">RAG Systems</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
-                                        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                        <span className="text-gray-300 text-xs sm:text-sm">Semantic Search</span>
-                                    </div>
-                                    <div className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3 bg-gray-800/50 rounded-lg">
-                                        <svg className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                        </svg>
-                                        <span className="text-gray-300 text-xs sm:text-sm">AI Assistants</span>
-                                    </div>
+                        </div>
+                    </motion.div>
+                </div>
+
+                {/* ===== STATS ===== */}
+                <motion.div
+                    className="mx-auto mt-16 grid max-w-2xl grid-cols-3 gap-4"
+                    initial={{ opacity: 0, y: 24 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.6 }}
+                >
+                    {stats.map((s) => (
+                        <div key={s.label} className="glass-card rounded-2xl p-5 text-center">
+                            <p className="text-3xl font-extrabold text-gradient sm:text-4xl">{s.value}</p>
+                            <p className="mt-1 text-xs text-slate-400 sm:text-sm">{s.label}</p>
+                        </div>
+                    ))}
+                </motion.div>
+
+                {/* ===== ABOUT ===== */}
+                <div className="mt-24 text-center">
+                    <span className="mb-4 inline-block rounded-full border border-aurora-violet/30 bg-aurora-violet/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-aurora-violet">
+                        About Me
+                    </span>
+                    <h2 className="text-headline font-extrabold text-white">
+                        <span className="text-gradient">Who I Am</span>
+                    </h2>
+                    <div className="aurora-divider mx-auto mt-6" />
+                </div>
+
+                <div className="mt-12 grid gap-6 lg:grid-cols-5">
+                    {/* Summary */}
+                    <motion.div
+                        className="glass-card p-7 sm:p-9 lg:col-span-3"
+                        initial={{ opacity: 0, x: -30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <h3 className="mb-5 flex items-center gap-3 text-xl font-bold text-white">
+                            <svg className="h-6 w-6 text-aurora-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            Professional Summary
+                        </h3>
+                        <blockquote className="border-l-2 border-aurora-cyan/60 pl-5 text-base font-light leading-relaxed text-slate-300 sm:text-lg">
+                            {bioText}
+                        </blockquote>
+                        <div className="mt-7 flex flex-wrap gap-2.5">
+                            {highlights.map((h) => (
+                                <span key={h} className="chip">
+                                    <svg className="h-3.5 w-3.5 text-aurora-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                    {h}
+                                </span>
+                            ))}
+                        </div>
+                    </motion.div>
+
+                    {/* Contact */}
+                    <motion.div
+                        className="glass-card p-7 sm:p-9 lg:col-span-2"
+                        initial={{ opacity: 0, x: 30 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <h3 className="mb-5 flex items-center gap-3 text-xl font-bold text-white">
+                            <svg className="h-6 w-6 text-aurora-violet" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                            </svg>
+                            Get in Touch
+                        </h3>
+                        <div className="space-y-1">
+                            {contactItems.map((item, i) => (
+                                <div key={i} className="flex items-center gap-3 rounded-lg p-2 transition-colors hover:bg-white/5">
+                                    <span className="flex-shrink-0 text-aurora-cyan">{item.icon}</span>
+                                    {item.href ? (
+                                        <a
+                                            href={item.href}
+                                            target={item.target || "_self"}
+                                            rel={item.target ? "noopener noreferrer" : undefined}
+                                            className={`break-all text-sm text-slate-300 transition-colors hover:text-white ${item.mono ? "font-firamono tabular-nums text-aurora-cyan" : ""}`}
+                                        >
+                                            {item.text}
+                                        </a>
+                                    ) : (
+                                        <span className="text-sm text-slate-300">{item.text}</span>
+                                    )}
                                 </div>
-                            </div>
-                            
-                            {/* Corner Accent */}
-                            <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-transparent rounded-bl-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                            ))}
                         </div>
                     </motion.div>
                 </div>
             </div>
-            
-            {/* Floating Explore Prompt - Mobile Only */}
-            {showExplorePrompt && (
-                <motion.div 
-                    className="fixed bottom-6 left-4 right-4 md:hidden z-40"
-                    initial={{ y: 100, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    exit={{ y: 100, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: "easeOut" }}
-                >
-                    <div className="bg-gradient-to-r from-gray-900/95 to-gray-800/95 backdrop-blur-md rounded-xl p-4 shadow-2xl border border-cyan-400/40">
-                        <div className="flex items-center justify-between mb-3">
-                            <div className="flex items-center gap-2">
-                                <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
-                                <span className="text-white text-sm font-medium">Discover More</span>
-                            </div>
-                            <button 
-                                onClick={() => setShowExplorePrompt(false)}
-                                className="text-gray-400 hover:text-white transition-colors p-1"
-                                aria-label="Close"
-                            >
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
-                        </div>
-                        
-                        <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-                            {[
-                                { title: "Skills", icon: "⚡", color: "cyan", href: "/skills" },
-                                { title: "Projects", icon: "🚀", color: "purple", href: "/projects" },
-                                { title: "Experience", icon: "💼", color: "blue", href: "/work-experiences" },
-                                { title: "Education", icon: "🎓", color: "green", href: "/educations" }
-                            ].map((section) => (
-                                <Link
-                                    key={section.href}
-                                    to={section.href}
-                                    className={`flex-shrink-0 bg-gray-800/70 hover:bg-gray-700/70 rounded-lg p-3 min-w-[90px] transition-all duration-200 hover:scale-105 border border-${section.color}-500/30 hover:border-${section.color}-400/50`}
-                                    onClick={() => setShowExplorePrompt(false)}
-                                >
-                                    <div className="text-center">
-                                        <div className="text-lg mb-1">{section.icon}</div>
-                                        <div className="text-white text-xs font-medium">{section.title}</div>
-                                    </div>
-                                </Link>
-                            ))}
-                        </div>
-                        
-                        <div className="mt-3 text-center">
-                            <span className="text-gray-400 text-xs">Tap any section to explore • </span>
-                            <span className="text-cyan-400 text-xs">4 more in menu</span>
-                        </div>
-                    </div>
-                </motion.div>
-            )}
         </section>
     );
 };

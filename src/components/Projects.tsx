@@ -1,4 +1,4 @@
-import {FC, useRef, useEffect, useState, useMemo, useCallback} from "react";
+import {FC, useEffect, useState, useMemo, useCallback} from "react";
 // import {
 //     AndroidPlain, DotnetcorePlain,
 //     FlutterPlain, GraphqlPlain,
@@ -12,6 +12,7 @@ import {FC, useRef, useEffect, useState, useMemo, useCallback} from "react";
 import Project, {IProject} from "./Project.tsx";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
 import { motion, AnimatePresence } from "framer-motion";
+import SectionShell from "./SectionShell.tsx";
 
 // import {REPO_PREFIX} from "../../vite.config.ts";
 
@@ -21,6 +22,33 @@ export function getImage(path: string) {
 
 // Add categories to projects
 export const projectsDataWithCategories: IProject[] = [
+    {
+        title: "Kyoto Mobile",
+        link: "https://www.kyotomobile.com/",
+        images: [],
+        stack: ["Next.js", "React", "Node.js", "eSIM", "Payments"],
+        description: "A Japan eSIM provider letting travelers buy and activate digital SIMs online before arriving. Delivers fast 5G/4G data nationwide over the KDDI network — no airport queues, contracts, or roaming fees. Flexible data plans aimed at tourists and digital nomads.",
+        category: "Travel",
+        priority: 1
+    },
+    {
+        title: "ReRoam",
+        link: "https://www.reroam.io/en/",
+        images: [],
+        stack: ["Next.js", "React", "Node.js", "eSIM", "Payments"],
+        description: "A global eSIM service offering instant connectivity across 190+ countries with no physical SIM or roaming fees. Features instant QR-code activation, plans starting at $3, 24/7 support, and 99.9% uptime.",
+        category: "Travel",
+        priority: 1
+    },
+    {
+        title: "DIVPOS",
+        link: "https://divpos.com",
+        images: [],
+        stack: ["Node.js", "React", "Flutter", "SaaS", "Multi-tenancy", "Payments"],
+        description: "An all-in-one cloud POS and restaurant management platform for quick-service to fine dining. Combines multi-branch POS, branded ordering apps, loyalty/rewards, kitchen display systems, and delivery integrations (DoorDash, Uber) — with real-time analytics, multi-language/currency, and granular staff roles.",
+        category: "Retail",
+        priority: 1
+    },
     {
         title: "Ordro",
         link: "https://play.google.com/store/apps/details?id=com.ordro.retailapp&hl=en",
@@ -290,7 +318,6 @@ The platform offers a modern, scalable, and extensible solution for online retai
 // }
 
 const Projects: FC = () => {
-    const projectsRef = useRef<HTMLElement>(null);
     const track = usePostHogEvent();
     const [selectedCategory, setSelectedCategory] = useState<string>("All");
     const [searchQuery, setSearchQuery] = useState<string>("");
@@ -375,61 +402,16 @@ const Projects: FC = () => {
         track('project_focused', { project: projectTitle });
     }, [track]);
     
-    // Section view tracking
-    useEffect(() => {
-        const ref = projectsRef.current;
-        if (!ref) return;
-        let hasTracked = false;
-        const observer = new window.IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting && !hasTracked) {
-                    track('section_viewed', { section: 'Projects' });
-                    hasTracked = true;
-                }
-            },
-            { threshold: 0.3 }
-        );
-        observer.observe(ref);
-        return () => observer.disconnect();
-    }, [track]);
-
     return (
-        <section id="projects" ref={projectsRef}
-                 className="pt-20 pb-16 px-4 min-h-screen bg-gradient-to-br from-gray-900 via-black to-gray-900"
+        <SectionShell
+            id="projects"
+            track="Projects"
+            eyebrow="Portfolio"
+            title="Projects"
+            subtitle="Innovative work spanning mobile apps, web platforms, and AI systems — built with cutting-edge technologies and a focus on clean, scalable solutions."
+            className="max-w-7xl"
         >
-            <div className="container mx-auto max-w-7xl">
-                {/* Modern Header */}
-                <motion.div 
-                    className="text-center mb-16"
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.8 }}
-                >
-                    <motion.h2
-                        className="text-5xl md:text-7xl lg:text-8xl font-black mb-6
-                            bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 
-                            bg-clip-text text-transparent
-                            tracking-tight leading-tight"
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                >
-                    Projects
-                    </motion.h2>
-                    <motion.p
-                        className="text-xl text-gray-400 max-w-2xl mx-auto leading-relaxed"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                    >
-                        Explore my portfolio of innovative projects, from mobile apps to web platforms, 
-                        showcasing cutting-edge technologies and creative solutions.
-                    </motion.p>
-                </motion.div>
-
+            <div>
                 {/* Search and Sort Controls */}
                 <motion.div 
                     className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12"
@@ -514,14 +496,12 @@ const Projects: FC = () => {
                         transition={{ duration: 0.3 }}
                     >
                         {selectedCategory !== "All" && (
-                            <span className="px-3 py-1 bg-cyan-500/20 backdrop-blur-sm border border-cyan-500/30 
-                                rounded-full text-sm text-cyan-300">
+                            <span className="chip border-aurora-cyan/40 text-aurora-cyan">
                                 Category: {selectedCategory}
                             </span>
                         )}
                         {searchQuery.trim() && (
-                            <span className="px-3 py-1 bg-blue-500/20 backdrop-blur-sm border border-blue-500/30 
-                                rounded-full text-sm text-blue-300">
+                            <span className="chip border-aurora-violet/40 text-aurora-violet">
                                 Search: "{searchQuery}"
                             </span>
                         )}
@@ -544,24 +524,24 @@ const Projects: FC = () => {
                         return (
                             <motion.button
                                 key={category}
-                                className={`px-6 py-3 rounded-full font-medium transition-all duration-300 relative
-                                    ${selectedCategory === category 
-                                        ? 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg shadow-cyan-500/25' 
-                                        : 'bg-gray-800/50 text-gray-300 hover:bg-gray-700/50 hover:text-white border border-gray-700/50'
+                                className={`px-5 py-2.5 rounded-full text-sm font-medium transition-all duration-300 relative
+                                    ${selectedCategory === category
+                                        ? 'bg-gradient-to-r from-aurora-cyan to-aurora-violet text-ink-950 shadow-glow-cyan'
+                                        : 'glass text-slate-300 hover:text-white hover:border-aurora-cyan/40'
                                     }`}
                                 onClick={() => handleCategoryChange(category)}
                                 initial={{ opacity: 0, scale: 0.9 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: index * 0.1 }}
+                                transition={{ duration: 0.4, delay: index * 0.04 }}
                                 whileHover={{ scale: 1.05 }}
                                 whileTap={{ scale: 0.95 }}
                             >
                                 <span>{category}</span>
-                                <span className={`ml-2 px-2 py-1 rounded-full text-xs font-bold
-                                    ${selectedCategory === category 
-                                        ? 'bg-white/20 text-white' 
-                                        : 'bg-gray-700/50 text-gray-400'
+                                <span className={`ml-2 rounded-full px-1.5 py-0.5 text-xs font-bold
+                                    ${selectedCategory === category
+                                        ? 'bg-ink-950/25 text-ink-950'
+                                        : 'bg-white/10 text-slate-400'
                                     }`}>
                                     {projectCount}
                                 </span>
@@ -578,23 +558,23 @@ const Projects: FC = () => {
                     viewport={{ once: true }}
                     transition={{ duration: 0.8, delay: 0.8 }}
                 >
-                    <div className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl px-6 py-4">
-                        <div className="text-3xl font-bold text-cyan-400 mb-1">
+                    <div className="glass-card rounded-2xl px-6 py-4">
+                        <div className="mb-1 text-3xl font-bold text-gradient">
                             {projectsDataWithCategories.length}
                         </div>
-                        <div className="text-sm text-gray-400">Total Projects</div>
+                        <div className="text-sm text-slate-400">Total Projects</div>
                     </div>
-                    <div className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl px-6 py-4">
-                        <div className="text-3xl font-bold text-blue-400 mb-1">
+                    <div className="glass-card rounded-2xl px-6 py-4">
+                        <div className="mb-1 text-3xl font-bold text-gradient">
                             {new Set(projectsDataWithCategories.map(p => p.category).filter(Boolean)).size}
                         </div>
-                        <div className="text-sm text-gray-400">Categories</div>
+                        <div className="text-sm text-slate-400">Categories</div>
                     </div>
-                    <div className="bg-gray-800/30 backdrop-blur-sm border border-gray-700/50 rounded-xl px-6 py-4">
-                        <div className="text-3xl font-bold text-purple-400 mb-1">
+                    <div className="glass-card rounded-2xl px-6 py-4">
+                        <div className="mb-1 text-3xl font-bold text-gradient">
                             {projectsDataWithCategories.filter(p => p.priority === 1).length}
                         </div>
-                        <div className="text-sm text-gray-400">Featured</div>
+                        <div className="text-sm text-slate-400">Featured</div>
                     </div>
                 </motion.div>
 
@@ -611,8 +591,8 @@ const Projects: FC = () => {
                         {isLoading ? (
                             <div className="col-span-full text-center py-16">
                                 <div className="inline-flex items-center gap-3">
-                                    <div className="w-6 h-6 border-2 border-cyan-500 border-t-transparent rounded-full animate-spin"></div>
-                                    <p className="text-xl text-gray-400">Loading projects...</p>
+                                    <div className="w-6 h-6 border-2 border-aurora-cyan border-t-transparent rounded-full animate-spin"></div>
+                                    <p className="text-xl text-slate-400">Loading projects...</p>
                                 </div>
             </div>
                         ) : filteredProjects.length === 0 ? (
@@ -665,7 +645,7 @@ const Projects: FC = () => {
                         animate={{ opacity: 1 }}
                         transition={{ duration: 0.6, delay: 0.3 }}
                     >
-                        <p className="text-gray-400">
+                        <p className="text-slate-400">
                             Showing {filteredProjects.length} of {projectsDataWithCategories.length} projects
                         </p>
                     </motion.div>
@@ -674,23 +654,23 @@ const Projects: FC = () => {
                 {/* Back to Top Button */}
                 <motion.button
                     onClick={() => {
-                        projectsRef.current?.scrollIntoView({ behavior: 'smooth' });
+                        window.scrollTo({ top: 0, behavior: 'smooth' });
                         track('back_to_top_clicked');
                     }}
-                    className="fixed bottom-8 right-8 z-50 p-4 bg-gradient-to-r from-cyan-500 to-blue-500 
-                        rounded-full shadow-lg shadow-cyan-500/25 hover:shadow-xl hover:shadow-cyan-500/40 
-                        transition-all duration-300 hover:scale-110"
+                    aria-label="Back to top"
+                    className="fixed bottom-8 right-8 z-50 p-4 bg-gradient-to-r from-aurora-cyan to-aurora-violet
+                        rounded-full shadow-glow-cyan transition-all duration-300 hover:scale-110 hover:brightness-110"
                     initial={{ opacity: 0, scale: 0 }}
                     animate={{ opacity: 1, scale: 1 }}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                 >
-                    <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-6 h-6 text-ink-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
                     </svg>
                 </motion.button>
             </div>
-        </section>
+        </SectionShell>
     );
 }
 export default Projects

@@ -28,6 +28,13 @@ export const languages: ILanguage[] = [
         certificateImage: getImage("certificates/ielts-certificate.jpg"),
         certificateLink: getImage("certificates/ielts-certificate.pdf"),
         flag: '🇬🇧'
+    },
+    {
+        id: 3,
+        name: 'German',
+        proficiency: 'A1',
+        description: 'Beginner proficiency',
+        flag: '🇩🇪'
     }
 ];
 

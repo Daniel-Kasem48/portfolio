@@ -224,25 +224,20 @@ Recruiter's Question: ${question}
 
     return (
         <>
-            {/* Modern Floating Button - Hidden on Mobile */}
+            {/* Floating Launcher Button - Hidden on Mobile */}
             <div className="hidden md:block fixed bottom-6 right-6 z-[100] group">
                 <button
                     onClick={() => setIsOpen(true)}
                     className="
                         relative w-16 h-16 sm:w-20 sm:h-20
-                        bg-gradient-to-br from-cyan-500 via-blue-600 to-purple-600
-                        text-white rounded-full
-                        shadow-2xl shadow-cyan-500/30
-                        hover:shadow-cyan-500/50
-                        transition-all duration-500 ease-out
-                        transform hover:scale-110 hover:rotate-12
-                        group-hover:shadow-cyan-500/60
-                        backdrop-blur-sm border border-cyan-400/20
+                        bg-gradient-to-r from-aurora-cyan to-aurora-violet
+                        text-ink-950 rounded-full
+                        shadow-glow-cyan
+                        transition-all duration-300 ease-out
+                        transform hover:scale-110
+                        border border-white/10
                     "
                 >
-                    {/* Animated background */}
-                    <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/20 to-purple-500/20 rounded-full animate-pulse"></div>
-                    
                     {/* Icon */}
                     <div className="relative z-10 flex items-center justify-center">
                     <svg
@@ -259,73 +254,64 @@ Recruiter's Question: ${question}
                         />
                     </svg>
                     </div>
-
-                    {/* Pulse effect */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-400 to-purple-500 animate-ping opacity-20"></div>
                 </button>
 
                 {/* Tooltip */}
                 <div className="
+                    glass
                     absolute bottom-full right-0 mb-3
-                    bg-gradient-to-r from-gray-900/95 to-gray-800/95
-                    backdrop-blur-xl border border-gray-700/50
+                    border border-white/10
                     text-white text-sm rounded-2xl
-                    px-4 py-3 shadow-2xl
+                    px-4 py-3 shadow-xl
                     opacity-0 group-hover:opacity-100
                     transform translate-y-2 group-hover:translate-y-0
                     transition-all duration-300 ease-out
                     whitespace-nowrap z-50
                 ">
                     <div className="flex items-center gap-2">
-                        <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                        <div className="w-2 h-2 bg-aurora-cyan rounded-full animate-pulse"></div>
                         Chat with my AI about my portfolio!
                     </div>
-                    <div className="absolute top-full right-4 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900/95"></div>
                 </div>
             </div>
 
-            {/* Modern Chat Modal */}
+            {/* Chat Modal */}
             {isOpen && (
-                <div 
-                    className="fixed inset-0 z-[9999] bg-black flex items-center justify-center p-4"
-                    style={{backgroundColor: 'black'}}
+                <div
+                    className="fixed inset-0 z-[9999] bg-ink-950/80 flex items-center justify-center p-4"
                 >
                     <div
-                        className="relative w-full max-w-4xl h-[80vh] max-h-[700px] bg-gray-900 border border-gray-700 rounded-3xl overflow-hidden shadow-2xl shadow-black/50 flex flex-col"
-                        style={{backgroundColor: '#111827'}}
+                        className="glass relative w-full max-w-4xl h-[80vh] max-h-[700px] border border-white/10 rounded-2xl overflow-hidden shadow-2xl flex flex-col"
                     >
-                        {/* Removed animated background elements for solid background */}
-
                         {/* Header */}
-                        <div 
-                            className="relative z-10 bg-gray-800 border-b border-gray-700 p-6"
-                            style={{backgroundColor: '#1f2937'}}
+                        <div
+                            className="relative z-10 glass border-b border-white/10 p-6"
                         >
                             <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-4">
                                     <div className="relative">
-                                        <div className="w-12 h-12 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg">
-                                            <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <div className="w-12 h-12 bg-gradient-to-r from-aurora-cyan to-aurora-violet rounded-2xl flex items-center justify-center shadow-glow-cyan">
+                                            <svg className="w-6 h-6 text-ink-950" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
                                             </svg>
                                         </div>
-                                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse"></div>
+                                        <div className="absolute -top-1 -right-1 w-3 h-3 bg-aurora-cyan rounded-full animate-pulse"></div>
                                     </div>
                                     <div>
                                         <h3 className="text-xl font-bold text-white">
                                             AI Portfolio Assistant
                                         </h3>
-                                        <p className="text-gray-400 text-sm">
+                                        <p className="text-slate-400 text-sm">
                                             Ask me anything about my skills, projects, or experience!
                                         </p>
                                     </div>
                                 </div>
-                                
+
                         <button
                             onClick={() => setIsOpen(false)}
                             className="
-                                        p-2 rounded-xl bg-gray-800/50 hover:bg-gray-700/50
-                                        text-gray-400 hover:text-white
+                                        p-2 rounded-xl bg-white/5 hover:bg-white/10
+                                        text-slate-400 hover:text-white
                                         transition-all duration-300
                                         hover:scale-110
                             "
@@ -342,15 +328,15 @@ Recruiter's Question: ${question}
                             <div className="flex-1 overflow-y-auto p-6 space-y-4">
                             {messages.length === 0 && (
                                     <div className="text-center py-12">
-                                        <div className="w-16 h-16 bg-gradient-to-br from-cyan-500/20 to-blue-500/20 rounded-2xl flex items-center justify-center mx-auto mb-4">
-                                            <svg className="w-8 h-8 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <div className="w-16 h-16 bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center mx-auto mb-4">
+                                            <svg className="w-8 h-8 text-aurora-cyan" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                             </svg>
                                         </div>
                                         <h4 className="text-lg font-semibold text-white mb-2">
                                             Welcome to my AI Assistant!
                                         </h4>
-                                        <p className="text-gray-400 max-w-md mx-auto">
+                                        <p className="text-slate-400 max-w-md mx-auto">
                                             I'm here to answer questions about my portfolio, skills, projects, and experience. Feel free to ask anything!
                                         </p>
                                 </div>
@@ -361,17 +347,16 @@ Recruiter's Question: ${question}
                                         key={message.id}
                                         className={`flex ${message.type === 'user' ? 'justify-end' : 'justify-start'}`}
                                     >
-                                        <div 
+                                        <div
                                             className={`
                                                 max-w-[80%] lg:max-w-[70%]
-                                                ${message.type === 'user' 
-                                                    ? 'bg-gradient-to-br from-cyan-500 to-blue-600 text-white' 
-                                                    : 'bg-gray-800 border border-gray-600 text-gray-200'
+                                                ${message.type === 'user'
+                                                    ? 'bg-gradient-to-r from-aurora-cyan to-aurora-violet text-ink-950'
+                                                    : 'bg-white/5 border border-white/10 text-slate-200'
                                                 }
                                                 rounded-2xl px-4 py-3 shadow-lg
                                                 animate-fadeInUp
                                             `}
-                                            style={message.type === 'ai' ? {backgroundColor: '#1f2937'} : {}}
                                         >
                                             <div className="prose prose-invert max-w-none">
                                                 {message.type === 'ai' ? (
@@ -382,7 +367,7 @@ Recruiter's Question: ${question}
                                             </div>
                                             <div className={`
                                                 text-xs mt-2 opacity-70
-                                                ${message.type === 'user' ? 'text-cyan-100' : 'text-gray-400'}
+                                                ${message.type === 'user' ? 'text-ink-900' : 'text-slate-400'}
                                             `}>
                                                 {formatTime(message.timestamp)}
                                             </div>
@@ -393,17 +378,16 @@ Recruiter's Question: ${question}
                                 {/* Typing indicator */}
                                 {isTyping && (
                                     <div className="flex justify-start">
-                                        <div 
-                                            className="bg-gray-800 border border-gray-600 rounded-2xl px-4 py-3 shadow-lg"
-                                            style={{backgroundColor: '#1f2937'}}
+                                        <div
+                                            className="bg-white/5 border border-white/10 rounded-2xl px-4 py-3 shadow-lg"
                                         >
                                             <div className="flex items-center gap-2">
                                                 <div className="flex space-x-1">
-                                                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce"></div>
-                                                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                                                    <div className="w-2 h-2 bg-cyan-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
+                                                    <div className="w-2 h-2 bg-aurora-cyan rounded-full animate-bounce"></div>
+                                                    <div className="w-2 h-2 bg-aurora-cyan rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
+                                                    <div className="w-2 h-2 bg-aurora-cyan rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
                                                 </div>
-                                                <span className="text-gray-400 text-sm">AI is typing...</span>
+                                                <span className="text-slate-400 text-sm">AI is typing...</span>
                                             </div>
                                         </div>
                                 </div>
@@ -414,9 +398,8 @@ Recruiter's Question: ${question}
                         </div>
 
                         {/* Input Area */}
-                        <div 
-                            className="relative z-10 bg-gray-800 border-t border-gray-700 p-6"
-                            style={{backgroundColor: '#1f2937'}}
+                        <div
+                            className="relative z-10 glass border-t border-white/10 p-6"
                         >
                             <form onSubmit={handleSubmit} className="flex gap-3">
                                 <div className="flex-1 relative">
@@ -426,33 +409,31 @@ Recruiter's Question: ${question}
                                 value={input}
                                 onChange={(e) => setInput(e.target.value)}
                                 className="
-                                            w-full bg-gray-800
-                                            text-white placeholder-gray-400
+                                            w-full bg-white/5
+                                            text-white placeholder-slate-500
                                             px-4 py-3 pr-12
-                                            rounded-2xl border border-gray-600
-                                            focus:outline-none focus:ring-2 focus:ring-cyan-500
-                                            focus:border-cyan-500
+                                            rounded-xl border border-white/10
+                                            focus:outline-none focus:border-aurora-cyan/50
                                             transition-all duration-300
                                             text-sm sm:text-base
                                 "
-                                style={{backgroundColor: '#1f2937'}}
                                         placeholder="Ask about my skills, projects, or experience..."
                                         disabled={isLoading || isTyping}
                             />
                                     <div className="absolute right-3 top-1/2 transform -translate-y-1/2">
-                                        <div className="w-2 h-2 bg-cyan-400 rounded-full animate-pulse"></div>
+                                        <div className="w-2 h-2 bg-aurora-cyan rounded-full animate-pulse"></div>
                                     </div>
                                 </div>
-                                
+
                             <button
                                 type="submit"
                                     disabled={isLoading || isTyping || !input.trim()}
                                 className="
                                         px-6 py-3
-                                        bg-gradient-to-r from-cyan-500 to-blue-600
-                                        hover:from-cyan-400 hover:to-blue-500
-                                        text-white font-semibold
-                                        rounded-2xl shadow-lg
+                                        bg-gradient-to-r from-aurora-cyan to-aurora-violet
+                                        hover:shadow-glow-cyan
+                                        text-ink-950 font-semibold
+                                        rounded-xl shadow-lg
                                         transition-all duration-300
                                         transform hover:scale-105
                                         disabled:opacity-50 disabled:cursor-not-allowed
@@ -462,7 +443,7 @@ Recruiter's Question: ${question}
                             >
                                     {isLoading || isTyping ? (
                                         <>
-                                            <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
+                                            <div className="w-4 h-4 border-2 border-ink-950/30 border-t-ink-950 rounded-full animate-spin"></div>
                                             Sending...
                                         </>
                                     ) : (

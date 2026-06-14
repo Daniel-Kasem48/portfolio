@@ -10,7 +10,7 @@ const Loader: FC<{ width: string; height: string }> = ({ height, width }) => {
             preserveAspectRatio="xMidYMid"
         >
             <g transform="rotate(0 50 50)">
-                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#fe718d">
+                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#22d3ee">
                     <animate
                         attributeName="opacity"
                         values="1;0"
@@ -22,7 +22,7 @@ const Loader: FC<{ width: string; height: string }> = ({ height, width }) => {
                 </rect>
             </g>
             <g transform="rotate(30 50 50)">
-                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#fe718d">
+                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#22d3ee">
                     <animate
                         attributeName="opacity"
                         values="1;0"
@@ -34,7 +34,7 @@ const Loader: FC<{ width: string; height: string }> = ({ height, width }) => {
                 </rect>
             </g>
             <g transform="rotate(60 50 50)">
-                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#fe718d">
+                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#22d3ee">
                     <animate
                         attributeName="opacity"
                         values="1;0"
@@ -46,7 +46,7 @@ const Loader: FC<{ width: string; height: string }> = ({ height, width }) => {
                 </rect>
             </g>
             <g transform="rotate(90 50 50)">
-                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#fe718d">
+                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#22d3ee">
                     <animate
                         attributeName="opacity"
                         values="1;0"
@@ -58,7 +58,7 @@ const Loader: FC<{ width: string; height: string }> = ({ height, width }) => {
                 </rect>
             </g>
             <g transform="rotate(120 50 50)">
-                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#fe718d">
+                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#22d3ee">
                     <animate
                         attributeName="opacity"
                         values="1;0"
@@ -70,7 +70,7 @@ const Loader: FC<{ width: string; height: string }> = ({ height, width }) => {
                 </rect>
             </g>
             <g transform="rotate(150 50 50)">
-                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#fe718d">
+                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#22d3ee">
                     <animate
                         attributeName="opacity"
                         values="1;0"
@@ -82,7 +82,7 @@ const Loader: FC<{ width: string; height: string }> = ({ height, width }) => {
                 </rect>
             </g>
             <g transform="rotate(180 50 50)">
-                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#fe718d">
+                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#22d3ee">
                     <animate
                         attributeName="opacity"
                         values="1;0"
@@ -94,7 +94,7 @@ const Loader: FC<{ width: string; height: string }> = ({ height, width }) => {
                 </rect>
             </g>
             <g transform="rotate(210 50 50)">
-                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#fe718d">
+                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#22d3ee">
                     <animate
                         attributeName="opacity"
                         values="1;0"
@@ -106,7 +106,7 @@ const Loader: FC<{ width: string; height: string }> = ({ height, width }) => {
                 </rect>
             </g>
             <g transform="rotate(240 50 50)">
-                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#fe718d">
+                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#22d3ee">
                     <animate
                         attributeName="opacity"
                         values="1;0"
@@ -118,7 +118,7 @@ const Loader: FC<{ width: string; height: string }> = ({ height, width }) => {
                 </rect>
             </g>
             <g transform="rotate(270 50 50)">
-                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#fe718d">
+                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#22d3ee">
                     <animate
                         attributeName="opacity"
                         values="1;0"
@@ -130,7 +130,7 @@ const Loader: FC<{ width: string; height: string }> = ({ height, width }) => {
                 </rect>
             </g>
             <g transform="rotate(300 50 50)">
-                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#fe718d">
+                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#22d3ee">
                     <animate
                         attributeName="opacity"
                         values="1;0"
@@ -142,7 +142,7 @@ const Loader: FC<{ width: string; height: string }> = ({ height, width }) => {
                 </rect>
             </g>
             <g transform="rotate(330 50 50)">
-                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#fe718d">
+                <rect x="47" y="24" rx="3" ry="6" width="6" height="12" fill="#22d3ee">
                     <animate
                         attributeName="opacity"
                         values="1;0"
