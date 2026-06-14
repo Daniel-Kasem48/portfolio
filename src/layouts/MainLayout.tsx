@@ -1,6 +1,6 @@
 import {Outlet} from "react-router-dom";
 import NavBar from "../components/NavBar.tsx";
-import AIChat from "../components/AiChat.tsx";
+// import AIChat from "../components/AiChat.tsx"; // disabled: API token expired
 import Footer from "../components/Footer.tsx";
 
 const MainLayout = () => {
@@ -11,7 +11,7 @@ const MainLayout = () => {
                 <Outlet/>
             </main>
             <Footer/>
-            <AIChat/>
+            {/* <AIChat/> disabled: API token expired */}
         </div>
     );
 };
