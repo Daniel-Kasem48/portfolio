@@ -10,9 +10,9 @@ export const workExperiencesData: IWorkExperience[] = [
         title: "Software Engineer",
         date: "Nov 11, 2025 – Present",
         description: [
-            "Worked on building a large travel platform service covering hotels, eSIMs, flights, and more.",
+            "Building large-scale platform services and scalable backend systems.",
         ],
-        highlights: ["Travel Platform", "Hotels", "eSIMs", "Flights"],
+        highlights: ["Platform Engineering", "Scalable Systems", "Backend"],
         color: "from-cyan-500 to-violet-500",
         gradient: "linear-gradient(135deg, #22d3ee 0%, #8b5cf6 100%)"
     },
