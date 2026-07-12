@@ -1,3 +1,5 @@
+"use client";
+
 import {FC, useEffect, useState, useMemo, useCallback} from "react";
 // import {
 //     AndroidPlain, DotnetcorePlain,
@@ -9,10 +11,10 @@ import {FC, useEffect, useState, useMemo, useCallback} from "react";
 // import {SiSocketDotIo} from "@react-icons/all-files/si/SiSocketDotIo";
 // import {SiReact} from "@react-icons/all-files/si/SiReact";
 
-import Project, {IProject} from "./Project.tsx";
+import Project, {IProject} from "./Project";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
 import { motion, AnimatePresence } from "framer-motion";
-import SectionShell from "./SectionShell.tsx";
+import SectionShell from "./SectionShell";
 
 // import {REPO_PREFIX} from "../../vite.config.ts";
 
@@ -340,12 +342,17 @@ const Projects: FC = () => {
         
         return () => clearTimeout(timer);
     }, [searchQuery]);
+
+    useEffect(() => {
+        setIsLoading(true);
+        const timer = setTimeout(() => setIsLoading(false), 100);
+
+        return () => clearTimeout(timer);
+    }, [selectedCategory, debouncedSearchQuery, sortBy]);
     
     // Filter and sort projects
     const filteredProjects = useMemo(() => {
-        setIsLoading(true);
-        
-        let filtered = projectsDataWithCategories;
+        let filtered = [...projectsDataWithCategories];
         
         // Filter by category
         if (selectedCategory !== "All") {
@@ -381,9 +388,6 @@ const Projects: FC = () => {
                     return 0;
             }
         });
-        
-        // Simulate loading delay for better UX
-        setTimeout(() => setIsLoading(false), 100);
         
         return filtered;
     }, [selectedCategory, debouncedSearchQuery, sortBy]);

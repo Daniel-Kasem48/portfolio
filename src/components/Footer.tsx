@@ -1,6 +1,8 @@
+"use client";
+
 import { FC } from "react";
-import { Link } from "react-router-dom";
-import GitHub from "../assets/icons/Github.tsx";
+import Link from "next/link";
+import GitHub from "../assets/icons/Github";
 import LinkedIn from "../assets/icons/LinkedIn";
 import Stackoverflow from "../assets/icons/StackOverFlow";
 import Email from "../assets/icons/Email";
@@ -28,7 +30,7 @@ const Footer: FC = () => {
                 <div className="flex flex-col items-center gap-10 text-center md:flex-row md:items-start md:justify-between md:text-left">
                     {/* Brand */}
                     <div className="max-w-sm">
-                        <Link to="/" className="flex items-center justify-center gap-1 text-2xl font-extrabold tracking-tight md:justify-start">
+                        <Link href="/" className="flex items-center justify-center gap-1 text-2xl font-extrabold tracking-tight md:justify-start">
                             <span className="text-white">Daniel</span>
                             <span className="text-gradient">.</span>
                         </Link>
@@ -41,7 +43,7 @@ const Footer: FC = () => {
                     {/* Quick links */}
                     <nav className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
                         {links.map((l) => (
-                            <Link key={l.href} to={l.href} className="text-sm text-slate-400 transition-colors hover:text-aurora-cyan">
+                            <Link key={l.href} href={l.href} className="text-sm text-slate-400 transition-colors hover:text-aurora-cyan">
                                 {l.label}
                             </Link>
                         ))}

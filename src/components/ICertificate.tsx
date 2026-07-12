@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from "framer-motion";
-import {getImage} from "./Projects.tsx";
+import {getImage} from "./Projects";
 
 export interface ICertificate {
     id: number;

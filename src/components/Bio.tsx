@@ -1,5 +1,7 @@
+"use client";
+
 import { FC, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 import Email from "../assets/icons/Email";
 import Phone from "../assets/icons/Phone";
 import WhatsApp from "../assets/icons/WhatsApp";
@@ -7,11 +9,11 @@ import LinkedIn from "../assets/icons/LinkedIn";
 import Location from "../assets/icons/Location";
 import DateIcon from "../assets/icons/Date";
 import Stackoverflow from "../assets/icons/StackOverFlow";
-import GitHub from "../assets/icons/Github.tsx";
+import GitHub from "../assets/icons/Github";
 import Typewriter from "typewriter-effect";
 import { motion } from "framer-motion";
 import { usePostHogEvent } from "../hooks/usePostHogEvent";
-import { getImage } from "./Projects.tsx";
+import { getImage } from "./Projects";
 
 export const bioText = `Full-Stack Developer specializing in Python AI solutions and backend architecture. Expert in building RAG systems with FastAPI, implementing semantic search using FAISS vector databases, and developing intelligent AI assistants. Experienced in Python, Node.js (Express, NestJS), Laravel, and Golang for comprehensive backend development. Proficient in React.js for building responsive UIs. Passionate about clean architecture, scalable APIs, real-time systems, and cutting-edge AI technologies.`;
 
@@ -132,7 +134,7 @@ const Bio: FC = () => {
                         {/* CTAs */}
                         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
                             <Link
-                                to="/projects"
+                                href="/projects"
                                 className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-aurora-cyan to-aurora-violet px-6 py-3 text-sm font-semibold text-ink-950 transition-all duration-300 hover:shadow-glow-cyan hover:brightness-110"
                             >
                                 View Projects

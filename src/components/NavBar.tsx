@@ -1,5 +1,8 @@
+"use client";
+
 import { FC, useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 
 const navItems = [
@@ -17,7 +20,7 @@ const navItems = [
 const NavBar: FC = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [scrolled, setScrolled] = useState(false);
-    const location = useLocation();
+    const pathname = usePathname();
 
     // Lock body scroll while the mobile drawer is open
     useEffect(() => {
@@ -30,7 +33,7 @@ const NavBar: FC = () => {
     // Close drawer on route change
     useEffect(() => {
         setIsOpen(false);
-    }, [location.pathname]);
+    }, [pathname]);
 
     // Subtle elevation once scrolled
     useEffect(() => {
@@ -40,7 +43,7 @@ const NavBar: FC = () => {
         return () => window.removeEventListener("scroll", onScroll);
     }, []);
 
-    const isActive = (href: string) => location.pathname === href;
+    const isActive = (href: string) => pathname === href;
 
     return (
         <header
@@ -52,7 +55,7 @@ const NavBar: FC = () => {
         >
             <nav className="container mx-auto flex h-[72px] items-center justify-between px-5 sm:px-6 lg:px-8">
                 {/* Logo */}
-                <Link to="/" className="group flex items-center gap-1 text-2xl font-extrabold tracking-tight">
+                <Link href="/" className="group flex items-center gap-1 text-2xl font-extrabold tracking-tight">
                     <span className="text-white transition-colors group-hover:text-aurora-cyan">Daniel</span>
                     <span className="text-gradient">.</span>
                 </Link>
@@ -62,7 +65,7 @@ const NavBar: FC = () => {
                     {navItems.map((item) => (
                         <Link
                             key={item.href}
-                            to={item.href}
+                            href={item.href}
                             className={`relative rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
                                 isActive(item.href)
                                     ? "text-white"
@@ -139,7 +142,7 @@ const NavBar: FC = () => {
                                 {navItems.map((item) => (
                                     <Link
                                         key={item.href}
-                                        to={item.href}
+                                        href={item.href}
                                         className={`flex items-center justify-between rounded-xl px-4 py-3.5 text-base font-medium transition-colors ${
                                             isActive(item.href)
                                                 ? "bg-aurora-cyan/10 text-aurora-cyan"

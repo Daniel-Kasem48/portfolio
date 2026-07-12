@@ -1,7 +1,9 @@
-import CertificateCard, { certificates } from "./ICertificate.tsx";
+"use client";
+
+import CertificateCard, { certificates } from "./ICertificate";
 import { FC } from "react";
 import { motion } from "framer-motion";
-import SectionShell from "./SectionShell.tsx";
+import SectionShell from "./SectionShell";
 
 const CertificatesSection: FC = () => {
     return (

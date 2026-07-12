@@ -1,7 +1,9 @@
-import LanguageCard, { languages } from "./ILanguage.tsx";
+"use client";
+
+import LanguageCard, { languages } from "./ILanguage";
 import { FC } from "react";
 import { motion } from "framer-motion";
-import SectionShell from "./SectionShell.tsx";
+import SectionShell from "./SectionShell";
 
 const LanguagesSection: FC = () => {
     return (

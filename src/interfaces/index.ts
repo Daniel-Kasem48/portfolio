@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import type { ReactNode } from "react";
 
 interface IColorNavbar {
   id: number;
@@ -57,4 +57,4 @@ interface IProjects {
   languages: ReactNode[];
 }
 
-export { IColorNavbar, IModal, ModalResult, IHome, IMe, ISkills, IProjects };
+export type { IColorNavbar, IModal, ModalResult, IHome, IMe, ISkills, IProjects };

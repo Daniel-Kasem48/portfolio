@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { motion } from "framer-motion";
-import useModal from "../hooks/useModal.tsx";
-import Carousel from "./Carousel.tsx";
+import useModal from "../hooks/useModal";
+import Carousel from "./Carousel";
 
 export interface IProject {
     images: string[];

@@ -1,7 +1,9 @@
+"use client";
+
 import { FC } from "react";
 import { motion } from "framer-motion";
-import SectionShell from "./SectionShell.tsx";
-import ChallengeAndOptimizationItem, { IChallengeAndOptimizationItem } from "./ChallengesAndOptimizationItem.tsx";
+import SectionShell from "./SectionShell";
+import ChallengeAndOptimizationItem, { IChallengeAndOptimizationItem } from "./ChallengesAndOptimizationItem";
 
 const challengesAndOptimizations: IChallengeAndOptimizationItem[] = [
     {

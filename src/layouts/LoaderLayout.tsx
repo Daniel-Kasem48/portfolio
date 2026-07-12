@@ -1,7 +1,7 @@
 import { FC, ReactNode, useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-import Transition from "../components/Transition.tsx";
+import Transition from "../components/Transition";
 
 const LoaderLayout: FC<{ children: ReactNode }> = ({ children }) => {
   const [loading, setLoading] = useState(true);

@@ -1,9 +1,11 @@
+"use client";
+
 import { FC } from "react";
 import { motion } from "framer-motion";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
-import { IEducation } from "./Education.tsx";
-import { getImage } from "./Projects.tsx";
-import SectionShell from "./SectionShell.tsx";
+import { IEducation } from "./Education";
+import { getImage } from "./Projects";
+import SectionShell from "./SectionShell";
 
 export const educationsData: IEducation[] = [
     {

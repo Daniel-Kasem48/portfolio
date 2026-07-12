@@ -1,7 +1,7 @@
 import {FC, useRef, useEffect} from "react";
 import { motion } from "framer-motion";
 import { usePostHogEvent } from '../hooks/usePostHogEvent';
-import Skill, {ISkill} from "./Skill.tsx";
+import Skill, {ISkill} from "./Skill";
 
 // 3D Background Component
 const ThreeDBackground: FC = () => {
