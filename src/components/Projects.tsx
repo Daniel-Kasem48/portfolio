@@ -19,7 +19,7 @@ import SectionShell from "./SectionShell";
 // import {REPO_PREFIX} from "../../vite.config.ts";
 
 export function getImage(path: string) {
-    return path
+    return `/${path.replace(/^\/+/, "")}`;
 }
 
 // Add categories to projects
@@ -45,7 +45,11 @@ export const projectsDataWithCategories: IProject[] = [
     {
         title: "DIVPOS",
         link: "https://divpos.com",
-        images: [],
+        images: [
+            getImage("divpos/login.jpeg"),
+            getImage("divpos/declare-cash.jpeg"),
+            getImage("divpos/service-table.jpeg"),
+        ],
         stack: ["Node.js", "React", "Flutter", "SaaS", "Multi-tenancy", "Payments"],
         description: "An all-in-one cloud POS and restaurant management platform for quick-service to fine dining. Combines multi-branch POS, branded ordering apps, loyalty/rewards, kitchen display systems, and delivery integrations (DoorDash, Uber) — with real-time analytics, multi-language/currency, and granular staff roles.",
         category: "Retail",
