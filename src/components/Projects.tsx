@@ -27,7 +27,10 @@ export const projectsDataWithCategories: IProject[] = [
     {
         title: "Kyoto Mobile",
         link: "https://www.kyotomobile.com/",
-        images: [],
+        images: [
+            getImage("kyoto-mobile/1.png"),
+            getImage("kyoto-mobile/2.png"),
+        ],
         stack: ["Next.js", "React", "Node.js", "eSIM", "Payments"],
         description: "A Japan eSIM provider letting travelers buy and activate digital SIMs online before arriving. Delivers fast 5G/4G data nationwide over the KDDI network — no airport queues, contracts, or roaming fees. Flexible data plans aimed at tourists and digital nomads.",
         category: "Travel",
@@ -36,9 +39,12 @@ export const projectsDataWithCategories: IProject[] = [
     {
         title: "ReRoam",
         link: "https://www.reroam.io/en/",
-        images: [],
+        images: [
+            getImage("reroam/1.png"),
+            getImage("reroam/2.png"),
+        ],
         stack: ["Next.js", "React", "Node.js", "eSIM", "Payments"],
-        description: "A global eSIM service offering instant connectivity across 190+ countries with no physical SIM or roaming fees. Features instant QR-code activation, plans starting at $3, 24/7 support, and 99.9% uptime.",
+        description: "A global eSIM service offering instant connectivity across 190+ countries with no physical SIM or roaming fees. Features instant QR-code activation and 99.9% uptime.",
         category: "Travel",
         priority: 1
     },
@@ -211,7 +217,10 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
     {
         title: "Outlet34",
         link: "https://outlet-34.com",
-        images: [],
+        images: [
+            getImage("outlet34/2.png"),
+            getImage("outlet34/1.png"),
+        ],
         stack: ["E-commerce", "Responsive Web", "Product Catalog"],
         description: "A responsive fashion e-commerce platform for shopping shoes, sportswear, and clothing for men, women, and kids. It includes category and brand browsing, customer accounts, and a streamlined online shopping experience.",
         category: "E-commerce"
