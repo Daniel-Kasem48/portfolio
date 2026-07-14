@@ -205,6 +205,14 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         category: "E-commerce"
     },
     {
+        title: "Outlet34",
+        link: "https://outlet-34.com",
+        images: [],
+        stack: ["E-commerce", "Responsive Web", "Product Catalog"],
+        description: "A responsive fashion e-commerce platform for shopping shoes, sportswear, and clothing for men, women, and kids. It includes category and brand browsing, customer accounts, and a streamlined online shopping experience.",
+        category: "E-commerce"
+    },
+    {
         title: "Qahwah",
         images: [
             getImage("qahwah/1.webp"),
