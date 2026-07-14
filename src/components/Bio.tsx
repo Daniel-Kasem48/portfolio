@@ -96,12 +96,7 @@ const Bio: FC = () => {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                     >
-                        <span className="inline-flex items-center gap-2 rounded-full border border-aurora-cyan/30 bg-aurora-cyan/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-aurora-cyan">
-                            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-aurora-cyan" />
-                            Available for work
-                        </span>
-
-                        <h1 className="mt-6 text-display font-extrabold leading-none text-white">
+                        <h1 className="text-display font-extrabold leading-none text-white">
                             Daniel Kasem
                         </h1>
 
