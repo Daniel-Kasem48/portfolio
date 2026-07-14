@@ -22,6 +22,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
         </div>
+        <div id="modal" />
       </body>
     </html>
   );
