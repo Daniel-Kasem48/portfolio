@@ -38,7 +38,6 @@ export const projectsDataWithCategories: IProject[] = [
         link: "",
         images: [
             getImage("image-change-detector/1.webp"),
-            getImage("image-change-detector/2.webp"),
         ],
         stack: ["Python", "YOLOv8", "OpenCV", "Computer Vision", "PyTorch", "CLI"],
         description: "A computer-vision tool that detects meaningful changes between two images or two videos, built for cross-view drone and remote-sensing footage. Combines pixel diffing, SSIM, feature alignment with photometric normalization, and YOLOv8 object-level detection to report what was added, removed, or moved — while suppressing false positives from viewpoint and lighting shifts. Ships a CLI, batch dataset evaluation with precision/recall/F1/IoU metrics, and a desktop app for video comparison.",
