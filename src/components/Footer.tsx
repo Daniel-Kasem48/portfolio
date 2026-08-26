@@ -35,8 +35,8 @@ const Footer: FC = () => {
                             <span className="text-gradient">.</span>
                         </Link>
                         <p className="mt-3 text-sm leading-relaxed text-slate-400">
-                            Full-Stack Developer specializing in Python AI, RAG systems, and scalable
-                            backend architecture.
+                            Backend &amp; AI Software Engineer building scalable platforms and production
+                            AI integrations. Relocating to Dortmund, Germany.
                         </p>
                     </div>
 

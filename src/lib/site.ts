@@ -2,15 +2,15 @@ import type { Metadata } from "next";
 
 export const siteConfig = {
   name: "Daniel Kasem",
-  title: "Daniel Kasem | Full-Stack & AI Engineer",
+  title: "Daniel Kasem | Backend & AI Software Engineer",
   description:
-    "Portfolio of Daniel Kasem, a full-stack developer focused on Python AI systems, RAG pipelines, semantic search, scalable backend architecture, and modern web platforms.",
+    "Backend and AI software engineer building scalable platforms and production AI integrations with Node.js, Python, PostgreSQL, AWS, and Docker. Relocating to Dortmund, Germany.",
   url: "https://danielkasem.com",
   ogImage: "/opengraph-image.webp",
   locale: "en_US",
   keywords: [
     "Daniel Kasem",
-    "full-stack developer",
+    "backend software engineer",
     "AI engineer",
     "Python developer",
     "RAG systems",
@@ -18,6 +18,7 @@ export const siteConfig = {
     "FastAPI",
     "Next.js portfolio",
     "backend engineer",
+    "software engineer Dortmund",
     "portfolio",
   ],
 } as const;

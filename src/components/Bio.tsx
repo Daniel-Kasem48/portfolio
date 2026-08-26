@@ -15,15 +15,15 @@ import { motion } from "framer-motion";
 import { usePostHogEvent } from "../hooks/usePostHogEvent";
 import { getImage } from "./Projects";
 
-export const bioText = `Full-Stack Developer specializing in Python AI solutions and backend architecture. Expert in building RAG systems with FastAPI, implementing semantic search using FAISS vector databases, and developing intelligent AI assistants. Experienced in Python, Node.js (Express, NestJS), Laravel, and Golang for comprehensive backend development. Proficient in React.js for building responsive UIs. Passionate about clean architecture, scalable APIs, real-time systems, and cutting-edge AI technologies.`;
+export const bioText = `Backend & AI Software Engineer with 5+ years of experience building scalable platforms and production AI integrations. I work primarily with Node.js, Python, PostgreSQL, AWS, and Docker, with hands-on experience in RAG systems, semantic search, microservices, real-time applications, and multi-tenant products. I focus on reliable architecture, measurable performance improvements, and software that solves real business problems.`;
 
 const stats = [
     { value: "5+", label: "Years building" },
-    { value: "20+", label: "Projects shipped" },
-    { value: "8+", label: "Tech stacks" },
+    { value: "300x", label: "Faster DB queries" },
+    { value: "70%", label: "Faster AI processing" },
 ];
 
-const highlights = ["Python AI Expert", "RAG Systems", "Semantic Search", "AI Assistants"];
+const highlights = ["Backend Architecture", "Production AI", "Scalable APIs", "Cloud Platforms"];
 
 const socials = [
     { icon: <GitHub />, href: "https://github.com/specture48", label: "GitHub" },
@@ -64,7 +64,7 @@ const Bio: FC = () => {
                     <a href="https://www.google.com/maps/place/Latakia,+Syria" target="_blank" rel="noopener noreferrer" className="hover:underline">
                         Syria, Latakia
                     </a>
-                    <span className="ml-2 text-xs italic text-aurora-cyan">(Willing to relocate)</span>
+                    <span className="ml-2 text-xs font-medium text-aurora-cyan">Relocating to Dortmund, Germany</span>
                 </>
             ),
         },
@@ -100,6 +100,10 @@ const Bio: FC = () => {
                             Daniel Kasem
                         </h1>
 
+                        <p className="mt-4 text-lg font-semibold text-aurora-cyan sm:text-xl">
+                            Backend &amp; AI Software Engineer
+                        </p>
+
                         <div className="mt-3 flex items-center justify-center gap-2 text-xl font-semibold sm:text-2xl lg:justify-start">
                             <span className="text-slate-400">I build</span>
                             <span className="text-gradient">
@@ -122,9 +126,14 @@ const Bio: FC = () => {
                         </div>
 
                         <p className="mx-auto mt-6 max-w-xl text-base leading-relaxed text-slate-400 sm:text-lg lg:mx-0">
-                            Full-Stack Developer specializing in Python AI, RAG systems, and backend
-                            architecture — turning complex problems into clean, scalable products.
+                            I build scalable backend platforms and production AI integrations with
+                            Node.js, Python, PostgreSQL, AWS, and Docker.
                         </p>
+
+                        <div className="mt-4 flex flex-wrap items-center justify-center gap-2 text-sm lg:justify-start">
+                            <span className="chip text-aurora-cyan">Relocating to Dortmund, Germany</span>
+                            <span className="chip">Open to backend &amp; AI opportunities</span>
+                        </div>
 
                         {/* CTAs */}
                         <div className="mt-8 flex flex-wrap items-center justify-center gap-3 lg:justify-start">
