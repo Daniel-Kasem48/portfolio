@@ -205,14 +205,6 @@ Integrated multi-channel communication APIs and optimized flow reliability and s
         category: "Healthcare"
     },
     {
-        title: "Talkalize",
-        link: "https://www.talkalize.com/en",
-        images: [],
-        stack: ["laravel", "react"],
-        description: "Talkalize is an AI-powered automated response system that enhances customer engagement on WhatsApp. It enables instant replies, seamless bookings, and personalized interactions. Businesses can improve brand awareness, drive sales, and foster customer loyalty by streamlining communication and re-engaging with prospects effectively.",
-        category: "AI Platform"
-    },
-    {
         title: "MemoNas Chat App",
         images: [
             getImage("memo/1.png"),
