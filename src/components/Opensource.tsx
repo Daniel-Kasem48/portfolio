@@ -31,6 +31,19 @@ const projects: OpenSourceProject[] = [
         gradient: "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)"
     },
     {
+        name: "Image Change Detector",
+        description: "A Python computer-vision tool that detects meaningful changes between two images or videos, built for cross-view drone and remote-sensing footage.",
+        features: [
+            "Pixel, SSIM, and robust alignment modes",
+            "YOLOv8 object-level add/remove/move detection",
+            "Video comparison with frame alignment",
+            "Dataset evaluation: precision, recall, F1, IoU",
+        ],
+        github: "https://github.com/Daniel-Kasem48/image-change-detector",
+        color: "from-amber-500 to-rose-500",
+        gradient: "linear-gradient(135deg, #f59e0b 0%, #f43f5e 100%)"
+    },
+    {
         name: "Medusa Twilio SMS",
         description: "A notification provider plugin for Medusa.js that enables SMS notifications through Twilio integration.",
         features: [
