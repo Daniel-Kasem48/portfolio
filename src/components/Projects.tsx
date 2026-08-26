@@ -35,7 +35,7 @@ export const projectsDataWithCategories: IProject[] = [
     },
     {
         title: "Image Change Detector",
-        link: "",
+        link: "https://github.com/Daniel-Kasem48/image-change-detector",
         images: [
             getImage("image-change-detector/1.webp"),
         ],
