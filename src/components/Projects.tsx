@@ -25,6 +25,27 @@ export function getImage(path: string) {
 // Add categories to projects
 export const projectsDataWithCategories: IProject[] = [
     {
+        title: "AI News Aggregator",
+        link: "",
+        images: [],
+        stack: ["Python", "LLM Pipeline", "NLP", "Clustering", "SQLite", "DeepSeek"],
+        description: "A news aggregation pipeline that ingests posts from multiple sources in real time, then deduplicates, clusters, and tracks them as evolving stories. Normalizes noisy text, groups near-duplicate reports coming from different outlets, and uses LLM calls to summarize each story, extract entities and locations, and render scheduled digest bulletins.",
+        category: "AI Platform",
+        priority: 1
+    },
+    {
+        title: "Image Change Detector",
+        link: "",
+        images: [
+            getImage("image-change-detector/1.webp"),
+            getImage("image-change-detector/2.webp"),
+        ],
+        stack: ["Python", "YOLOv8", "OpenCV", "Computer Vision", "PyTorch", "CLI"],
+        description: "A computer-vision tool that detects meaningful changes between two images or two videos, built for cross-view drone and remote-sensing footage. Combines pixel diffing, SSIM, feature alignment with photometric normalization, and YOLOv8 object-level detection to report what was added, removed, or moved — while suppressing false positives from viewpoint and lighting shifts. Ships a CLI, batch dataset evaluation with precision/recall/F1/IoU metrics, and a desktop app for video comparison.",
+        category: "Computer Vision",
+        priority: 1
+    },
+    {
         title: "Kyoto Mobile",
         link: "https://www.kyotomobile.com/",
         images: [
@@ -323,6 +344,14 @@ The platform offers a modern, scalable, and extensible solution for online retai
         stack: ["express", "react", "flutter"],
         description: "A Point of Sale system designed for retailers, seamlessly integrated with the Ordro ecosystem. It features real-time inventory tracking, multi-store management, sales analytics, and seamless payment processing to enhance retail operations.",
         category: "Retail"
+    },
+    {
+        title: "AI Image Studio",
+        link: "",
+        images: [],
+        stack: ["Next.js 15", "TypeScript", "Supabase", "Cloudflare Workers", "OpenAI Images", "R2"],
+        description: "A template-based AI image generation platform. Admins publish products that each carry a private prompt; users spend credits to run their own photo through one. Built on Next.js 15 App Router with Supabase Postgres and Auth, Cloudflare R2 for image storage, and role-based access with a credit ledger — deployed to Cloudflare Workers via OpenNext.",
+        category: "AI Platform"
     },
 ]
 
