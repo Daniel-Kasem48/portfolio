@@ -55,7 +55,7 @@ const Bio: FC = () => {
 
     const contactItems = [
         { icon: <Email />, text: "daniel.f.kasem@gmail.com", href: "mailto:daniel.f.kasem@gmail.com" },
-        { icon: <Phone />, text: "(+963) 931 869 085", href: "tel:+963931869085", mono: true },
+        { icon: <Phone />, text: "(+49) 177 156 6844", href: "tel:+491771566844", mono: true },
         { icon: <WhatsApp />, text: "(+963) 931 869 085", href: "https://wa.me/+963931869085", target: "_blank", mono: true },
         {
             icon: <Location />,
@@ -64,7 +64,6 @@ const Bio: FC = () => {
                     <a href="https://www.google.com/maps/place/Dortmund,+Germany" target="_blank" rel="noopener noreferrer" className="hover:underline">
                         Germany, Dortmund
                     </a>
-                    <span className="ml-2 text-xs italic text-aurora-cyan">(Willing to relocate)</span>
                 </>
             ),
         },

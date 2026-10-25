@@ -73,7 +73,7 @@ const jsonToPortfolioString = (data: PortfolioData): string => {
             .join("; ")}.`
         : "Work Experience: None.";
 
-    return `bornYear:1999,phone:+963931869085\n
+    return `bornYear:1999,phone:+491771566844,whatsapp:+963931869085\n
     email:daniel.f.kasem@gmail.com\n
     links:${[
         'Download CV:https://daniel-kasem48.github.io/portfolio/cv.pdf',
