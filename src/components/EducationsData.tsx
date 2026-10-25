@@ -9,6 +9,13 @@ import SectionShell from "./SectionShell";
 
 export const educationsData: IEducation[] = [
     {
+        institution: "TU Dortmund University",
+        title: "M.Sc. in Data Science",
+        date: "Oct 2026 - Present",
+        color: "from-emerald-500 to-teal-500",
+        gradient: "linear-gradient(135deg, #10b981 0%, #14b8a6 100%)"
+    },
+    {
         institution: "Syrian Virtual University",
         title: "Master's in Web Science",
         date: "Oct 2022 - Present",
