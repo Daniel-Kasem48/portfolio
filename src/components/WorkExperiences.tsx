@@ -10,7 +10,7 @@ export const workExperiencesData: IWorkExperience[] = [
         company: "Roamify Solution Inc",
         location: "Remote",
         title: "Software Engineer",
-        date: "Nov 11, 2025 – Present",
+        date: "Nov 11, 2025 – Oct 2026",
         description: [
             "Building scalable eSIM products that keep travelers connected worldwide at unbeatable prices.",
         ],
