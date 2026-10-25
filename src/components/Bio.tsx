@@ -61,8 +61,8 @@ const Bio: FC = () => {
             icon: <Location />,
             text: (
                 <>
-                    <a href="https://www.google.com/maps/place/Latakia,+Syria" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                        Syria, Latakia
+                    <a href="https://www.google.com/maps/place/Dortmund,+Germany" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                        Germany, Dortmund
                     </a>
                     <span className="ml-2 text-xs italic text-aurora-cyan">(Willing to relocate)</span>
                 </>
