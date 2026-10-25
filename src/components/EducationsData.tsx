@@ -16,13 +16,6 @@ export const educationsData: IEducation[] = [
         gradient: "linear-gradient(135deg, #10b981 0%, #14b8a6 100%)"
     },
     {
-        institution: "Syrian Virtual University",
-        title: "Master's in Web Science",
-        date: "Oct 2022 - Present",
-        color: "from-blue-500 to-cyan-500",
-        gradient: "linear-gradient(135deg, #3b82f6 0%, #06b6d4 100%)"
-    },
-    {
         institution: "Tishreen University",
         title: "Bachelor of Informatics Engineering",
         date: "Sep 2016 - Dec 2022",
