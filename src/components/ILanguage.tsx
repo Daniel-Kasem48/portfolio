@@ -32,8 +32,8 @@ export const languages: ILanguage[] = [
     {
         id: 3,
         name: 'German',
-        proficiency: 'A1',
-        description: 'Beginner proficiency',
+        proficiency: 'A2',
+        description: 'Elementary proficiency',
         flag: '🇩🇪'
     }
 ];
